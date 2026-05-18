@@ -1,0 +1,49 @@
+.filmstrip-container {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  background: black;
+}
+
+.filmstrip-track {
+  display: flex;
+  position: relative;
+  width: max-content;
+  animation: marquee 25s linear infinite;
+}
+
+.film-cell {
+  position: relative;
+  height: 150px;
+  width: 150px; 
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.film-artwork {
+  height: 82%; 
+  width: 86%;  
+  object-fit: cover;
+}
+
+.single-frame-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5; 
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-5%);
+  }
+}

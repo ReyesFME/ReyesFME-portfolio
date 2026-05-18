@@ -6,8 +6,8 @@ const PersonaToggle = ({ currentPersona, togglePersona }) => {
   return (
     <div style={{
       position: 'fixed',
-      top: '20px',
-      left: '50%',
+      top: '70px',
+      left: '100px',
       transform: 'translateX(-50%)',
       zIndex: 9999,
       cursor: 'pointer',
