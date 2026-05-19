@@ -41,7 +41,6 @@
 }
 
 .artist-desktop-container > * {
-  position: relative;
   z-index: 1;
 }
 
@@ -108,7 +107,7 @@
   bottom: 20%;
   left: -8%;
   width: 130%;
-  transform: rotate(10deg);
+  transform: rotate(7deg);
   transform-origin: left center;
   z-index: 3;
 }
@@ -118,7 +117,7 @@
   bottom: 20px;
   left: 0;
   width: 100%;
-  height: 200px;
+  height: 250px;
   background: transparent;
   display: flex;
   align-items: center;
@@ -137,4 +136,107 @@
   pointer-events: none;
   text-align: left;
   z-index: 100;
+}
+
+/* --- Clickable Folders System Styling --- */
+
+.desktop-icon-workspace {
+  position: absolute;
+  top: 180px;
+  left: 60px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.workspace-heading {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+.desktop-icons-row {
+  display: flex;
+  gap: 100px;
+}
+
+.desktop-icon-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Share Tech Mono', monospace;
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #1a1a1a;
+  outline: none;
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.desktop-icon-btn:hover {
+  transform: scale(1.08);
+}
+
+.desktop-icon-btn:active {
+  transform: scale(0.95);
+}
+
+.icon-frame {
+  width: 95px;
+  height: 95px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-fallback {
+  width: 65px;
+  height: 65px;
+  background-color: rgba(30, 30, 30, 0.85);
+  border-radius: 6px;
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.15);
+}
+
+.icon-graphic {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.icon-label {
+  background-color: rgba(255, 255, 255, 0.75);
+  padding: 2px 8px;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+/* --- Artist Character Overlay Styling --- */
+.artist-character-overlay {
+  position: absolute;
+  bottom: 0;
+  right: 10%; 
+  z-index: 6; 
+  pointer-events: none; 
+  
+  display: flex;
+  align-items: flex-end;
+}
+
+.character-img {
+  height: 75vh; 
+  width: auto;
+  object-fit: contain;
+  display: block;
+  
+  filter: drop-shadow(20px 20px 2px rgba(43, 36, 36, 0.35));
 }

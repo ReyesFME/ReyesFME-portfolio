@@ -41,8 +41,8 @@
 }
 
 .social-bar-divider {
-  width: 260px;
-  height: 1px;
+  width: 500px;
+  height: 2px;
   background: rgba(200, 200, 200, 0.28);
 }
 
@@ -50,6 +50,7 @@
   margin: 0;
   font-family: 'Share Tech Mono', 'Courier New', monospace;
   font-size: 1.2rem;
+  font-weight: 800;
   letter-spacing: 2.5px;
   color: rgba(200, 200, 200, 0.5);
   text-transform: none;
