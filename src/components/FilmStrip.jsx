@@ -1,11 +1,10 @@
-// src/components/FilmStrip.jsx
 import React from 'react';
-import { artProjects } from '../data/projects.js';
+import { filmStripAssets } from '../data/projects';
 import singleFrame from '../assets/shared/filmframe.png';
 import '../styles/filmstrip.css';
 
 const FilmStrip = () => {
-  const loopProjects = Array(20).fill(artProjects).flat();
+  const loopProjects = Array(20).fill(filmStripAssets).flat();
 
   return (
     <div className="filmstrip-container">

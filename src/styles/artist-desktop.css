@@ -7,7 +7,6 @@
   --text-muted: #555;
   --card-bg: #d8d5d0;
   --card-border: #aaa;
-  --watermark: rgba(0, 0, 0, 0.25);
   --film-black: #111;
   --film-frame: #c8c8c8;
 }
@@ -40,15 +39,16 @@
   z-index: 0;
 }
 
+/*
 .artist-desktop-container > * {
   z-index: 1;
 }
-
+*/
 .artist-topbar {
   width: 100%;
   display: flex;
   justify-content: center;
-  padding: 16px 0 0;
+  padding: 1.5vh 0 0; 
   flex-shrink: 0;
   z-index: 5;
 }
@@ -56,9 +56,9 @@
 .artist-topbar-nav {
   display: flex;
   align-items: center;
-  gap: 3px;
+  gap: 0.3vw;
   color: #3a2020;
-  font-size: 1rem;
+  font-size: clamp(0.85rem, 1vw + 0.5rem, 1.1rem);
   letter-spacing: 1px;
   font-family: 'Share Tech Mono', monospace;
   user-select: none;
@@ -71,7 +71,7 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  padding-bottom: 150px;
+  padding-bottom: 15vh; 
   box-sizing: border-box;
   position: relative;
 }
@@ -82,42 +82,40 @@
   justify-content: center;
   overflow: hidden;
   position: absolute;
-  top: 0;
-  right: 20px;
+  top: 2vh;
+  right: 1vw;
+  width: clamp(250px, 50vw, 600px); 
 }
 
 .artist-name img {
   width: 100%;
-  max-height: 25vh;
+  max-height: 22vh;
   object-fit: contain;
   object-position: center center;
   display: block;
 }
 
-.artist-tagline {
-  display: none;
-}
-
+.artist-tagline,
 .artist-gallery {
   display: none;
 }
 
 .artist-filmstrip-tilt {
   position: absolute;
-  bottom: 20%;
-  left: -8%;
-  width: 130%;
-  transform: rotate(7deg);
+  bottom: 18%;
+  left: -5%;
+  width: 110%;
+  transform: rotate(6deg);
   transform-origin: left center;
   z-index: 3;
 }
 
 .artist-footer-bar {
   position: absolute;
-  bottom: 20px;
+  bottom: 5vh;
   left: 0;
   width: 100%;
-  height: 250px;
+  height: 25vh; 
   background: transparent;
   display: flex;
   align-items: center;
@@ -125,43 +123,36 @@
   z-index: 3;
 }
 
-.activate-windows-watermark {
-  position: absolute;
-  bottom: 48px;
-  right: 24px;
-  color: var(--watermark);
-  font-size: 0.78rem;
-  font-family: 'Segoe UI', 'Share Tech Mono', sans-serif;
-  line-height: 1.4;
-  pointer-events: none;
-  text-align: left;
-  z-index: 100;
-}
 
 /* --- Clickable Folders System Styling --- */
-
 .desktop-icon-workspace {
   position: absolute;
-  top: 180px;
-  left: 60px;
+  top: 22%;
+  left: 4vw;
   z-index: 10;
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 2.5vh; 
+  /* Safe boundaries preventing your folder workspace from expanding past the screen mid-point */
+  max-width: 45vw; 
 }
 
 .workspace-heading {
   font-family: 'Share Tech Mono', monospace;
-  font-size: 2rem;
+  font-size: clamp(1.3rem, 1.8vw + 0.5rem, 2rem); 
   font-weight: bold;
   color: #ffffff;
   margin: 0;
   letter-spacing: 0.5px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .desktop-icons-row {
   display: flex;
-  gap: 100px;
+  flex-direction: row; 
+  flex-wrap: nowrap;  
+  align-items: center;
+  gap: clamp(20px, 4vw, 100px); 
 }
 
 .desktop-icon-btn {
@@ -173,17 +164,19 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   font-family: 'Share Tech Mono', monospace;
   font-weight: bold;
-  font-size: 1.2rem;
+  font-size: clamp(0.85rem, 0.4vw + 0.75rem, 1.1rem); 
   color: #1a1a1a;
   outline: none;
+  /* Prevents the button containers from squishing or distorting their aspect ratio proportions */
+  flex-shrink: 0; 
   transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .desktop-icon-btn:hover {
-  transform: scale(1.08);
+  transform: scale(1.05);
 }
 
 .desktop-icon-btn:active {
@@ -191,52 +184,1007 @@
 }
 
 .icon-frame {
-  width: 95px;
-  height: 95px;
+  width: clamp(60px, 6vw + 15px, 95px); 
+  height: clamp(60px, 6vw + 15px, 95px);
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.icon-fallback {
-  width: 65px;
-  height: 65px;
-  background-color: rgba(30, 30, 30, 0.85);
-  border-radius: 6px;
-  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.15);
+  flex-shrink: 0;
 }
 
 .icon-graphic {
   width: 100%;
   height: 100%;
   object-fit: contain;
+  border-radius: 15%;
 }
 
 .icon-label {
-  background-color: rgba(255, 255, 255, 0.75);
+  background-color: rgba(255, 255, 255, 0.8);
   padding: 2px 8px;
   border-radius: 4px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.05);
+  white-space: nowrap;
+  font-size: clamp(0.75rem, 0.3vw + 0.65rem, 0.95rem);
 }
 
 /* --- Artist Character Overlay Styling --- */
 .artist-character-overlay {
   position: absolute;
-  bottom: 0;
-  right: 10%; 
+  bottom: 30px; 
+  right: 12%; 
   z-index: 6; 
   pointer-events: none; 
-  
   display: flex;
   align-items: flex-end;
+  
+  transform-origin: bottom center;
 }
 
 .character-img {
-  height: 75vh; 
+  height: 78vh; 
   width: auto;
   object-fit: contain;
   display: block;
-  
   filter: drop-shadow(20px 20px 2px rgba(43, 36, 36, 0.35));
+  transform: translateY(2vh); 
+}
+
+/* --- Professional Gutter Actions Sidebar --- */
+.professional-sidebar {
+  position: absolute;
+  top: 25%;
+  right: 4vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4vh; /* Fluid spacing padding */
+  z-index: 10;
+}
+
+.pro-desktop-icon {
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1vh;
+  font-family: 'Share Tech Mono', monospace;
+  font-weight: bold;
+  font-size: clamp(0.75rem, 0.3vw + 0.7rem, 0.9rem);
+  color: #1a1a1a;
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.pro-desktop-icon:hover {
+  transform: scale(1.05);
+}
+
+.pro-desktop-icon:active {
+  transform: scale(0.95);
+}
+
+.pro-icon-frame {
+  width: clamp(45px, 5vw + 10px, 58px); /* Responsive professional sidebar shortcut blocks */
+  height: clamp(45px, 5vw + 10px, 58px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pro-icon-fallback {
+  width: 85%;
+  height: 85%;
+  background-color: rgba(40, 40, 40, 0.9);
+  border: 1px solid #ffffff;
+  border-radius: 4px;
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.15);
+}
+
+.pro-icon-frame.qr-frame,
+.pro-icon-frame.qr-frame .pro-icon-fallback {
+  width: clamp(45px, 5vw + 10px, 58px);
+  height: clamp(45px, 5vw + 10px, 58px);
+}
+
+.pro-icon-label {
+  background-color: rgba(255, 255, 255, 0.75);
+  padding: 1px 0.6vw;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  font-size: clamp(0.7rem, 0.3vw + 0.6rem, 0.85rem);
+  white-space: nowrap;
+}
+
+/* --- Retro OS Resume/System Modal Windows --- */
+.resume-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 10px; 
+}
+
+.retro-window-box {
+  width: clamp(300px, 85vw, 600px); 
+  max-width: 95%;
+  background-color: #d8d5d0;
+  border: 2px solid #1a1a1a;
+  box-shadow: clamp(4px, 1vw, 8px) clamp(4px, 1vw, 8px) 0px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  animation: scalePopIn 0.18s cubic-bezier(0.175, 0.885, 0.32, 1.15);
+}
+
+.retro-window-header {
+  background-color: #1a1a1a;
+  padding: 8px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  user-select: none;
+}
+
+.window-title {
+  color: #ffffff;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: clamp(0.75rem, 0.4vw + 0.7rem, 0.9rem);
+  font-weight: bold;
+}
+
+.window-close-btn {
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: clamp(1rem, 0.5vw + 1rem, 1.4rem);
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
+
+.retro-window-body {
+  padding: 3vh 4vw;
+  display: flex;
+  justify-content: center;
+  background-color: #bcbcbc;
+  border-bottom: 2px solid #1a1a1a;
+  box-sizing: border-box;
+}
+
+.mock-resume-sheet {
+  width: clamp(180px, 40vw, 240px);
+  height: clamp(240px, 50vh, 320px);
+  background-color: #ffffff;
+  border: 1px solid #1a1a1a;
+  box-shadow: 4px 4px 0px rgba(0,0,0,0.1);
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sheet-line {
+  background-color: #eaeaea;
+  height: 8px;
+  border-radius: 2px;
+}
+.sheet-line.header-line { width: 50%; background-color: #999; height: 12px; }
+.sheet-line.description-line { width: 90%; }
+.sheet-line.section-line { width: 75%; }
+
+.retro-window-footer {
+  padding: 10px 20px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  background-color: #d8d5d0;
+}
+
+.retro-action-btn {
+  font-family: 'Share Tech Mono', monospace;
+  font-weight: bold;
+  font-size: clamp(0.75rem, 0.3vw + 0.7rem, 0.9rem);
+  padding: 6px 14px;
+  border: 1px solid #1a1a1a;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.download-action {
+  background-color: #1a1a1a;
+  color: #ffffff;
+}
+
+.close-action {
+  background-color: transparent;
+  color: #1a1a1a;
+}
+
+@keyframes scalePopIn {
+  0% { transform: scale(0.92); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.resume-btn-cell,
+.gmail-btn-cell {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.qr-thumbnail-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+/* --- Vintage OS Email Client Extensions --- */
+.email-window-padding {
+  padding: 15px !important;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.retro-email-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.email-form-row {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background-color: #ffffff;
+  border: 1px solid #1a1a1a;
+  padding: 6px 10px;
+  box-sizing: border-box;
+  gap: clamp(10px, 2vw, 20px);
+}
+
+.email-label-text {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: clamp(0.75rem, 0.3vw + 0.7rem, 0.9rem);
+  font-weight: bold;
+  color: #555555;
+  width: clamp(55px, 8vw, 70px);
+  user-select: none;
+  white-space: nowrap;
+}
+
+.email-input-field {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-family: sans-serif;
+  font-size: clamp(0.8rem, 0.4vw + 0.7rem, 0.95rem);
+  color: #1a1a1a;
+  outline: none;
+  padding: 2px 0;
+  width: 100%;
+}
+
+.email-input-field::placeholder {
+  color: #999999;
+  font-style: italic;
+}
+
+.static-to-field {
+  color: #999999;
+  font-weight: 600;
+  font-family: 'Share Tech Mono', monospace;
+}
+
+.message-textarea-row {
+  align-items: flex-start;
+  padding: 8px;
+  height: clamp(120px, 25vh, 180px); /* Scale code limits textarea safely */
+}
+
+.email-textarea-field {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: transparent;
+  resize: none;
+  outline: none;
+  font-family: sans-serif;
+  font-size: clamp(0.8rem, 0.4vw + 0.7rem, 0.95rem);
+  line-height: 1.4;
+  color: #1a1a1a;
+}
+
+/* --- Email File Attachment Field Adjustments --- */
+.attachment-upload-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #eae7e2 !important;
+  border: 1px dashed #1a1a1a !important;
+}
+
+.email-file-input {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.75rem;
+  color: #1a1a1a;
+  cursor: pointer;
+  width: 100%;
+}
+
+.email-file-input::file-selector-button {
+  background-color: #1a1a1a;
+  color: #ffffff;
+  border: none;
+  padding: 2px 8px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.75rem;
+  cursor: pointer;
+  margin-right: 10px;
+  transition: background-color 0.15s ease;
+}
+
+.email-file-input::file-selector-button:hover {
+  background-color: #333333;
+}
+
+.upload-spinner-text {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.75rem;
+  color: #ff5555;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.cloud-link-row .email-input-field::placeholder {
+  font-size: clamp(0.7rem, 0.3vw + 0.6rem, 0.8rem);
+  opacity: 0.65;
+  font-style: italic;
+}
+
+.attachment-upload-row .email-label-text {
+  color: #423e3e; 
+}
+
+.cloud-link-row {
+  align-items: flex-start !important;
+  padding-bottom: 6px !important;
+}
+
+.input-with-note-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+}
+
+.field-disclaimer-note {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: clamp(0.65rem, 0.3vw + 0.5rem, 0.75rem);
+  color: #221d1d; 
+  font-style: italic;
+  letter-spacing: -0.2px;
+  line-height: 1.1;
+  user-select: none;
+}
+
+/* --- Vintage Google Drive Explorer Window Styles --- */
+.folder-explorer-box {
+  width: max-content; 
+  max-width: clamp(300px, 90vw, 1200px); /* Caps expansion threshold safely up to 1200px wide */
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  box-sizing: border-box; 
+  background-color: #d8d5d0; 
+}
+
+/* Main Dashboard Drive Workspace Grid Layout */
+.explorer-body-grid {
+  padding: 16px !important;
+  background-color: #ffffff; 
+  min-height: clamp(160px, 30vh, 220px);
+  max-height: clamp(250px, 50vh, 380px);
+  overflow-y: auto;
+  
+  display: grid;
+  grid-template-columns: repeat(auto-fill, clamp(100px, 12vw, 130px)); /* Column steps scale inline with monitor scaling dimensions */
+  gap: clamp(10px, 1.5vw, 16px);
+  align-content: flex-start;
+  box-sizing: border-box;
+  border: 2px inset #ffffff; 
+}
+
+.explorer-file-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 12px 8px;
+  background-color: #f5f4f0; 
+  border: 1px solid #1a1a1a;
+  border-radius: 4px;
+  box-shadow: 2px 2px 0px #1a1a1a; 
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.explorer-file-card:hover {
+  background-color: #eae7e2;
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0px #1a1a1a;
+}
+
+.explorer-file-card:active {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0px #1a1a1a;
+}
+
+.file-card-icon {
+  font-size: clamp(1.8rem, 2vw + 0.5rem, 2.2rem); 
+  color: #1a1a1a;
+  line-height: 1;
+  margin-bottom: 8px;
+  user-select: none;
+}
+
+.file-card-label {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: clamp(0.65rem, 0.3vw + 0.5rem, 0.75rem);
+  font-weight: 500;
+  line-height: 1.3;
+  color: #1a1a1a;
+  text-align: center;
+  width: 100%;
+  word-break: break-word; 
+  display: -webkit-box;
+  -webkit-line-clamp: 3; 
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.empty-directory-fallback {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150px;
+}
+
+.empty-text {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.8rem;
+  color: #c94c4c;
+  font-style: italic;
+}
+
+.system-file-count {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: clamp(0.65rem, 0.3vw + 0.5rem, 0.75rem);
+  color: #555555;
+  margin-right: auto;
+  padding-left: 5px;
+  align-self: center;
+}
+
+/* SELECTOR SYSTEM BREAKPOINTS: Character & Film Reel Alignment Sync */
+/* Medium Desktops / Large Tablets (Locks her posture down when the screen squeezes) */
+@media screen and (max-width: 1200px) {
+  .character-img {
+    height: 72vh; /* Marginally scales her size down so she doesn't swallow the header area */
+    transform: translateY(-6vh); /* Sinks her down slightly to match the tilting reel angle drop */
+  }
+  
+  .artist-character-overlay {
+    right: 8%;
+  }
+}
+
+/* Compact Screens / Square Monitors (Fixes the specific floating bug from your screenshot) */
+@media screen and (max-width: 1024px) {
+  .character-img {
+    position: absolute;
+    height: 68vh; 
+    /* Heavy layout drop offset compensation ensures she stays glued to the tilted track frame */
+    transform: translateY(-10vh); 
+    right: 6vw;
+  }
+  
+  .artist-character-overlay {
+    right: 5%; 
+  }
+}
+
+@media screen and (min-width: 1441px) {
+  .desktop-icon-workspace {
+    left: calc(50% - 680px);
+  }
+
+  .professional-sidebar {
+    right: calc(50% - 680px); 
+  }
+
+  .artist-character-overlay {
+    right: calc(50% - 550px);
+  }
+
+  .artist-name {
+    right: calc(50% - 680px); 
+  }
+}
+
+/* Medium Desktops / Large Tablets */
+@media screen and (max-width: 1200px) {
+  .character-img {
+    height: 72vh;
+    transform: translateY(3.5vh);
+  }
+  
+  .artist-character-overlay {
+    right: 8%;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .character-img {
+    position: absolute;
+    height: 68vh; 
+    transform: translateY(-10vh); 
+    right: 6vw;
+  }
+  
+  .artist-character-overlay {
+    right: 5%; 
+  }
+}
+
+/*LARGE SCREEN BREAKPOINT (Scales UI up for 2K / 4K / Ultra-wide monitors) */
+@media (min-height: 1080px) and (min-width: 1441px) {
+  .desktop-icon-workspace {
+    left: calc(40% - 680px);
+    max-width: 800px;    
+    gap: 3.5vh;            
+  }
+
+  .workspace-heading {
+    font-size: 4rem;     
+  }
+
+  .desktop-icons-row {
+    gap: 105px;              
+  }
+
+  .icon-frame {
+    width: 150px;          
+    height: 150px;
+  }
+
+  .icon-label {
+    font-size: 1.5rem;   
+    padding: 4px 12px;
+  }
+
+  .professional-sidebar {
+    right: calc(40% - 680px);
+    gap: 5vh;              
+  }
+
+  .pro-icon-frame,
+  .pro-icon-frame.qr-frame,
+  .pro-icon-frame.qr-frame .pro-icon-fallback {
+    width: 100px;          
+    height: 100px;
+  }
+
+  .pro-icon-label {
+    font-size: 1.5rem;     
+    padding: 2px 10px;
+  }
+
+  .artist-character-overlay {
+    right: calc(50% - 550px); 
+  }
+
+  .artist-name {
+    right: calc(30% - 780px);
+    width: 1020px;           
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .character-img {
+    height: 72vh; 
+    transform: translateY(3.5vh); 
+  }
+  
+  .artist-character-overlay {
+    right: 8%;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .character-img {
+    position: absolute;
+    height: 68vh; 
+    transform: translateY(-10vh); 
+    right: 6vw;
+  }
+  
+  .artist-character-overlay {
+    right: 5%; 
+  }
+}
+
+
+@media screen and (min-width: 1441px) {
+  .retro-window-box {
+    width: clamp(850px, 50vw, 1400px);
+    box-shadow: clamp(8px, 0.5vw, 16px) clamp(8px, 0.5vw, 16px) 0px rgba(0, 0, 0, 0.3);
+  }
+
+  .retro-window-header {
+    padding: clamp(12px, 1vh + 0.5vw, 24px) clamp(18px, 1.5vw, 32px);
+  }
+
+  .window-title {
+    font-size: clamp(1.15rem, 0.5vw + 0.8rem, 1.6rem);
+  }
+
+  .window-close-btn {
+    font-size: clamp(1.6rem, 0.8vw + 1.2rem, 2.4rem);
+  }
+
+  .retro-window-body {
+    padding: clamp(4vh, 6vh, 8vh) clamp(3vw, 5vw, 6vw);
+  }
+
+  .mock-resume-sheet {
+    width: clamp(320px, 15vw + 100px, 450px);
+    height: clamp(440px, 25vh + 200px, 600px);
+    padding: clamp(30px, 2vw, 45px);
+    gap: clamp(16px, 1vh, 24px);
+  }
+
+  .sheet-line {
+    height: clamp(10px, 0.5vh, 14px);
+  }
+
+  .sheet-line.header-line {
+    height: clamp(16px, 0.8vh, 24px);
+  }
+
+  .retro-window-footer {
+    padding: clamp(16px, 1vh + 1vw, 28px) clamp(24px, 2vw, 36px);
+    gap: clamp(16px, 1vw, 24px);
+  }
+
+  .retro-action-btn {
+    font-size: clamp(1.1rem, 0.4vw + 0.9rem, 1.4rem);
+    padding: clamp(8px, 0.5vh + 0.5vw, 14px) clamp(20px, 1.5vw, 32px);
+  }
+
+  .email-window-padding {
+    padding: clamp(25px, 2vw + 10px, 45px) !important;
+  }
+
+  .retro-email-form {
+    gap: clamp(16px, 1.2vh, 24px);
+  }
+
+  .email-form-row {
+    padding: clamp(10px, 0.8vh + 0.5vw, 16px) clamp(16px, 1vw, 24px);
+    gap: clamp(24px, 1.5vw, 36px);
+  }
+
+  .email-label-text {
+    font-size: clamp(1.1rem, 0.4vw + 0.9rem, 1.4rem);
+    width: clamp(90px, 5vw, 120px);
+  }
+
+  .email-input-field {
+    font-size: clamp(1.15rem, 0.4vw + 0.95rem, 1.45rem);
+  }
+
+  .message-textarea-row {
+    padding: clamp(12px, 1vw, 18px);
+    height: clamp(250px, 20vh + 100px, 400px);
+  }
+
+  .email-textarea-field {
+    font-size: clamp(1.15rem, 0.4vw + 0.95rem, 1.45rem);
+    line-height: 1.6;
+  }
+
+  .field-disclaimer-note {
+    font-size: clamp(0.85rem, 0.3vw + 0.7rem, 1.15rem);
+    gap: clamp(6px, 0.5vw, 10px);
+  }
+
+  .folder-explorer-box {
+    max-width: clamp(1200px, 70vw, 1800px);
+  }
+
+  .explorer-body-grid {
+    padding: clamp(24px, 2vw, 40px) !important;
+    min-height: clamp(300px, 25vh + 100px, 500px);
+    max-height: clamp(500px, 45vh + 200px, 800px);
+    grid-template-columns: repeat(auto-fill, clamp(160px, 8vw + 50px, 220px));
+    gap: clamp(20px, 1.5vw, 32px);
+  }
+
+  .explorer-file-card {
+    padding: clamp(16px, 1vh + 0.5vw, 28px) clamp(12px, 1vw, 20px);
+    box-shadow: clamp(4px, 0.3vw, 8px) clamp(4px, 0.3vw, 8px) 0px #1a1a1a;
+  }
+
+  .file-card-icon {
+    font-size: clamp(3rem, 2vw + 1.5rem, 4.5rem);
+    margin-bottom: clamp(12px, 1vh, 20px);
+  }
+
+  .file-card-label {
+    font-size: clamp(0.95rem, 0.3vw + 0.75rem, 1.25rem);
+    line-height: 1.5;
+  }
+
+  .system-file-count {
+    font-size: clamp(0.95rem, 0.3vw + 0.75rem, 1.25rem);
+  }
+}
+
+
+/*ANYTHING BELOW THIS IS JUST PLAIN KAARTEHAN WHAHAHAAHAHAHAHAH DO NOT TOUCH
+kaartehan*/
+
+/* --- HORROR GLITCH LAYER SYSTEM --- */
+/* =========================================================================
+   ANALOG HORROR RENDER PIPELINE — Three-phase transition sequence
+   Phase 1: glitch-phase-static     (80ms)  — initial signal loss
+   Phase 2: glitch-transition-active (400ms) — full tape fracture
+   Phase 3: glitch-phase-afterburn  (300ms)  — residual burn/decay
+
+   PHOTOSENSITIVITY SAFE:
+   - NO invert(1) — no full-screen white flashes
+   - brightness capped at 1.8 max
+   - NO cyan/green/blue accents — monochrome + dark red only
+   ========================================================================= */
+
+/* PHASE 1 — Signal dropout. Screen dims and desaturates before the break */
+.glitch-phase-static {
+  animation: signalDropout 0.08s steps(1) forwards !important;
+  pointer-events: none;
+}
+
+@keyframes signalDropout {
+  0%   { filter: brightness(1)    contrast(1) saturate(1); }
+  40%  { filter: brightness(0.15) contrast(2) saturate(0); }
+  70%  { filter: brightness(0.4)  contrast(3) saturate(0) sepia(0.3) hue-rotate(330deg); }
+  100% { filter: brightness(0.05) contrast(2) saturate(0); }
+}
+
+/* PHASE 2 — Full tape fracture. Main horror event. */
+.glitch-transition-active {
+  animation: horrorTapeFracture 0.4s steps(1) forwards !important;
+  position: relative;
+  pointer-events: none;
+}
+
+/* ::before — drifting dark red scan-line bleed */
+.glitch-transition-active::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(140, 0, 0, 0.22) 3px,
+    rgba(140, 0, 0, 0.22) 4px
+  );
+  mix-blend-mode: screen;
+  animation: bloodScanlines 0.09s steps(1) infinite;
+  z-index: 999998;
+  pointer-events: none;
+}
+
+/* ::after — VHS static overlay with heavy dark vignette */
+.glitch-transition-active::after {
+  content: '';
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background:
+    radial-gradient(ellipse at center, rgba(0,0,0,0.3) 30%, rgba(0,0,0,0.97) 100%),
+    repeating-linear-gradient(
+      0deg,
+      rgba(0,0,0,0.5),
+      rgba(0,0,0,0.5) 1px,
+      rgba(255,255,255,0.03) 2px,
+      rgba(255,255,255,0.03) 4px
+    );
+  backdrop-filter: contrast(3) brightness(0.25) saturate(0) sepia(0.2);
+  animation: vhsTrackingWipe 0.1s steps(2) infinite;
+  z-index: 999999;
+  pointer-events: none;
+}
+
+/* Main screen — dark slice displacements, max brightness 1.8, deep red tint on spikes */
+@keyframes horrorTapeFracture {
+  0%  {
+    filter: brightness(0.05) contrast(2) saturate(0);
+    transform: translate(0, 0) scaleY(1);
+    clip-path: inset(0 0 0 0);
+  }
+  8%  {
+    filter: brightness(1.4) contrast(3.5) saturate(0) sepia(0.6) hue-rotate(330deg);
+    transform: translate(-10px, 0) scaleY(1.03);
+    clip-path: inset(0 0 58% 0);
+  }
+  16% {
+    filter: brightness(0.08) contrast(2) saturate(0);
+    transform: translate(14px, 4px) scaleY(0.97);
+    clip-path: inset(52% 0 0 0);
+  }
+  24% {
+    filter: brightness(1.6) contrast(4) saturate(0) sepia(1) hue-rotate(330deg);
+    transform: translate(-18px, -6px) scaleX(1.02) scaleY(1.05);
+    clip-path: inset(18% 0 42% 0);
+  }
+  32% {
+    filter: brightness(0.04) contrast(2) saturate(0);
+    transform: translate(0, 0) scaleY(1);
+    clip-path: inset(0 0 0 0);
+  }
+  40% {
+    filter: brightness(1.3) contrast(3) saturate(0) sepia(0.8) hue-rotate(330deg);
+    transform: translate(20px, -10px) scaleY(1.06);
+    clip-path: inset(68% 0 4% 0);
+  }
+  48% {
+    filter: brightness(0.06) contrast(2) saturate(0);
+    transform: translate(-6px, 12px) scaleX(0.98);
+    clip-path: inset(8% 0 72% 0);
+  }
+  56% {
+    filter: brightness(1.8) contrast(4) saturate(0) sepia(1) hue-rotate(330deg);
+    transform: translate(12px, -4px) scaleY(0.95) scaleX(1.03);
+    clip-path: inset(32% 0 28% 0);
+  }
+  64% {
+    filter: brightness(0.04) contrast(2) saturate(0);
+    transform: translate(0, 0);
+    clip-path: inset(0 0 0 0);
+  }
+  72% {
+    filter: brightness(1.2) contrast(3) saturate(0) sepia(0.7) hue-rotate(330deg);
+    transform: translate(-14px, 6px) scaleY(1.04);
+    clip-path: inset(78% 0 2% 0);
+  }
+  80% {
+    filter: brightness(0.1) contrast(2.5) saturate(0) sepia(0.3);
+    transform: translate(5px, -2px) scaleX(0.99);
+    clip-path: inset(4% 0 85% 0);
+  }
+  90% {
+    filter: brightness(1.5) contrast(3.5) saturate(0) sepia(1) hue-rotate(330deg);
+    transform: translate(-8px, 8px) scaleY(1.02);
+    clip-path: inset(44% 0 22% 0);
+  }
+  100% {
+    filter: none;
+    transform: translate(0, 0) scaleY(1) scaleX(1);
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+/* Dark red scan-lines crawl vertically during fracture */
+@keyframes bloodScanlines {
+  0%   { transform: translateY(0px);   opacity: 0.9; }
+  33%  { transform: translateY(-12px); opacity: 0.6; }
+  66%  { transform: translateY(20px);  opacity: 0.85; }
+  100% { transform: translateY(-6px);  opacity: 0.7; }
+}
+
+/* VHS tracking — dark horizontal tears with subtle red shadow bleed */
+@keyframes vhsTrackingWipe {
+  0% {
+    transform: translate(3px, -2px);
+    clip-path: inset(12% 0 62% 0);
+    box-shadow:
+      inset 0 30vh 0 0 rgba(0,0,0,0.98),
+      inset 0 -20vh 0 0 rgba(80,0,0,0.5);
+  }
+  50% {
+    transform: translate(-6px, 5px) scaleY(1.04);
+    clip-path: inset(60% 0 10% 0);
+    box-shadow:
+      inset 0 -35vh 0 0 rgba(0,0,0,0.98),
+      inset 0 15vh 0 0 rgba(100,0,0,0.4);
+  }
+  100% {
+    transform: translate(2px, -1px);
+    clip-path: inset(6% 0 80% 0);
+    box-shadow:
+      inset 0 20vh 0 0 rgba(0,0,0,0.98),
+      inset 0 -10vh 0 0 rgba(60,0,0,0.3);
+  }
+}
+
+/* PHASE 3 — Afterburn. Dark red residue fades to normal. */
+.glitch-phase-afterburn {
+  animation: afterburnDecay 0.3s ease-out forwards !important;
+  pointer-events: none;
+}
+
+@keyframes afterburnDecay {
+  0%   { filter: brightness(0.6) contrast(3) saturate(0) sepia(1) hue-rotate(330deg); opacity: 0.7; }
+  40%  { filter: brightness(0.85) contrast(1.8) saturate(0) sepia(0.4);               opacity: 0.88; }
+  100% { filter: brightness(1) contrast(1) sepia(0) saturate(1);                      opacity: 1; }
+}
+
+
+/* IDLE GLITCH — fires autonomously via JS every 20s, no interaction needed */
+.skull-idle-glitch {
+  animation: skullIdleFlicker 0.7s steps(1) forwards;
+}
+
+/* HOVER GLITCH — continuous loop while hovering skull on IT side */
+.skull-hover-glitch {
+  animation: skullHoverLoop 0.4s steps(1) infinite;
+}
+
+/* Idle: brief possessed flash — dark with deep red channel split */
+@keyframes skullIdleFlicker {
+  0%   { filter: brightness(1) contrast(1) saturate(1);
+         transform: translate(0,0) scaleX(1); }
+  12%  { filter: brightness(1.5) contrast(3.5) saturate(0) sepia(1) hue-rotate(330deg)
+                 drop-shadow(-4px 0 0 rgba(160,0,0,0.85)) drop-shadow(4px 0 0 rgba(80,0,0,0.5));
+         transform: translate(-3px, 1px) scaleX(1.02); }
+  25%  { filter: brightness(0.08) contrast(2) saturate(0);
+         transform: translate(5px, -2px) scaleX(0.98); }
+  40%  { filter: brightness(1.6) contrast(4) saturate(0) sepia(1) hue-rotate(330deg)
+                 drop-shadow(-5px 0 0 rgba(180,0,0,0.9)) drop-shadow(5px 0 0 rgba(100,0,0,0.5));
+         transform: translate(-6px, 0) scaleX(1.03); }
+  55%  { filter: brightness(0.05) contrast(2) saturate(0);
+         transform: translate(2px, 3px) scaleX(1); }
+  70%  { filter: brightness(1.3) contrast(3) saturate(0) sepia(0.8) hue-rotate(330deg)
+                 drop-shadow(-3px 0 0 rgba(140,0,0,0.8)) drop-shadow(3px 0 0 rgba(90,0,0,0.4));
+         transform: translate(-2px,-1px) scaleX(1.01); }
+  85%  { filter: brightness(0.1) contrast(2.5) saturate(0);
+         transform: translate(2px, 1px) scaleX(0.99); }
+  100% { filter: brightness(1) contrast(1) saturate(1);
+         transform: translate(0,0) scaleX(1); }
+}
+
+/* Hover: fast looping twitch — red chromatic split, feels unstable */
+@keyframes skullHoverLoop {
+  0%   { filter: brightness(1.2) contrast(2.5) saturate(0) sepia(0.5) hue-rotate(330deg)
+                 drop-shadow(-2px 0 0 rgba(160,0,0,0.7)) drop-shadow(2px 0 0 rgba(100,0,0,0.4));
+         transform: translate(0, 0) scaleX(1); }
+  30%  { filter: brightness(1.6) contrast(3.5) saturate(0) sepia(1) hue-rotate(330deg)
+                 drop-shadow(-5px 0 0 rgba(180,0,0,0.9)) drop-shadow(5px 0 0 rgba(120,0,0,0.6));
+         transform: translate(-3px, 1px) scaleX(1.02); }
+  55%  { filter: brightness(0.15) contrast(2) saturate(0);
+         transform: translate(4px, -1px) scaleX(0.98); }
+  80%  { filter: brightness(1.4) contrast(3) saturate(0) sepia(0.9) hue-rotate(330deg)
+                 drop-shadow(-4px 0 0 rgba(160,0,0,0.85)) drop-shadow(4px 0 0 rgba(90,0,0,0.5));
+         transform: translate(-2px, 2px) scaleX(1.01); }
+  100% { filter: brightness(1.2) contrast(2.5) saturate(0) sepia(0.5) hue-rotate(330deg)
+                 drop-shadow(-2px 0 0 rgba(160,0,0,0.7)) drop-shadow(2px 0 0 rgba(100,0,0,0.4));
+         transform: translate(0, 0) scaleX(1); }
+}
+
+.persona-it-style {
+  cursor: pointer;
 }

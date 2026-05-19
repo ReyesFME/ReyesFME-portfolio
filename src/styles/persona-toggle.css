@@ -1,0 +1,125 @@
+.persona-toggle-anchor {
+  position: fixed;
+  top: 4vh;
+  left: 4vw;
+  z-index: 9999;
+  cursor: pointer;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.persona-toggle-anchor:hover {
+  transform: scale(1.05);
+}
+
+.persona-toggle-anchor:active {
+  transform: scale(0.95);
+}
+
+.persona-toggle-logo {
+  height: clamp(45px, 3vh + 10px, 60px);
+  object-fit: contain;
+  display: block;
+  transition: filter 0.2s ease;
+}
+
+.persona-it-style {
+  filter: drop-shadow(0px 0px 8px rgba(209, 21, 46, 0.59));
+}
+
+.persona-art-style {
+  filter: drop-shadow(2px 2px 4px rgba(119, 7, 7, 0.98));
+}
+
+.execution-frame-active {
+  animation: transitionGlitchFrame 0.3s steps(2) infinite;
+}
+
+@keyframes transitionGlitchFrame {
+  0% {
+    opacity: 0.3;
+    filter: invert(0) blur(1px) contrast(2);
+    transform: skewX(-4deg) scale(0.98);
+  }
+  50% {
+    opacity: 0.7;
+    filter: invert(0.5) blur(2px) brightness(1.5);
+    transform: skewX(4deg) scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    filter: invert(0) blur(0px) contrast(1);
+    transform: skewX(0deg) scale(1);
+  }
+}
+
+@media screen and (max-width: 1440px) {
+  .persona-toggle-anchor {
+    top: 7vh;
+    z-index: 99999;
+  }
+
+  .persona-toggle-anchor img {
+    width: 120px;
+    height: auto;
+    z-index: 99999;
+
+  }
+}
+
+@media screen and (min-width: 1441px) {
+  .persona-toggle-anchor {
+    left: calc(40% - 680px);
+    top: 7vh;
+        z-index: 99999;
+
+  }
+
+
+  .persona-toggle-anchor img {
+    width: 9vw;
+    height: auto;
+        z-index: 99999;
+
+  }
+}
+
+/* =========================================================================
+   SKULL IDLE GLITCH — append these rules to persona-toggle.css
+   Only fires on the IT side logo every 20 seconds
+   ========================================================================= */
+.skull-idle-glitch {
+  animation:
+    skullIdleFlicker  0.6s steps(1) forwards,
+    skullIdgeChromatic 0.6s steps(2) forwards;
+  position: relative;
+}
+
+/* 1. Rapid brightness/contrast flicker — tape dropout feel */
+@keyframes skullIdleFlicker {
+  0%   { filter: brightness(1)   contrast(1)   invert(0)   hue-rotate(0deg); transform: translate(0, 0)    scaleX(1);    }
+  10%  { filter: brightness(3.5) contrast(6)   invert(1)   hue-rotate(0deg); transform: translate(-3px, 1px) scaleX(1.02); }
+  20%  { filter: brightness(0.1) contrast(2)   invert(0);                    transform: translate(4px, -2px) scaleX(0.98); }
+  30%  { filter: brightness(4)   contrast(8)   invert(1)   hue-rotate(180deg); transform: translate(-5px, 0px) scaleX(1.03); }
+  42%  { filter: brightness(0.05) contrast(1)  invert(0);                    transform: translate(2px, 3px)  scaleX(1);    }
+  55%  { filter: brightness(2.5) contrast(5)   invert(1);                    transform: translate(-2px, -1px) scaleX(1.01); }
+  68%  { filter: brightness(0.3) contrast(3)   invert(0)   saturate(0);      transform: translate(3px, 1px)  scaleX(0.99); }
+  80%  { filter: brightness(5)   contrast(10)  invert(1)   hue-rotate(0deg); transform: translate(-4px, -3px) scaleX(1.02); }
+  90%  { filter: brightness(0.2) contrast(2)   invert(0);                    transform: translate(1px, 2px)  scaleX(1);    }
+  100% { filter: brightness(1)   contrast(1)   invert(0)   hue-rotate(0deg); transform: translate(0, 0)    scaleX(1);    }
+}
+
+/* RGB channel split ghost — chromatic aberration overlay via drop-shadow */
+@keyframes skullIdgeChromatic {
+  0%   { filter: drop-shadow(0px 0px 0px transparent); }
+  15%  { filter: drop-shadow(-3px 0px 0px rgba(255, 0, 0, 0.7)) drop-shadow(3px 0px 0px rgba(0, 255, 255, 0.7)); }
+  30%  { filter: drop-shadow(0px 0px 0px transparent); }
+  50%  { filter: drop-shadow(4px 1px 0px rgba(255, 0, 80, 0.6)) drop-shadow(-4px -1px 0px rgba(0, 200, 255, 0.6)); }
+  65%  { filter: drop-shadow(0px 0px 0px transparent); }
+  80%  { filter: drop-shadow(-2px 0px 0px rgba(255, 60, 0, 0.8)) drop-shadow(2px 0px 0px rgba(0, 255, 180, 0.8)); }
+  100% { filter: drop-shadow(0px 0px 0px transparent); }
+}
+
+/* Cursor hint — makes it clear the skull is clickable */
+.persona-it-style {
+  cursor: pointer;
+}
