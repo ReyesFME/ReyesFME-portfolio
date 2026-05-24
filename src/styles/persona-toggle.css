@@ -123,3 +123,18 @@
 .persona-it-style {
   cursor: pointer;
 }
+
+/* Inline layout contexts for inside the name heading structure */
+.persona-toggle-inline {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  z-index: 10 !important;
+  display: inline-block !important;
+  margin: 0 12px !important;
+}
+
+.persona-toggle-inline .persona-toggle-logo {
+  height: 80px !important;
+  width: auto !important;
+}

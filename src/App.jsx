@@ -73,7 +73,13 @@ function App() {
         onComplete={handleGlitchComplete}
       />
 
-      <PersonaToggle currentPersona={activePersona} togglePersona={togglePersona} />
+      {/* FLOATING CORNER TOGGLE: 
+        Only rendered on the artist side. On the IT side, the toggle component 
+        is rendered inline inside ITDesktop between your name text blocks.
+      */}
+      {activePersona === 'artist' && (
+        <PersonaToggle currentPersona={activePersona} togglePersona={togglePersona} />
+      )}
 
       {isMobile ? (
         <div style={{ marginTop: '100px', textAlign: 'center' }}>
@@ -81,7 +87,11 @@ function App() {
           <p>Please view on a desktop monitor for the full experience.</p>
         </div>
       ) : (
-        activePersona === 'it' ? <ITDesktop /> : <ArtistDesktop />
+        activePersona === 'it' ? (
+          <ITDesktop togglePersona={togglePersona} />
+        ) : (
+          <ArtistDesktop />
+        )
       )}
     </div>
   );

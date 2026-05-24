@@ -3,14 +3,13 @@ import mainLogoBlack from '../../assets/shared/MainLogo.png';
 import mainLogoWhiteInverted from '../../assets/shared/MainLogoInverted.png';
 import '../../styles/persona-toggle.css';
 
-const PersonaToggle = ({ currentPersona, togglePersona }) => {
+const PersonaToggle = ({ currentPersona, togglePersona, isInline = false }) => {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [isSkullGlitching, setIsSkullGlitching] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const idleTimerRef    = useRef(null);
   const glitchOutRef    = useRef(null);
 
-  // ── Autonomous idle glitch every 20s on IT side ───────────────────────────
   useEffect(() => {
     if (currentPersona !== 'it') {
       clearTimeout(idleTimerRef.current);
@@ -44,14 +43,11 @@ const PersonaToggle = ({ currentPersona, togglePersona }) => {
     setIsSkullGlitching(false);
 
     if (currentPersona === 'it') {
-      // ── IT → Artist: hand off entirely to GlitchOverlay canvas in App ──
       setIsTransitioning(true);
-      togglePersona(); // App handles the canvas + persona swap
-      // Re-enable clicks after the full sequence (900ms + buffer)
+      togglePersona();
       setTimeout(() => setIsTransitioning(false), 950);
 
     } else {
-      // ── Artist → IT: clean OS blackout ──
       setIsTransitioning(true);
       const container = document.getElementById('desktop-root-chassis');
       if (container) {
@@ -81,7 +77,7 @@ const PersonaToggle = ({ currentPersona, togglePersona }) => {
 
   return (
     <div
-      className={`persona-toggle-anchor ${isTransitioning ? 'execution-frame-active' : ''}`}
+      className={`persona-toggle-anchor ${isInline ? 'persona-toggle-inline' : ''} ${isTransitioning ? 'execution-frame-active' : ''}`}
       onClick={handleToggleClick}
       onMouseEnter={() => isOnItSide && setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
