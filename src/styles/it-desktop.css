@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;500;600;700&display=swap');
 
-/* ── CSS Variables ────────────────────────────────────────── */
 :root {
   --itd-bg:             #0f0f0f;
   --itd-surface:        #1a1a1a;
@@ -15,7 +14,7 @@
   --itd-mono:           'Share Tech Mono', 'Courier New', monospace;
   --itd-sans:           'Rajdhani', sans-serif;
   --itd-radius:         3px;
-  --itd-left-w:         200px; 
+  --itd-left-w:         200px;
   --itd-right-w:        110px;
   --itd-bottom-h:       64px;
   --itd-window-shadow:  0 8px 40px rgba(0,0,0,0.8), 0 0 0 1px var(--itd-border-bright);
@@ -30,14 +29,13 @@
     "bottom bottom bottom";
   width: 100%;
   min-height: 100vh;
-  background-color: var(--itd-bg);  
+  background-color: var(--itd-bg);
   font-family: var(--itd-mono);
   color: var(--itd-text);
   box-sizing: border-box;
   overflow-x: hidden;
-  
-  position: relative; 
-  z-index: 1; 
+  position: relative;
+  z-index: 1;
 }
 
 .itd-container::before {
@@ -51,34 +49,33 @@
   background-size: cover;
   background-position: center center;
   background-attachment: fixed;
-  
-  opacity: 0.15; 
-  z-index: -1; 
+  opacity: 0.15;
+  z-index: -1;
 }
 
-/* ═══════════════════════════════════════════════════════════
-   LEFT SIDEBAR COLUMN —  Tech Skill Workspace
-═══════════════════════════════════════════════════════════ */
 .itd-left-column {
   grid-area: left;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px 12px;
+  justify-content: center;
+  padding: 40px 16px 50px 16px;
   box-sizing: border-box;
 }
 
-/* Sidebar Branding Header Block */
 .itd-sidebar-header-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 
 .itd-sidebar-title-main {
   font-family: var(--itd-sans);
-  font-size: 1.6rem;
+  font-size: clamp(1.2rem, 1.8vw, 1.8rem);
   font-weight: 700;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   color: var(--itd-text-bright);
   margin: 0;
   line-height: 1.1;
@@ -86,59 +83,55 @@
 
 .itd-sidebar-title-sub {
   font-family: var(--itd-sans);
-  font-size: 1.3rem;
+  font-size: clamp(1rem, 1.4vw, 1.45rem);
   font-weight: 500;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   color: var(--itd-text);
   margin: 0;
   line-height: 1.1;
 }
 
 .itd-sidebar-divider-line {
-  width: 80%;
+  width: 75%;
   height: 1px;
   background: var(--itd-border-bright);
-  margin-bottom: auto; /* Pushes the Technical Skills block to the absolute vertical center */
+  margin-bottom: auto;
 }
 
-/* Technical Skills Parent Container Container Box */
 .itd-skills-box-container {
   width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  margin-bottom: auto;
-  gap: 5%;
+  justify-content: center;
+  padding: 20px 0;
 }
 
 .itd-skills-container-title {
   font-family: var(--itd-sans);
-  font-size: 0.95rem;
+  font-size: clamp(0.85rem, 1.2vw, 1.15rem);
   font-weight: 500;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
   color: var(--itd-text-bright);
-  margin: 0 0 2px 0;
+  margin: 0 0 3px 0;
   text-align: center;
 }
 
 .itd-skills-container-subtitle {
   font-family: var(--itd-mono);
-  font-size: 0.65rem;
+  font-size: clamp(0.55rem, 0.7vw, 0.7rem);
   color: var(--itd-text-muted);
   margin-bottom: 24px;
   text-align: center;
+  letter-spacing: 0.02em;
 }
 
-/* 2x2 Clean Balanced Skill Matrix Grid Wrapper */
 .itd-skills-grid-wrapper {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 24px 16px;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 28px !important;
   width: 100%;
-  max-width: 160px;
-  justify-items: center;
+  align-items: center;
 }
 
 .itd-skill-icon {
@@ -150,41 +143,38 @@
 }
 
 .itd-skill-circle {
-  width: 48px;
-  height: 48px;
+  width: clamp(40px, 4vw, 56px);
+  height: clamp(40px, 4vw, 56px);
   border-radius: 50%;
   border: 1.5px solid var(--itd-border-bright);
-  background: rgba(255,255,255,0.03);
+  background: rgba(255, 255, 255, 0.03);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .itd-skill-icon:hover .itd-skill-circle {
   border-color: var(--itd-accent-hover);
-  box-shadow: 0 0 10px rgba(170,170,170,0.15);
+  box-shadow: 0 0 12px rgba(170, 170, 170, 0.15);
 }
 
 .itd-skill-img {
-  width: 24px;
-  height: 24px;
+  width: clamp(20px, 2.2vw, 30px);
+  height: clamp(20px, 2.2vw, 30px);
   object-fit: contain;
   filter: brightness(0.85) grayscale(0.15);
 }
 
 .itd-skill-label {
   font-family: var(--itd-mono);
-  font-size: 0.58rem;
-  letter-spacing: 0.02em;
+  font-size: clamp(0.52rem, 0.65vw, 0.68rem);
+  letter-spacing: 0.01em;
   color: var(--itd-text-muted);
   text-align: center;
   line-height: 1.2;
 }
 
-/* ═══════════════════════════════════════════════════════════
-   MAIN CENTER AREA
-═══════════════════════════════════════════════════════════ */
 .itd-main {
   grid-area: main;
   display: flex;
@@ -193,21 +183,44 @@
   padding: 50px 40px 100px;
 }
 
-/* ─── Name block layout mapping ─── */
 .itd-name-block {
   display: flex;
   flex-direction: row;
-  align-items: center;         
+  align-items: center;
   justify-content: center;
-  gap: 24px;                   
+  gap: clamp(16px, 3vw, 36px);
   margin-bottom: 20px;
-  flex-wrap: nowrap;           
+  flex-wrap: nowrap;
 }
 
-/* ── Tagline ── */
+.itd-name-first,
+.itd-name-last {
+  height: clamp(90px, 13vh, 180px);
+  width: auto;
+  object-fit: contain;
+  display: block;
+  flex-shrink: 0;
+}
+
+.itd-name-block .persona-toggle-anchor {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  z-index: 10 !important;
+  display: inline-block !important;
+  margin: 0 !important;
+  transform: none !important;
+}
+
+.itd-name-block .persona-toggle-logo {
+  height: clamp(55px, 8vh, 85px) !important;
+  width: auto !important;
+  display: block;
+}
+
 .itd-tagline {
   font-family: var(--itd-sans);
-  font-size: 0.82rem;
+  font-size: clamp(0.7rem, 0.9vw, 0.88rem);
   font-weight: 400;
   color: var(--itd-text);
   text-align: center;
@@ -216,12 +229,11 @@
   letter-spacing: 0.02em;
 }
 
-/* ── Show more info toggle ── */
 .itd-show-more {
   background: none;
   border: none;
   font-family: var(--itd-mono);
-  font-size: 0.62rem;
+  font-size: clamp(0.52rem, 0.65vw, 0.66rem);
   letter-spacing: 0.1em;
   color: var(--itd-text-muted);
   cursor: pointer;
@@ -234,7 +246,6 @@
   color: var(--itd-accent-hover);
 }
 
-/* ── Expandable info panel ── */
 .itd-more-info-panel {
   background: rgba(255,255,255,0.03);
   border: 1px solid var(--itd-border);
@@ -248,7 +259,7 @@
 
 .itd-more-info-panel p {
   font-family: var(--itd-mono);
-  font-size: 0.68rem;
+  font-size: clamp(0.58rem, 0.72vw, 0.72rem);
   color: var(--itd-text);
   margin: 0 0 6px;
   letter-spacing: 0.04em;
@@ -261,10 +272,9 @@
   to   { opacity: 1; transform: translateY(0);    }
 }
 
-/* ── Section heading ── */
 .itd-section-heading {
   font-family: var(--itd-sans);
-  font-size: 1.35rem;
+  font-size: clamp(1rem, 1.4vw, 1.4rem);
   font-weight: 500;
   letter-spacing: 0.05em;
   color: var(--itd-text-bright);
@@ -272,7 +282,6 @@
   text-align: center;
 }
 
-/* ── Folder icon grid ── */
 .itd-folders-grid {
   display: flex;
   flex-direction: column;
@@ -291,7 +300,7 @@
 
 .itd-folders-row--offset {
   justify-content: flex-start;
-  padding-left: 40px;           
+  padding-left: 40px;
   gap: 60px;
 }
 
@@ -307,13 +316,11 @@
   transition: transform 0.18s ease;
 }
 
-.itd-folder-btn:hover {
-  transform: translateY(-5px);
-}
+.itd-folder-btn:hover { transform: translateY(-5px); }
 
 .itd-folder-icon-wrap {
-  width: 72px;
-  height: 72px;
+  width: clamp(52px, 6vw, 72px);
+  height: clamp(52px, 6vw, 72px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -326,14 +333,14 @@
 }
 
 .itd-folder-img {
-  width: 64px;
-  height: 64px;
+  width: clamp(44px, 5.5vw, 64px);
+  height: clamp(44px, 5.5vw, 64px);
   object-fit: contain;
 }
 
 .itd-folder-label {
   font-family: var(--itd-sans);
-  font-size: 0.7rem;
+  font-size: clamp(0.6rem, 0.75vw, 0.75rem);
   font-weight: 500;
   letter-spacing: 0.04em;
   color: var(--itd-text);
@@ -342,34 +349,29 @@
   line-height: 1.3;
 }
 
-/* ═══════════════════════════════════════════════════════════
-   RIGHT COLUMN — Social / Live Site / Resume
-═══════════════════════════════════════════════════════════ */
 .itd-right-column {
   grid-area: right;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  gap: 28px;
-  padding: 90px 0 80px;
+  justify-content: center;
+  gap: 3.5vh;
+  padding: 60px 0 40px 0;
+  box-sizing: border-box;
 }
 
 .itd-right-block {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
 }
 
-.itd-right-icon-row {
-  display: flex;
-  gap: 4px;
-}
+.itd-right-icon-row { display: flex; gap: 4px; }
 
 .itd-right-mini-icon {
-  width: 28px;
-  height: 28px;
+  width: clamp(22px, 2.4vw, 30px);
+  height: clamp(22px, 2.4vw, 30px);
   border: 1px solid var(--itd-border);
   border-radius: 2px;
   background: rgba(255,255,255,0.04);
@@ -380,43 +382,43 @@
   text-decoration: none;
 }
 
-.itd-right-mini-icon:hover {
-  border-color: var(--itd-accent-hover);
-}
+.itd-right-mini-icon:hover { border-color: var(--itd-accent-hover); }
 
 .itd-right-mini-icon img {
-  width: 16px;
-  height: 16px;
+  width: clamp(12px, 1.4vw, 18px);
+  height: clamp(12px, 1.4vw, 18px);
   object-fit: contain;
   filter: brightness(0.7);
 }
 
 .itd-right-icon-frame {
-  width: 52px;
-  height: 52px;
+  width: clamp(42px, 4.5vw, 56px);
+  height: clamp(42px, 4.5vw, 56px);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: border-color 0.15s;
+  box-sizing: border-box;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
 }
 
 .itd-right-icon-frame:hover {
   border-color: var(--itd-accent-hover);
+  background: rgba(255, 255, 255, 0.07);
 }
 
 .itd-right-icon-img {
-  width: 30px;
-  height: 30px;
+  width: clamp(22px, 2.4vw, 30px);
+  height: clamp(22px, 2.4vw, 30px);
   object-fit: contain;
-  filter: brightness(0.75);
+  filter: brightness(0.8);
 }
 
 .itd-resume-frame { overflow: hidden; }
 
 .itd-qr-placeholder {
-  width: 36px;
-  height: 36px;
+  width: 32px !important;
+  height: 32px !important;
   background:
     repeating-linear-gradient(0deg,   var(--itd-border) 0px, var(--itd-border) 2px, transparent 2px, transparent 5px),
     repeating-linear-gradient(90deg,  var(--itd-border) 0px, var(--itd-border) 2px, transparent 2px, transparent 5px);
@@ -425,15 +427,42 @@
 
 .itd-right-label {
   font-family: var(--itd-mono);
-  font-size: 0.56rem;
+  font-size: clamp(0.48rem, 0.6vw, 0.62rem);
   letter-spacing: 0.08em;
   color: var(--itd-text-muted);
   text-align: center;
+  text-transform: uppercase;
 }
 
-/* ═══════════════════════════════════════════════════════════
-   BOTTOM BAR
-═══════════════════════════════════════════════════════════ */
+.itd-right-icon-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: none;
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.itd-right-icon-btn:hover  { transform: scale(1.05); }
+.itd-right-icon-btn:active { transform: scale(0.95); }
+
+.itd-right-label-pill {
+  font-family: var(--itd-mono);
+  font-size: clamp(0.62rem, 0.8vw, 0.8rem);
+  font-weight: 600;
+  color: #1a1a1a;
+  background-color: rgba(216, 213, 208, 0.95);
+  padding: 2px 10px;
+  border-radius: 4px;
+  text-align: center;
+  letter-spacing: 0.02em;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
 .itd-bottom-bar {
   grid-area: bottom;
   display: flex;
@@ -499,7 +528,7 @@
 
 .itd-window-title {
   font-family: var(--itd-mono);
-  font-size: 0.68rem;
+  font-size: clamp(0.58rem, 0.7vw, 0.72rem);
   letter-spacing: 0.06em;
   color: var(--itd-text);
   overflow: hidden;
@@ -514,7 +543,7 @@
   border: 1px solid #5a2a2a;
   border-radius: 2px;
   color: #cc5555;
-  font-size: 0.85rem;
+  font-size: clamp(0.72rem, 0.9vw, 0.9rem);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -548,10 +577,9 @@
   flex-shrink: 0;
 }
 
-/* Buttons */
 .itd-btn {
   font-family: var(--itd-mono);
-  font-size: 0.65rem;
+  font-size: clamp(0.55rem, 0.68vw, 0.68rem);
   letter-spacing: 0.08em;
   padding: 5px 14px;
   border-radius: var(--itd-radius);
@@ -581,407 +609,218 @@
   color: var(--itd-text);
 }
 
-/* ─── Resume mock sheet ─── */
 .itd-mock-resume    { display: flex; flex-direction: column; gap: 10px; }
 .itd-sheet-line     { height: 9px; background: var(--itd-border-bright); border-radius: 2px; opacity: 0.45; }
 .itd-line-header    { width: 50%; height: 14px; opacity: 0.6; }
 .itd-line-desc      { width: 92%; }
 .itd-line-section   { width: 68%; }
 
-/* ─── Email form ─── */
 .itd-email-body         { display: flex; flex-direction: column; gap: 10px; padding: 14px 16px; }
 .itd-email-row          { display: flex; align-items: flex-start; gap: 8px; }
 .itd-email-row--grow    { align-items: stretch; }
-.itd-email-label        { font-family: var(--itd-mono); font-size: 0.65rem; color: var(--itd-text-muted); min-width: 70px; padding-top: 7px; flex-shrink: 0; letter-spacing: 0.06em; }
-.itd-email-input        { flex: 1; background: #0e0e0e; border: 1px solid var(--itd-border); border-radius: var(--itd-radius); color: var(--itd-text-bright); font-family: var(--itd-mono); font-size: 0.7rem; padding: 6px 9px; outline: none; transition: border-color 0.13s; }
+.itd-email-label        { font-family: var(--itd-mono); font-size: clamp(0.55rem, 0.68vw, 0.68rem); color: var(--itd-text-muted); min-width: 70px; padding-top: 7px; flex-shrink: 0; letter-spacing: 0.06em; }
+.itd-email-input        { flex: 1; background: #0e0e0e; border: 1px solid var(--itd-border); border-radius: var(--itd-radius); color: var(--itd-text-bright); font-family: var(--itd-mono); font-size: clamp(0.6rem, 0.74vw, 0.74rem); padding: 6px 9px; outline: none; transition: border-color 0.13s; }
 .itd-email-input:focus  { border-color: var(--itd-border-bright); }
 .itd-input--static      { color: var(--itd-text-muted); cursor: default; }
 .itd-input-stack        { flex: 1; display: flex; flex-direction: column; gap: 4px; }
-.itd-field-note         { font-family: var(--itd-mono); font-size: 0.58rem; color: #886633; }
-.itd-email-textarea     { width: 100%; min-height: 90px; background: #0e0e0e; border: 1px solid var(--itd-border); border-radius: var(--itd-radius); color: var(--itd-text-bright); font-family: var(--itd-mono); font-size: 0.7rem; padding: 8px; outline: none; resize: vertical; box-sizing: border-box; transition: border-color 0.13s; }
+.itd-field-note         { font-family: var(--itd-mono); font-size: clamp(0.5rem, 0.6vw, 0.62rem); color: #886633; }
+.itd-email-textarea     { width: 100%; min-height: 90px; background: #0e0e0e; border: 1px solid var(--itd-border); border-radius: var(--itd-radius); color: var(--itd-text-bright); font-family: var(--itd-mono); font-size: clamp(0.6rem, 0.74vw, 0.74rem); padding: 8px; outline: none; resize: vertical; box-sizing: border-box; transition: border-color 0.13s; }
 .itd-email-textarea:focus { border-color: var(--itd-border-bright); }
 
-/* ─── Explorer window ─── */
 .itd-explorer-window  { width: clamp(300px, 58vw, 680px); }
 .itd-explorer-body    { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; padding: 14px; }
 .itd-explorer-file    { display: flex; flex-direction: column; align-items: center; gap: 5px; padding: 10px 6px; background: none; border: 1px solid var(--itd-border); border-radius: var(--itd-radius); cursor: pointer; text-align: center; transition: border-color 0.13s, background 0.13s; }
 .itd-explorer-file:hover { border-color: var(--itd-border-bright); background: rgba(255,255,255,0.04); }
-.itd-file-icon        { font-size: 1.5rem; }
-.itd-file-name        { font-family: var(--itd-mono); font-size: 0.6rem; color: var(--itd-text); line-height: 1.3; word-break: break-word; }
-.itd-empty-dir        { grid-column: 1/-1; padding: 24px; text-align: center; font-family: var(--itd-mono); font-size: 0.68rem; color: var(--itd-text-muted); }
-.itd-file-count       { font-family: var(--itd-mono); font-size: 0.6rem; color: var(--itd-text-muted); margin-right: auto; }
+.itd-file-icon        { font-size: clamp(1.2rem, 1.6vw, 1.6rem); }
+.itd-file-name        { font-family: var(--itd-mono); font-size: clamp(0.52rem, 0.64vw, 0.64rem); color: var(--itd-text); line-height: 1.3; word-break: break-word; }
+.itd-empty-dir        { grid-column: 1/-1; padding: 24px; text-align: center; font-family: var(--itd-mono); font-size: clamp(0.58rem, 0.72vw, 0.72rem); color: var(--itd-text-muted); }
+.itd-file-count       { font-family: var(--itd-mono); font-size: clamp(0.52rem, 0.64vw, 0.64rem); color: var(--itd-text-muted); margin-right: auto; }
 
-/* ─── Project detail ─── */
 .itd-project-window   { width: clamp(300px, 62vw, 740px); }
 .itd-project-body     { display: flex; gap: 22px; padding: 18px; }
 .itd-project-preview  { flex-shrink: 0; width: 220px; }
 .itd-preview-img      { width: 100%; height: auto; border: 1px solid var(--itd-border); border-radius: var(--itd-radius); display: block; }
 .itd-project-info     { flex: 1; display: flex; flex-direction: column; gap: 9px; }
-.itd-proj-category    { font-family: var(--itd-mono); font-size: 0.58rem; letter-spacing: 0.12em; color: var(--itd-text-muted); text-transform: uppercase; margin: 0; }
-.itd-proj-title       { font-family: var(--itd-sans); font-size: 1.2rem; font-weight: 700; color: var(--itd-text-bright); margin: 0; line-height: 1.25; }
-.itd-proj-desc        { font-family: var(--itd-mono); font-size: 0.7rem; color: var(--itd-text); line-height: 1.6; margin: 0; }
+.itd-proj-category    { font-family: var(--itd-mono); font-size: clamp(0.5rem, 0.62vw, 0.62rem); letter-spacing: 0.12em; color: var(--itd-text-muted); text-transform: uppercase; margin: 0; }
+.itd-proj-title       { font-family: var(--itd-sans); font-size: clamp(1rem, 1.4vw, 1.3rem); font-weight: 700; color: var(--itd-text-bright); margin: 0; line-height: 1.25; }
+.itd-proj-desc        { font-family: var(--itd-mono); font-size: clamp(0.6rem, 0.74vw, 0.74rem); color: var(--itd-text); line-height: 1.6; margin: 0; }
 .itd-tech-stack       { display: flex; flex-wrap: wrap; gap: 6px; }
-.itd-tech-tag         { font-family: var(--itd-mono); font-size: 0.6rem; padding: 3px 8px; border: 1px solid var(--itd-border-bright); border-radius: 2px; color: var(--itd-text); background: rgba(255,255,255,0.04); }
+.itd-tech-tag         { font-family: var(--itd-mono); font-size: clamp(0.52rem, 0.64vw, 0.64rem); padding: 3px 8px; border: 1px solid var(--itd-border-bright); border-radius: 2px; color: var(--itd-text); background: rgba(255,255,255,0.04); }
 .itd-project-links    { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
 
-/* ═══════════════════════════════════════════════════════════
-   RESPONSIVE — desktop monitors 
-═══════════════════════════════════════════════════════════ */
+.psb-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.itd-split-panel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.itd-split-explorer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: clamp(240px, 28vw, 380px);
+  max-height: 78vh;
+  display: flex;
+  flex-direction: column;
+  pointer-events: all;
+  z-index: 2;
+  transition:
+    left 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.itd-split-panel--detail-open .itd-split-explorer {
+  left: 6vw;
+  transform: translateY(-50%);
+}
+
+.itd-split-explorer .psb-body.itd-explorer-body {
+  flex: 1;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 10px;
+  align-content: start;
+  padding: 14px;
+  scrollbar-width: thin;
+  scrollbar-color: #3f3f3f transparent;
+}
+
+.itd-split-explorer .psb-body.itd-explorer-body::-webkit-scrollbar       { width: 4px; }
+.itd-split-explorer .psb-body.itd-explorer-body::-webkit-scrollbar-thumb { background: #3f3f3f; border-radius: 2px; }
+
+.itd-explorer-file--active {
+  border-color: #aaaaaa !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+}
+
+.itd-split-detail {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 0;
+  opacity: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  pointer-events: none;
+  z-index: 1;
+  transition:
+    width 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.2s ease;
+}
+
+.itd-split-detail--open {
+  width: 50vw;
+  opacity: 1;
+  pointer-events: all;
+}
+
+.itd-split-detail .psb-window {
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 0 !important;
+  border-top: none !important;
+  border-bottom: none !important;
+  border-right: none !important;
+  box-sizing: border-box;
+}
+
+.itd-detail-body {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 18px;
+  scrollbar-width: thin;
+  scrollbar-color: #3f3f3f transparent;
+}
+
+.itd-detail-body::-webkit-scrollbar       { width: 4px; }
+.itd-detail-body::-webkit-scrollbar-thumb { background: #3f3f3f; border-radius: 2px; }
+
+.itd-detail-body--empty {
+  align-items: center;
+  justify-content: center;
+}
+
+.itd-detail-preview-img {
+  width: 100%;
+  height: auto;
+  max-height: 55vh;
+  object-fit: cover;
+  border: 2px solid;
+  border-color: #555555 #d0d0d0 #d0d0d0 #555555;
+  display: block;
+  flex-shrink: 0;
+}
+
 @media (min-width: 1400px) {
-  :root {
-    --itd-left-w:  220px;
-    --itd-right-w: 130px;
-  }
-  .itd-name-first,
-  .itd-name-last  { height: 130px; }
-  .itd-main       { padding: 60px 60px 100px; }
+  :root { --itd-left-w: 220px; --itd-right-w: 130px; }
+  .itd-main { padding: 60px 60px 100px; }
+}
+
+@media screen and (min-width: 1441px) {
+  :root { --itd-left-w: 240px; --itd-right-w: 130px; }
+  .itd-skills-grid-wrapper { gap: 36px !important; }
+  .itd-right-label-pill { font-size: clamp(0.75rem, 0.9vw, 0.92rem); padding: 3px 12px; }
 }
 
 @media (max-width: 1100px) {
-  :root {
-    --itd-left-w:  180px;
-    --itd-right-w: 90px;
-  }
-  .itd-name-first,
-  .itd-name-last  { height: 88px; }
+  :root { --itd-left-w: 180px; --itd-right-w: 90px; }
   .itd-name-block { gap: 14px; }
-  .itd-folders-row  { gap: 36px; }
+  .itd-folders-row { gap: 36px; }
   .itd-folders-row--offset { gap: 44px; padding-left: 24px; }
-  .itd-folder-img   { width: 52px; height: 52px; }
 }
 
 @media (max-width: 860px) {
-  :root {
-    --itd-left-w:  160px;
-    --itd-right-w: 80px;
-  }
-  .itd-name-first,
-  .itd-name-last  { height: 70px; }
+  :root { --itd-left-w: 160px; --itd-right-w: 80px; }
   .itd-name-block { gap: 10px; }
   .itd-project-body { flex-direction: column; }
   .itd-project-preview { width: 100%; }
   .itd-folders-row--offset { padding-left: 0; justify-content: center; }
 }
 
-
-/* ─── 1. Left Sidebar Workspace Re-alignment ─── */
-.itd-left-column {
-  grid-area: left;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 40px 16px 50px 16px;
-  box-sizing: border-box;
-}
-
-/* Header Text Blocks — Active Portfolio Title Stack */
-.itd-sidebar-header-block {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  margin-bottom: 24px;
-}
-
-.itd-sidebar-title-main {
-  font-family: var(--itd-sans);
-  font-size: clamp(1.4rem, 1.8vw, 1.8rem);
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  color: var(--itd-text-bright);
-  margin: 0;
-  line-height: 1.1;
-}
-
-.itd-sidebar-title-sub {
-  font-family: var(--itd-sans);
-  font-size: clamp(1.15rem, 1.4vw, 1.45rem);
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  color: var(--itd-text);
-  margin: 0;
-  line-height: 1.1;
-}
-
-.itd-sidebar-divider-line {
-  width: 75%;
-  height: 1px;
-  background: var(--itd-border-bright);
-  margin-bottom: auto; /* Pushes the Technical Skills grid module to the vertical center */
-}
-
-/* ─── 2. Technical Skills Centered Matrix Block ─── */
-.itd-skills-box-container {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: auto; /* Perfectly locks tracking symmetry into center space */
-  padding: 20px 0;
-}
-
-.itd-skills-container-title {
-  font-family: var(--itd-sans);
-  font-size: clamp(0.95rem, 1.2vw, 1.15rem);
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  color: var(--itd-text-bright);
-  margin: 0 0 3px 0;
-  text-align: center;
-}
-
-.itd-skills-container-subtitle {
-  font-family: var(--itd-mono);
-  font-size: 0.65rem;
-  color: var(--itd-text-muted);
-  margin-bottom: 24px;
-  text-align: center;
-  letter-spacing: 0.02em;
-}
-
-/* 2x2 Clean Balanced Skill Grid Wrapper */
-.itd-skills-grid-wrapper {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 24px 16px;
-  width: 100%;
-  max-width: 150px;
-  justify-items: center;
-}
-
-.itd-skill-icon {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 15px;
-  width: 100%;
-}
-
-.itd-skill-circle {
-  width: 52px;
-  height: 52px;
-  border-radius: 50%;
-  border: 1.5px solid var(--itd-border-bright);
-  background: rgba(255, 255, 255, 0.03);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.itd-skill-icon:hover .itd-skill-circle {
-  border-color: var(--itd-accent-hover);
-  box-shadow: 0 0 12px rgba(170, 170, 170, 0.15);
-}
-
-.itd-skill-img {
-  width: 26px;
-  height: 26px;
-  object-fit: contain;
-  filter: brightness(0.85) grayscale(0.15);
-}
-
-.itd-skill-label {
-  font-family: var(--itd-mono);
-  font-size: 0.62rem;
-  letter-spacing: 0.01em;
-  color: var(--itd-text-muted);
-  text-align: center;
-  line-height: 1.2;
-}
-
-/* ─── 3. Center Inline Switcher Positioning ─── */
-.itd-name-block {
-  display: flex;
-  flex-direction: row;
-  align-items: center;         
-  justify-content: center;
-  gap: clamp(16px, 3vw, 36px);                   
-  margin-bottom: 20px;
-  flex-wrap: nowrap;           
-}
-
-.itd-name-first,
-.itd-name-last {
-  height: clamp(110px, 13vh, 180px);               
-  width: auto;
-  object-fit: contain;
-  display: block;
-  flex-shrink: 0;
-}
-
-/* Scope-matched inline layout rule overrides for the persona switcher */
-.itd-name-block .persona-toggle-anchor {
-  position: relative !important;
-  top: auto !important;
-  left: auto !important;
-  z-index: 10 !important;
-  display: inline-block !important;
-  margin: 0 !important;
-  transform: none !important;
-}
-
-.itd-name-block .persona-toggle-logo {
-  height: clamp(65px, 8vh + 10px, 85px) !important;
-  width: auto !important;
-  display: block;
-}
-
-/* ─── 4. Right Sidebar Action Gutter Cleanups ─── */
-.itd-right-column {
-  grid-area: right;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 3.5vh;
-  padding: 60px 0 40px 0;
-  box-sizing: border-box;
-}
-
-.itd-right-block {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-}
-
-.itd-right-icon-frame {
-  width: 54px;
-  height: 54px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  box-sizing: border-box;
-  transition: border-color 0.15s ease, background-color 0.15s ease;
-}
-
-.itd-right-icon-frame:hover {
-  border-color: var(--itd-accent-hover);
-  background: rgba(255, 255, 255, 0.07);
-}
-
-.itd-right-icon-img {
-  width: 28px;
-  height: 28px;
-  object-fit: contain;
-  filter: brightness(0.8);
-}
-
-.itd-right-label {
-  font-family: var(--itd-mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.08em;
-  color: var(--itd-text-muted);
-  text-align: center;
-  text-transform: uppercase;
-}
-
-/* ─── 5. Large Screen Breakdown Scaling (4K / 2K Monitors) ─── */
-@media screen and (min-width: 1441px) {
-  :root {
-    --itd-left-w: 240px;
-    --itd-right-w: 130px;
-  }
-  
-  .itd-skills-grid-wrapper {
-    gap: 32px 24px;
-    max-width: 180px;
+@media (max-width: 700px) {
+  .itd-split-explorer {
+    left: 50%;
+    top: 20px;
+    transform: translateX(-50%);
+    width: 90vw;
+    max-height: 45vh;
   }
 
-  .itd-skill-circle {
-    width: 64px;
-    height: 64px;
+  .itd-split-panel--detail-open .itd-split-explorer {
+    left: 50%;
+    transform: translateX(-50%);
   }
 
-  .itd-skill-img {
-    width: 32px;
-    height: 32px;
+  .itd-split-detail {
+    top: auto;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    width: 100% !important;
+    height: 0;
+    transition: height 0.25s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease;
   }
 
-  .itd-skill-label {
-    font-size: 0.7rem;
-  }
-  
-  .itd-right-icon-frame {
-    width: 64px;
-    height: 64px;
-  }
-  
-  .itd-right-icon-img {
-    width: 32px;
-    height: 32px;
-  }
-  
-  .itd-right-label {
-    font-size: 0.7rem;
-  }
-}
-
-/* =========================================================================
-   SIDEBAR REFACTOR: Single Column Skills & Artist-Matched Right Action Bar
-   ========================================================================= */
-
-/* ─── Left Sidebar: Single Column Technical Skills ─── */
-.itd-skills-grid-wrapper {
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 28px !important;
-  width: 100%;
-  align-items: center;
-}
-
-/* ─── Right Sidebar: Artist-Matched Icon Buttons ─── */
-.itd-right-icon-btn {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  text-decoration: none;
-  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.itd-right-icon-btn:hover {
-  transform: scale(1.05);
-}
-
-.itd-right-icon-btn:active {
-  transform: scale(0.95);
-}
-
-.itd-right-label-pill {
-  font-family: var(--itd-mono);
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: #1a1a1a;
-  background-color: rgba(216, 213, 208, 0.95); /* Light gray pill matching the Artist layout */
-  padding: 2px 10px;
-  border-radius: 4px;
-  text-align: center;
-  letter-spacing: 0.02em;
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-/* Clean up the placeholder block to fit the new button geometry perfectly */
-.itd-qr-placeholder {
-  width: 32px !important;
-  height: 32px !important;
-}
-
-/* ─── Responsive Scale adjustments for 4K / Large Monitors ─── */
-@media screen and (min-width: 1441px) {
-  .itd-skills-grid-wrapper {
-    gap: 36px !important;
-  }
-  
-  .itd-right-label-pill {
-    font-size: 0.85rem;
-    padding: 3px 12px;
+  .itd-split-detail--open {
+    height: 55vh;
+    width: 100% !important;
   }
 }

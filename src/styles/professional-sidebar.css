@@ -1,0 +1,244 @@
+/* ── Overlay ─────────────────────────────────────────────── */
+.psb-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+/* ── Window chrome ───────────────────────────────────────── */
+.psb-window {
+  width: 40%;
+  max-width: 92vw;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Courier New', Courier, monospace;
+  background: #505050;
+  border: 2px solid;
+  border-color: #5a5656 #555555 #555555 #ffffff;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+/* ── Title bar ───────────────────────────────────────────── */
+.psb-header {
+  background: linear-gradient(to bottom, #4a4a4a 0%, #1a1a1a 100%);
+  padding: 4px 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+}
+
+.psb-title {
+  color: #ffffff;
+  font-size: clamp(10px, 1.2vw, 14px);
+  font-weight: bold;
+  letter-spacing: 0.3px;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.psb-close-btn {
+  background: linear-gradient(to bottom, #777777, #444444);
+  border: 1px solid;
+  border-color: #aaaaaa #222222 #222222 #aaaaaa;
+  color: #ffffff;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: clamp(10px, 1.2vw, 14px);
+  line-height: 1;
+  padding: 0;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.psb-close-btn:hover {
+  background: linear-gradient(to bottom, #999999, #555555);
+}
+
+/* ── Body ────────────────────────────────────────────────── */
+.psb-body {
+  background: #1a1a1a;
+  padding: 14px 16px;
+  border: 2px solid;
+  border-color: #555555 #ffffff #ffffff #555555;
+  margin: 6px;
+}
+
+/* ── Footer ──────────────────────────────────────────────── */
+.psb-footer {
+  background: #888888;
+  padding: 6px 10px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 6px;
+  border-top: 1px solid #888888;
+}
+
+.psb-file-count {
+  color: #000000;
+  font-size: clamp(9px, 1vw, 12px);
+  font-family: 'Courier New', Courier, monospace;
+  margin-right: auto;
+}
+
+/* ── XP raised buttons ───────────────────────────────────── */
+.psb-btn {
+  background: linear-gradient(to bottom, #e0e0e0, #a8a8a8);
+  border: 2px solid;
+  border-color: #ffffff #555555 #555555 #ffffff;
+  color: #000000;
+  padding: 3px 14px;
+  font-size: clamp(9px, 1vw, 12px);
+  font-family: 'Courier New', Courier, monospace;
+  cursor: pointer;
+  letter-spacing: 0.3px;
+  min-width: 80px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.psb-btn:hover {
+  background: linear-gradient(to bottom, #eeeeee, #b8b8b8);
+}
+
+.psb-btn:active {
+  background: linear-gradient(to bottom, #a8a8a8, #e0e0e0);
+  border-color: #555555 #ffffff #ffffff #555555;
+}
+
+.psb-btn--muted {
+  color: #333333;
+}
+
+/* ── Email form rows ─────────────────────────────────────── */
+.psb-form-row {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 8px;
+  gap: 8px;
+}
+
+.psb-form-row:last-child {
+  margin-bottom: 0;
+}
+
+.psb-label {
+  color: #aaaaaa;
+  font-size: clamp(9px, 1vw, 12px);
+  width: 85px;
+  min-width: 85px;
+  max-width: 85px;
+  padding-top: 5px;
+  letter-spacing: 0.4px;
+  font-family: 'Courier New', Courier, monospace;
+  flex-shrink: 0;
+  flex-grow: 0;
+}
+
+.psb-input-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── XP sunken inputs ────────────────────────────────────── */
+.psb-input,
+.psb-textarea {
+  background: #0d0d0d;
+  border: 2px solid;
+  border-color: #555555 #d0d0d0 #d0d0d0 #555555;
+  color: #e0e0e0;
+  padding: 4px 6px;
+  font-size: clamp(9px, 1vw, 12px);
+  font-family: 'Courier New', Courier, monospace;
+  width: 100%;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.psb-input:focus,
+.psb-textarea:focus {
+  border-color: #888888 #e8e8e8 #e8e8e8 #888888;
+}
+
+.psb-input--static {
+  color: #666666;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.psb-textarea {
+  resize: vertical;
+  min-height: 90px;
+  line-height: 1.5;
+}
+
+.psb-disclaimer {
+  color: #888888;
+  font-size: clamp(8px, 0.85vw, 11px);
+  margin-top: 3px;
+  letter-spacing: 0.2px;
+  display: block;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+/* ── Resume sheet preview ────────────────────────────────── */
+.psb-sheet {
+  background: #0d0d0d;
+  border: 2px solid;
+  border-color: #555555 #d0d0d0 #d0d0d0 #555555;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.psb-sheet-line {
+  border-radius: 1px;
+  background: #2a2a2a;
+}
+
+.psb-sheet-line--header {
+  height: 12px;
+  width: 55%;
+  background: #2a2a2a;
+}
+
+.psb-sheet-line--full {
+  height: 9px;
+  width: 88%;
+  background: #222222;
+}
+
+.psb-sheet-line--mid {
+  height: 9px;
+  width: 70%;
+  background: #222222;
+}
+
+.psb-sheet-line--short {
+  height: 9px;
+  width: 45%;
+  background: #222222;
+}
+
+.psb-sheet-line--short-alt {
+  height: 9px;
+  width: 60%;
+  background: #222222;
+}
+
+.psb-sheet-line--spacer {
+  margin-top: 4px;
+}

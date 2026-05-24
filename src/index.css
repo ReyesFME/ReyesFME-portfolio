@@ -36,7 +36,7 @@ button {
   cursor: pointer;
   border-radius: 5px;
   border: none;
-  background-color: var(--text-primary);
+  background-color: transparent;
   color: var(--bg-primary);
   font-weight: bold;
   transition: transform 0.2s ease;
