@@ -18,6 +18,8 @@ import sysDocIcon  from '../../assets/shared/document.png';
 import psIcon      from '../../assets/shared/PS.png';
 import clientIcon  from '../../assets/shared/notepad.png';
 
+import TtrpgBookReader from '../TTRPG/TtrpgBookReader.jsx';
+
 const TECH_SKILLS = [
   { id: 'react',   label: 'React',               icon: reactIcon   },
   { id: 'python',  label: 'Python',              icon: pythonIcon  },
@@ -53,7 +55,6 @@ const ITDesktop = ({ togglePersona }) => {
 
   return (
     <div className="itd-container">
-
       <aside className="itd-left-column">
         <div className="itd-skills-box-container">
           <div className="itd-skills-grid-wrapper">
@@ -87,9 +88,9 @@ const ITDesktop = ({ togglePersona }) => {
 
         {showMoreInfo && (
           <div className="itd-more-info-panel">
-            <p>📍 Valenzuela City, Philippines</p>
-            <p>🎓 Bachelor of Science in Information Technology</p>
-            <p>📅 Expected graduation: 2026</p>
+            <p> Valenzuela City, Philippines</p>
+            <p> Bachelor of Science in Information Technology</p>
+            <p> Expected graduation: 2026</p>
           </div>
         )}
 
@@ -127,12 +128,9 @@ const ITDesktop = ({ togglePersona }) => {
         <SocialBar />
       </div>
 
-      {/* ── Explorer + Detail: overlay with floating explorer and full-height detail ── */}
       {activeFolder && (
         <div className="psb-overlay">
           <div className={`itd-split-panel${activeProject ? " itd-split-panel--detail-open" : ""}`}>
-
-            {/* FLOATING LEFT — File Explorer window */}
             <div className="psb-window itd-split-explorer">
               <div className="psb-header">
                 <span className="psb-title">🗁 file_explorer.exe — C:\Projects\{activeFolder.label}</span>
@@ -163,7 +161,6 @@ const ITDesktop = ({ togglePersona }) => {
               </div>
             </div>
 
-            {/* FULL-HEIGHT RIGHT — Project Detail slides in from right edge */}
             <div className={`itd-split-detail${activeProject ? ' itd-split-detail--open' : ''}`}>
               <div className="psb-window" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
                 {activeProject ? (
@@ -174,27 +171,30 @@ const ITDesktop = ({ togglePersona }) => {
                     </div>
 
                     <div className="psb-body itd-detail-body">
-                      <img
-                        src={activeProject.previewImage}
-                        alt={activeProject.title}
-                        className="itd-detail-preview-img"
-                      />
-                      <p className="itd-proj-category">{activeProject.category}</p>
-                      <h2 className="itd-proj-title">{activeProject.title}</h2>
-                      <p className="itd-proj-desc">{activeProject.description}</p>
-                      <div className="itd-tech-stack">
-                        {activeProject.techStack.map(tech => (
-                          <span key={tech} className="itd-tech-tag">{tech}</span>
-                        ))}
-                      </div>
-                      <div className="itd-project-links">
-                        {activeProject.githubLink && (
-                          <a href={activeProject.githubLink} target="_blank" rel="noopener noreferrer" className="psb-btn">GitHub →</a>
-                        )}
-                        {activeProject.demoLink && (
-                          <a href={activeProject.demoLink} target="_blank" rel="noopener noreferrer" className="psb-btn psb-btn--muted">Live Demo →</a>
-                        )}
-                      </div>
+                      {activeProject.isCustomViewer ? (
+                        // TtrpgBookReader handles the choice screen → terminal flow internally
+                        <TtrpgBookReader />
+                      ) : (
+                        <>
+                          <img src={activeProject.previewImage} alt={activeProject.title} className="itd-detail-preview-img" />
+                          <p className="itd-proj-category">{activeProject.category}</p>
+                          <h2 className="itd-proj-title">{activeProject.title}</h2>
+                          <p className="itd-proj-desc">{activeProject.description}</p>
+                          <div className="itd-tech-stack">
+                            {activeProject.techStack.map(tech => (
+                              <span key={tech} className="itd-tech-tag">{tech}</span>
+                            ))}
+                          </div>
+                          <div className="itd-project-links">
+                            {activeProject.githubLink && (
+                              <a href={activeProject.githubLink} target="_blank" rel="noopener noreferrer" className="psb-btn">GitHub →</a>
+                            )}
+                            {activeProject.demoLink && (
+                              <a href={activeProject.demoLink} target="_blank" rel="noopener noreferrer" className="psb-btn psb-btn--muted">Live Demo →</a>
+                            )}
+                          </div>
+                        </>
+                      )}
                     </div>
 
                     <div className="psb-footer">
@@ -204,11 +204,9 @@ const ITDesktop = ({ togglePersona }) => {
                 ) : null}
               </div>
             </div>
-
           </div>
         </div>
       )}
-
     </div>
   );
 };

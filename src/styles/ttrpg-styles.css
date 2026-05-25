@@ -1,0 +1,940 @@
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&display=swap');
+
+/* ─── Theme variables ────────────────────────────────────────────────────── */
+.slv-root {
+  --slv-font-mono:    'Share Tech Mono', 'Courier New', monospace;
+  --slv-font-display: 'VT323', monospace;
+
+  /* NEUTRAL */
+  --slv-bg:            #0d0d0d;
+  --slv-bg-surface:    #111111;
+  --slv-bg-row-even:   #141414;
+  --slv-bg-row-odd:    #0f0f0f;
+  --slv-border:        #2a2a2a;
+  --slv-border-bright: #444444;
+  --slv-text:          #c0c0c0;
+  --slv-text-dim:      #4e4e4e;
+  --slv-accent:        #909090;
+  --slv-accent-glow:   rgba(160,160,160,0.07);
+  --slv-skill-bg:      rgba(255,255,255,0.02);
+  --slv-skill-border:  #2a2a2a;
+  --slv-badge-bg:      transparent;
+  --slv-badge-text:    #666;
+  --slv-badge-border:  #2a2a2a;
+  --slv-header-bg:     #0a0a0a;
+  --slv-footer-bg:     #090909;
+  --slv-btn-bg:        #141414;
+  --slv-btn-hover:     #1e1e1e;
+  --slv-input-bg:      #0d0d0d;
+  --slv-section-color: #909090;
+  --slv-step-num-color:#4e4e4e;
+  --slv-step-title:    #c0c0c0;
+  --slv-kw-celestial:  #e8b84b;
+  --slv-kw-void:       #a070c8;
+  --slv-scan-opacity:  0.03;
+  --slv-text-glow:     0 0 6px rgba(160,160,160,0.35);
+  --slv-char-bg:       #111111;
+  --slv-char-border:   #1e1e1e;
+  --slv-formula-bg:    #111111;
+}
+
+.slv-theme-celestial {
+  --slv-bg:            #0e0b03;
+  --slv-bg-surface:    #130e04;
+  --slv-bg-row-even:   #181006;
+  --slv-bg-row-odd:    #110d04;
+  --slv-border:        #3a2908;
+  --slv-border-bright: #6a4a12;
+  --slv-text:          #e2c070;
+  --slv-text-dim:      #6b4f1a;
+  --slv-accent:        #f0a828;
+  --slv-accent-glow:   rgba(240,168,40,0.12);
+  --slv-skill-bg:      rgba(240,168,40,0.04);
+  --slv-skill-border:  #3a2908;
+  --slv-badge-bg:      rgba(240,168,40,0.07);
+  --slv-badge-text:    #f0a828;
+  --slv-badge-border:  #6a4a12;
+  --slv-header-bg:     #0a0802;
+  --slv-footer-bg:     #080601;
+  --slv-btn-bg:        #1a1303;
+  --slv-btn-hover:     #241a05;
+  --slv-input-bg:      #0e0b03;
+  --slv-section-color: #c9a040;
+  --slv-step-num-color:#6a4a12;
+  --slv-step-title:    #e2c070;
+  --slv-scan-opacity:  0.04;
+  --slv-text-glow:     0 0 8px rgba(240,168,40,0.2);
+  --slv-char-bg:       #140e03;
+  --slv-char-border:   #3a2908;
+  --slv-formula-bg:    #120e03;
+}
+
+.slv-theme-void {
+  --slv-bg:            #070308;
+  --slv-bg-surface:    #0c050d;
+  --slv-bg-row-even:   #0f070f;
+  --slv-bg-row-odd:    #090409;
+  --slv-border:        #380c38;
+  --slv-border-bright: #680938;
+  --slv-text:          #b890d0;
+  --slv-text-dim:      #4a1e5a;
+  --slv-accent:        #881840;
+  --slv-accent-glow:   rgba(136,24,64,0.14);
+  --slv-skill-bg:      rgba(136,24,64,0.05);
+  --slv-skill-border:  #380c38;
+  --slv-badge-bg:      rgba(136,24,64,0.09);
+  --slv-badge-text:    #b84070;
+  --slv-badge-border:  #680938;
+  --slv-header-bg:     #050206;
+  --slv-footer-bg:     #040105;
+  --slv-btn-bg:        #110511;
+  --slv-btn-hover:     #180818;
+  --slv-input-bg:      #0c050d;
+  --slv-section-color: #9060b8;
+  --slv-step-num-color:#680938;
+  --slv-step-title:    #b890d0;
+  --slv-scan-opacity:  0.055;
+  --slv-text-glow:     0 0 6px rgba(136,24,64,0.2);
+  --slv-char-bg:       #0c040d;
+  --slv-char-border:   #380c38;
+  --slv-formula-bg:    #0a030b;
+}
+
+/* ─── Root shell ─────────────────────────────────────────────────────────── */
+.slv-root {
+  background-color: var(--slv-bg);
+  color: var(--slv-text);
+  font-family: var(--slv-font-mono);
+  font-size: 13px;
+  line-height: 1.7;
+  border: 1px solid var(--slv-border);
+  display: flex;
+  flex-direction: column;
+  min-height: 520px;
+  max-height: 88vh;
+  position: relative;
+  overflow: hidden;
+  transition: background-color 0.5s ease, border-color 0.5s ease, color 0.5s ease;
+  background-image: repeating-linear-gradient(
+    0deg, transparent, transparent 2px,
+    rgba(0,0,0,var(--slv-scan-opacity)) 2px,
+    rgba(0,0,0,var(--slv-scan-opacity)) 4px
+  );
+}
+
+/* Neutral theme: phosphor glow on text */
+.slv-theme-neutral .slv-line,
+.slv-theme-neutral .slv-bullet,
+.slv-theme-neutral .slv-section-header {
+  text-shadow: var(--slv-text-glow);
+}
+
+/* ─── Bathrawarka glitch ─────────────────────────────────────────────────── */
+@keyframes slv-glitch-shift {
+  0%   { clip-path: inset(20% 0 60% 0); transform: translate(-4px, 0); opacity: 0.8; }
+  20%  { clip-path: inset(50% 0 20% 0); transform: translate(4px, 0);  opacity: 0.6; }
+  40%  { clip-path: inset(10% 0 70% 0); transform: translate(-2px, 1px); }
+  60%  { clip-path: inset(70% 0 10% 0); transform: translate(3px, -1px); opacity: 0.9; }
+  80%  { clip-path: inset(30% 0 40% 0); transform: translate(-1px, 0); }
+  100% { clip-path: inset(0 0 0 0);     transform: translate(0,0); opacity: 1; }
+}
+
+.slv-glitch::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: inherit;
+  animation: slv-glitch-shift 0.4s steps(1) forwards;
+  pointer-events: none;
+  z-index: 10;
+  mix-blend-mode: screen;
+  opacity: 0.15;
+}
+
+.slv-glitch .slv-content {
+  animation: slv-glitch-shift 0.4s steps(1) forwards;
+}
+
+/* ─── Boot ───────────────────────────────────────────────────────────────── */
+.slv-boot {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 40px;
+  gap: 8px;
+}
+.slv-boot-line {
+  font-size: 14px;
+  color: var(--slv-text);
+  opacity: 0;
+  text-shadow: var(--slv-text-glow);
+  animation: slv-fade-in 0.3s ease forwards;
+}
+.slv-boot-line:nth-child(2) { animation-delay: 0.3s; }
+.slv-boot-blink::after {
+  content: '';
+  display: inline-block;
+  width: 8px; height: 14px;
+  background: var(--slv-text);
+  margin-left: 2px;
+  vertical-align: -2px;
+  animation: slv-blink 0.8s step-end infinite;
+}
+
+/* ─── Header ─────────────────────────────────────────────────────────────── */
+.slv-header {
+  background: var(--slv-header-bg);
+  border-bottom: 1px solid var(--slv-border);
+  padding: 8px 16px;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-shrink: 0;
+  letter-spacing: 0.05em;
+}
+.slv-header-prefix {
+  font-size: 10px;
+  color: var(--slv-text-dim);
+  letter-spacing: 0.15em;
+}
+.slv-header-title {
+  font-family: var(--slv-font-display);
+  font-size: 19px;
+  color: var(--slv-accent);
+  letter-spacing: 0.07em;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-shadow: 0 0 12px var(--slv-accent-glow);
+}
+.slv-header-page {
+  font-size: 10px;
+  color: var(--slv-text-dim);
+  letter-spacing: 0.12em;
+  white-space: nowrap;
+}
+
+/* ─── Faction badge ──────────────────────────────────────────────────────── */
+.slv-faction-badge {
+  padding: 2px 16px;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  border-bottom: 1px solid var(--slv-badge-border);
+  background: var(--slv-badge-bg);
+  color: var(--slv-badge-text);
+  flex-shrink: 0;
+  animation: slv-fade-in 0.5s ease forwards;
+}
+
+/* ─── Content area ───────────────────────────────────────────────────────── */
+.slv-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 24px 16px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--slv-border) transparent;
+}
+.slv-content::-webkit-scrollbar       { width: 3px; }
+.slv-content::-webkit-scrollbar-track { background: transparent; }
+.slv-content::-webkit-scrollbar-thumb { background: var(--slv-border-bright); }
+.slv-content-inner { max-width: 100%; }
+
+/* ─── Text nodes ─────────────────────────────────────────────────────────── */
+.slv-line       { margin: 1px 0; word-break: break-word; }
+.slv-indent     { padding-left: 20px; }
+.slv-spacer     { height: 10px; }
+
+.slv-section-header {
+  margin: 20px 0 8px;
+  font-family: var(--slv-font-display);
+  font-size: 18px;
+  color: var(--slv-section-color);
+  letter-spacing: 0.07em;
+  padding-bottom: 5px;
+  border-bottom: 1px solid var(--slv-border);
+}
+.slv-section-bracket { color: var(--slv-text-dim); font-size: 13px; font-family: var(--slv-font-mono); }
+.slv-section-label   { margin: 0 4px; }
+
+/* Bullets */
+.slv-bullet {
+  display: flex;
+  gap: 8px;
+  margin: 2px 0;
+  padding-left: 8px;
+}
+.slv-bullet--indented { padding-left: 28px; }
+.slv-bullet--alpha    { padding-left: 20px; }
+.slv-bullet-marker {
+  color: var(--slv-accent);
+  flex-shrink: 0;
+  font-size: 9px;
+  margin-top: 3px;
+}
+.slv-bullet-marker-alpha {
+  color: var(--slv-text-dim);
+  flex-shrink: 0;
+  min-width: 12px;
+}
+
+/* Keyword highlights */
+.slv-kw-celestial { color: var(--slv-kw-celestial); font-weight: 600; }
+.slv-kw-void      { color: var(--slv-kw-void);      font-weight: 600; }
+
+/* ─── Skill block (game console card) ───────────────────────────────────── */
+.slv-skill-block {
+  background: var(--slv-skill-bg);
+  border: 1px solid var(--slv-skill-border);
+  border-left: 3px solid var(--slv-accent);
+  padding: 10px 16px;
+  margin: 10px 0;
+  position: relative;
+}
+.slv-skill-block::before {
+  content: 'SKILL';
+  position: absolute;
+  top: 8px; right: 12px;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: var(--slv-text-dim);
+  opacity: 0.6;
+}
+.slv-skill-name {
+  font-family: var(--slv-font-display);
+  font-size: 17px;
+  color: var(--slv-accent);
+  letter-spacing: 0.06em;
+  margin-bottom: 7px;
+  text-shadow: 0 0 8px var(--slv-accent-glow);
+}
+.slv-skill-num {
+  margin-right: 8px;
+  font-size: 10px;
+  vertical-align: middle;
+  opacity: 0.7;
+}
+.slv-skill-fields { display: grid; gap: 3px; }
+.slv-skill-row {
+  display: flex;
+  gap: 8px;
+  font-size: 12px;
+  border-top: 1px solid rgba(255,255,255,0.03);
+  padding-top: 3px;
+}
+.slv-skill-label {
+  color: var(--slv-text-dim);
+  min-width: 116px;
+  flex-shrink: 0;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+}
+.slv-skill-value { color: var(--slv-text); }
+
+/* ─── Numbered step list ─────────────────────────────────────────────────── */
+.slv-step-list { margin: 12px 0; display: grid; gap: 10px; }
+.slv-step-item {
+  border: 1px solid var(--slv-border);
+  border-left: 3px solid var(--slv-border-bright);
+  background: rgba(255,255,255,0.015);
+  padding: 10px 14px;
+}
+.slv-step-header {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+.slv-step-num {
+  font-family: var(--slv-font-display);
+  font-size: 22px;
+  color: var(--slv-step-num-color);
+  min-width: 28px;
+  line-height: 1;
+}
+.slv-step-title {
+  font-family: var(--slv-font-display);
+  font-size: 16px;
+  color: var(--slv-step-title);
+  letter-spacing: 0.05em;
+  text-shadow: 0 0 6px var(--slv-accent-glow);
+}
+.slv-step-subs { padding-left: 38px; margin-top: 4px; display: grid; gap: 2px; }
+.slv-step-sub {
+  display: flex;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--slv-text-dim);
+}
+.slv-step-sub:hover { color: var(--slv-text); }
+.slv-step-sub-marker { color: var(--slv-border-bright); flex-shrink: 0; }
+
+/* ─── Premade character cards ────────────────────────────────────────────── */
+.slv-char-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 10px;
+  margin: 12px 0;
+}
+.slv-char-card {
+  background: var(--slv-char-bg);
+  border: 1px solid var(--slv-char-border);
+  border-top: 2px solid var(--slv-accent);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  position: relative;
+}
+.slv-char-card::after {
+  content: 'CHARACTER';
+  position: absolute;
+  top: 6px; right: 8px;
+  font-size: 8px;
+  letter-spacing: 0.2em;
+  color: var(--slv-text-dim);
+  opacity: 0.5;
+}
+.slv-char-class {
+  font-family: var(--slv-font-display);
+  font-size: 17px;
+  color: var(--slv-accent);
+  letter-spacing: 0.07em;
+  text-shadow: 0 0 8px var(--slv-accent-glow);
+  border-bottom: 1px solid var(--slv-border);
+  padding-bottom: 6px;
+  margin-bottom: 2px;
+}
+.slv-char-row {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  font-size: 11px;
+}
+.slv-char-field {
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  color: var(--slv-text-dim);
+  text-transform: uppercase;
+}
+.slv-char-buff {
+  color: var(--slv-accent);
+  font-size: 12px;
+}
+
+/* ─── Stat formula grid ──────────────────────────────────────────────────── */
+.slv-formula-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 6px;
+  margin: 12px 0;
+}
+.slv-formula-row {
+  background: var(--slv-formula-bg);
+  border: 1px solid var(--slv-border);
+  padding: 7px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--slv-font-mono);
+}
+.slv-formula-stat {
+  color: var(--slv-accent);
+  font-size: 12px;
+  min-width: 64px;
+  letter-spacing: 0.05em;
+}
+.slv-formula-eq {
+  color: var(--slv-text-dim);
+  font-size: 12px;
+}
+.slv-formula-val {
+  color: var(--slv-text);
+  font-size: 12px;
+}
+
+/* ─── Table ──────────────────────────────────────────────────────────────── */
+.slv-table-wrapper {
+  margin: 10px 0;
+  overflow-x: auto;
+  border: 1px solid var(--slv-border);
+  scrollbar-width: thin;
+  scrollbar-color: var(--slv-border) transparent;
+}
+.slv-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  min-width: 420px;
+}
+.slv-th {
+  background: var(--slv-bg-surface);
+  color: var(--slv-accent);
+  padding: 6px 10px;
+  text-align: left;
+  border-bottom: 1px solid var(--slv-border-bright);
+  border-right: 1px solid var(--slv-border);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.slv-th:last-child { border-right: none; }
+.slv-td {
+  padding: 5px 10px;
+  border-bottom: 1px solid var(--slv-border);
+  border-right: 1px solid var(--slv-border);
+  vertical-align: top;
+  line-height: 1.5;
+}
+.slv-td:last-child { border-right: none; }
+.slv-tr-even { background: var(--slv-bg-row-even); }
+.slv-tr-odd  { background: var(--slv-bg-row-odd); }
+.slv-tr-even:hover, .slv-tr-odd:hover { background: var(--slv-accent-glow); }
+
+/* ─── Footer ─────────────────────────────────────────────────────────────── */
+.slv-footer {
+  background: var(--slv-footer-bg);
+  border-top: 1px solid var(--slv-border);
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+.slv-footer-left,
+.slv-footer-right { display: flex; align-items: center; gap: 8px; }
+
+.slv-prompt {
+  color: var(--slv-accent);
+  font-family: var(--slv-font-display);
+  font-size: 17px;
+}
+.slv-page-input {
+  background: var(--slv-input-bg);
+  color: var(--slv-text);
+  border: 1px solid var(--slv-border-bright);
+  font-family: var(--slv-font-mono);
+  font-size: 12px;
+  padding: 4px 8px;
+  width: 60px;
+  outline: none;
+  transition: border-color 0.2s;
+  -moz-appearance: textfield;
+}
+.slv-page-input::-webkit-outer-spin-button,
+.slv-page-input::-webkit-inner-spin-button { -webkit-appearance: none; }
+.slv-page-input:focus { border-color: var(--slv-accent); }
+
+.slv-execute-btn,
+.slv-nav-btn {
+  background: var(--slv-btn-bg);
+  color: var(--slv-text);
+  border: 1px solid var(--slv-border-bright);
+  font-family: var(--slv-font-mono);
+  font-size: 11px;
+  padding: 4px 12px;
+  cursor: pointer;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+.slv-execute-btn:hover,
+.slv-nav-btn:hover:not(:disabled) {
+  background: var(--slv-btn-hover);
+  border-color: var(--slv-accent);
+  color: var(--slv-accent);
+}
+.slv-nav-btn:disabled { opacity: 0.3; cursor: default; }
+.slv-page-counter {
+  font-size: 11px;
+  color: var(--slv-text-dim);
+  letter-spacing: 0.12em;
+  min-width: 44px;
+  text-align: center;
+}
+
+/* ─── TtrpgBookReader shell ──────────────────────────────────────────────── */
+.ttrpg-reader-root { display: flex; flex-direction: column; height: 100%; }
+.ttrpg-back-btn {
+  background: #0d0d0d;
+  color: #666;
+  border: 1px solid #252525;
+  border-bottom: none;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  padding: 6px 14px;
+  cursor: pointer;
+  align-self: flex-start;
+  transition: color 0.15s, border-color 0.15s;
+}
+.ttrpg-back-btn:hover { color: #aaa; border-color: #444; }
+
+.ttrpg-coming-soon {
+  background: #0a0a0a;
+  border: 1px solid #222;
+  padding: 48px;
+  text-align: center;
+  font-family: 'Share Tech Mono', monospace;
+  color: #444;
+}
+.ttrpg-coming-soon-icon { display: block; font-size: 22px; color: #333; margin-bottom: 12px; }
+.ttrpg-coming-soon-sub  { font-size: 11px; color: #2e2e2e; margin-top: 4px; }
+
+.ttrpg-choice-root { padding: 32px; font-family: 'Share Tech Mono', monospace; }
+.ttrpg-choice-header { margin-bottom: 24px; }
+.ttrpg-choice-label  { display: block; font-family: 'VT323', monospace; font-size: 22px; letter-spacing: 0.12em; color: #999; }
+.ttrpg-choice-sub    { font-size: 12px; color: #444; margin-top: 4px; }
+.ttrpg-choice-grid   { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
+
+.ttrpg-choice-card {
+  background: #0f0f0f;
+  border: 1px solid #222;
+  padding: 20px;
+  cursor: pointer;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-family: 'Share Tech Mono', monospace;
+  transition: border-color 0.2s, background 0.2s;
+}
+.ttrpg-choice-card:hover:not(.ttrpg-choice-card--disabled) { border-color: #444; background: #141414; }
+.ttrpg-choice-card--disabled { opacity: 0.35; cursor: not-allowed; }
+.ttrpg-choice-card-icon   { font-size: 10px; color: #444; letter-spacing: 0.12em; }
+.ttrpg-choice-card-title  { font-family: 'VT323', monospace; font-size: 20px; color: #bbb; letter-spacing: 0.06em; }
+.ttrpg-choice-card-desc   { font-size: 11px; color: #444; line-height: 1.6; }
+.ttrpg-choice-card-status { font-size: 10px; letter-spacing: 0.12em; margin-top: 4px; }
+.ttrpg-choice-card-status--active  { color: #4a9; }
+.ttrpg-choice-card-status--pending { color: #555; }
+
+/* ─── Animations ─────────────────────────────────────────────────────────── */
+@keyframes slv-fade-in {
+  from { opacity: 0; transform: translateY(2px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes slv-blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+
+/* ─── Boot: typewriter cursor ────────────────────────────────────────────── */
+.slv-boot-line--visible {
+  opacity: 1;
+}
+.slv-boot-cursor {
+  display: inline-block;
+  width: 8px;
+  height: 13px;
+  background: var(--slv-text);
+  margin-left: 2px;
+  vertical-align: -2px;
+  animation: slv-blink 0.6s step-end infinite;
+}
+
+/* Spooky dot lines render slightly dimmer and spaced */
+.slv-boot-line--spooky {
+  color: var(--slv-text-dim);
+  letter-spacing: 0.25em;
+}
+
+/* ─── Boot: entity vignette ──────────────────────────────────────────────── */
+/*                                                                            */
+/* The effect is built in two layers stacked via ::after and ::before.       */
+/*                                                                            */
+/* ::after  — the "body": a deep asymmetric darkness that gathers at the     */
+/*            top and sides, as if something tall and wide is leaning in     */
+/*            from just outside the frame. The center stays readable.        */
+/*                                                                            */
+/* ::before — the "eyes": two faint smeared highlights at roughly eye-level  */
+/*            that drift and pulse, barely perceptible, suggesting a face    */
+/*            pressing against the glass. Blends as 'screen' so they only   */
+/*            lighten slightly without competing with the text.              */
+
+[class*="slv-boot-spooky-"] {
+  position: relative; /* ensure stacking context */
+}
+
+/* Body shadow */
+[class*="slv-boot-spooky-"]::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+  background:
+    /* Heavy top crush — head/shoulders looming from above */
+    linear-gradient(to bottom, rgba(0,0,0,0.97) 0%, rgba(0,0,0,0.4) 28%, transparent 55%),
+    /* Left side bulk — a shoulder or arm */
+    linear-gradient(to right, rgba(0,0,0,0.92) 0%, rgba(5,0,8,0.5) 20%, transparent 48%),
+    /* Right side — slightly less present, asymmetric */
+    linear-gradient(to left,  rgba(0,0,0,0.80) 0%, rgba(3,0,6,0.3) 18%, transparent 45%),
+    /* Bottom grounding — darkness pooling at the floor */
+    linear-gradient(to top,   rgba(0,0,0,0.70) 0%, transparent 35%),
+    /* Subtle purple-red tint bleeding from top corners — unnatural light */
+    radial-gradient(ellipse 40% 25% at 8%  0%, rgba(35,0,18,0.55) 0%, transparent 100%),
+    radial-gradient(ellipse 35% 22% at 92% 0%, rgba(20,0,30,0.45) 0%, transparent 100%);
+  transition: opacity 1.6s ease;
+  animation: slv-entity-sway 8s ease-in-out infinite;
+}
+
+/* Eye glints — barely there */
+[class*="slv-boot-spooky-"]::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 6;
+  mix-blend-mode: screen;
+  opacity: 0;
+  background:
+    /* Left eye */
+    radial-gradient(ellipse 6% 3% at 28% 22%, rgba(80,30,30,0.5) 0%, transparent 100%),
+    /* Right eye */
+    radial-gradient(ellipse 6% 3% at 72% 22%, rgba(80,30,30,0.5) 0%, transparent 100%);
+  transition: opacity 2s ease;
+  animation: slv-eyes-pulse 6s ease-in-out infinite;
+}
+
+/* Opacity levels for body shadow */
+.slv-boot-spooky-0::after  { opacity: 0;    }
+.slv-boot-spooky-1::after  { opacity: 0.30; }
+.slv-boot-spooky-2::after  { opacity: 0.52; }
+.slv-boot-spooky-3::after  { opacity: 0.66; }
+.slv-boot-spooky-4::after  { opacity: 0.76; }
+.slv-boot-spooky-5::after  { opacity: 0.84; }
+
+/* Opacity levels for eye glints — only appear late */
+.slv-boot-spooky-0::before { opacity: 0;    }
+.slv-boot-spooky-1::before { opacity: 0;    }
+.slv-boot-spooky-2::before { opacity: 0;    }
+.slv-boot-spooky-3::before { opacity: 0.18; }
+.slv-boot-spooky-4::before { opacity: 0.32; }
+.slv-boot-spooky-5::before { opacity: 0.45; }
+
+/* Entity sways very slightly — weight shifting */
+@keyframes slv-entity-sway {
+  0%   { transform: translateX(0px)    scaleY(1);    }
+  30%  { transform: translateX(-2px)   scaleY(1.005);}
+  60%  { transform: translateX(1.5px)  scaleY(1);    }
+  100% { transform: translateX(0px)    scaleY(1);    }
+}
+
+/* Eyes fade in and out — slow, deliberate */
+@keyframes slv-eyes-pulse {
+  0%, 100% { opacity: 0;    }
+  35%       { opacity: 0;    }
+  50%       { opacity: 1;    }
+  65%       { opacity: 0.7;  }
+  80%       { opacity: 0;    }
+}
+
+/* ─── Spooky text flicker (kicks in at level 3) ──────────────────────────── */
+/* Text stays readable — only dims to 0.75 at worst                          */
+.slv-boot-spooky-3 .slv-boot-line--spooky,
+.slv-boot-spooky-4 .slv-boot-line--spooky,
+.slv-boot-spooky-5 .slv-boot-line--spooky {
+  animation: slv-text-flicker 3.5s ease-in-out infinite;
+}
+
+@keyframes slv-text-flicker {
+  0%, 100% { opacity: 1;    }
+  28%       { opacity: 0.82; }
+  30%       { opacity: 1;    }
+  58%       { opacity: 0.75; }
+  60%       { opacity: 1;    }
+  82%       { opacity: 0.88; }
+  84%       { opacity: 1;    }
+}
+
+/* ─── Glitch: paper rip + tentacle rift vignette ─────────────────────────── */
+/*                                                                             */
+/* Phase 1 (0–35%): the page tears — a jagged rip splits the frame           */
+/*   horizontally, the two halves shearing apart with chromatic fringing.    */
+/* Phase 2 (35–80%): tentacles bleed in from the rift and edges —            */
+/*   irregular organic arms of darkness curl inward from all sides,          */
+/*   the void showing through the paper where it tore.                       */
+/* Phase 3 (80–100%): everything snaps closed, paper "heals".                */
+
+/* ── Layer 0: whole frame — rip shear + chromatic aberration ── */
+.slv-glitch {
+  animation: slv-rip-frame 0.7s steps(1) forwards;
+}
+
+@keyframes slv-rip-frame {
+  0%   { transform: translate(0,0) skewX(0deg) scaleY(1); filter: none; }
+  /* crack begins */
+  8%   { transform: translate(-2px, 0) skewX(-0.5deg); filter: drop-shadow(-4px 0 0 rgba(120,0,50,0.5)) drop-shadow(4px 0 0 rgba(40,0,80,0.4)); }
+  /* tear opens — top half lurches left, bottom right */
+  16%  { transform: translate(0, 0) skewX(-3deg) scaleY(0.995);
+          filter: drop-shadow(-10px 0 0 rgba(140,0,55,0.8)) drop-shadow(10px 0 0 rgba(50,0,100,0.7)); }
+  24%  { transform: translate(0, 0) skewX(3.5deg) scaleY(0.99);
+          filter: drop-shadow(12px 0 0 rgba(100,0,35,0.85)) drop-shadow(-8px 0 0 rgba(60,0,90,0.7)); }
+  /* fully torn — frame splits */
+  32%  { transform: translate(0, 0) skewX(-4deg) scaleY(0.985);
+          filter: drop-shadow(-14px 0 0 rgba(130,0,60,0.9)) drop-shadow(12px 0 0 rgba(45,0,110,0.8)); }
+  /* tentacles flooding in — frame shudders */
+  42%  { transform: translate(-3px, 1px) skewX(1deg); filter: drop-shadow(-6px 0 0 rgba(80,0,30,0.6)) drop-shadow(6px 0 0 rgba(35,0,70,0.5)); }
+  52%  { transform: translate(4px, -1px) skewX(-1.5deg); filter: drop-shadow(8px 0 0 rgba(90,0,40,0.65)); }
+  62%  { transform: translate(-2px, 0) skewX(0.5deg); filter: drop-shadow(-5px 0 0 rgba(70,0,25,0.5)); }
+  /* healing */
+  72%  { transform: translate(1px, 0) skewX(-0.3deg); filter: drop-shadow(-2px 0 0 rgba(50,0,20,0.3)); }
+  85%  { transform: translate(0, 0) skewX(0deg); filter: none; }
+  100% { transform: translate(0, 0) skewX(0deg); filter: none; }
+}
+
+/* ── Layer 1: ::before — the tear itself + tentacle vignette ── */
+.slv-glitch::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+  animation: slv-rip-tentacles 0.7s steps(1) forwards;
+}
+
+@keyframes slv-rip-tentacles {
+  /* Phase 1: paper rip — a jagged white-then-black crack */
+  0%   {
+    opacity: 0;
+    background: none;
+  }
+  8%   {
+    opacity: 1;
+    /* hairline crack appears */
+    background: linear-gradient(to bottom,
+      transparent 47%, rgba(200,200,200,0.15) 49%,
+      rgba(255,255,255,0.08) 50%,
+      rgba(200,200,200,0.15) 51%, transparent 53%
+    );
+  }
+  18%  {
+    opacity: 1;
+    /* crack widens, void shows through */
+    background: linear-gradient(to bottom,
+      transparent 42%,
+      rgba(180,180,180,0.12) 44%,
+      rgba(0,0,0,0.9)  46%,
+      rgba(20,0,10,0.95) 48%,
+      rgba(30,0,20,0.95) 50%,
+      rgba(20,0,10,0.95) 52%,
+      rgba(0,0,0,0.9)  54%,
+      rgba(180,180,180,0.12) 56%,
+      transparent 58%
+    );
+  }
+  28%  {
+    opacity: 1;
+    /* void gapes — purple-black rift with red fringe */
+    background: linear-gradient(to bottom,
+      transparent 30%,
+      rgba(150,150,150,0.1) 33%,
+      rgba(0,0,0,0.98) 36%,
+      rgba(25,0,15,0.98) 40%,
+      rgba(40,0,30,0.99) 46%,
+      rgba(50,0,40,1.0)  50%,
+      rgba(40,0,30,0.99) 54%,
+      rgba(25,0,15,0.98) 60%,
+      rgba(0,0,0,0.98) 64%,
+      rgba(150,150,150,0.1) 67%,
+      transparent 70%
+    );
+  }
+  /* Phase 2: tentacles flood in from rift + all edges */
+  38%  {
+    opacity: 1;
+    background:
+      /* rift core */
+      linear-gradient(to bottom, transparent 35%, rgba(10,0,15,0.98) 44%, rgba(50,0,35,0.99) 50%, rgba(10,0,15,0.98) 56%, transparent 65%),
+      /* top tentacle arm — left of center */
+      radial-gradient(ellipse 12% 55% at 35% 0%, rgba(8,0,12,0.95) 0%, transparent 100%),
+      /* top tentacle arm — right of center */
+      radial-gradient(ellipse 10% 45% at 65% 0%, rgba(8,0,12,0.9) 0%, transparent 100%),
+      /* top tentacle arm — far left */
+      radial-gradient(ellipse 8% 38% at 15% 0%, rgba(6,0,10,0.85) 0%, transparent 100%),
+      /* bottom tentacle */
+      radial-gradient(ellipse 14% 50% at 55% 100%, rgba(8,0,12,0.95) 0%, transparent 100%),
+      /* left edge arm */
+      radial-gradient(ellipse 40% 10% at 0% 42%, rgba(8,0,12,0.9) 0%, transparent 100%),
+      /* right edge arm */
+      radial-gradient(ellipse 38% 8%  at 100% 58%, rgba(8,0,12,0.88) 0%, transparent 100%),
+      /* corner masses */
+      radial-gradient(ellipse 35% 35% at 0%   0%,   rgba(5,0,10,0.92) 0%, transparent 100%),
+      radial-gradient(ellipse 30% 30% at 100% 0%,   rgba(5,0,10,0.88) 0%, transparent 100%),
+      radial-gradient(ellipse 32% 32% at 0%   100%, rgba(5,0,10,0.9)  0%, transparent 100%),
+      radial-gradient(ellipse 28% 28% at 100% 100%, rgba(5,0,10,0.85) 0%, transparent 100%);
+  }
+  50%  {
+    opacity: 1;
+    /* tentacles shift — different arms reach further */
+    background:
+      linear-gradient(to bottom, transparent 38%, rgba(15,0,20,0.97) 46%, rgba(55,0,40,0.99) 50%, rgba(15,0,20,0.97) 54%, transparent 62%),
+      radial-gradient(ellipse 9%  60% at 45% 0%,   rgba(8,0,12,0.95) 0%, transparent 100%),
+      radial-gradient(ellipse 11% 42% at 70% 0%,   rgba(7,0,11,0.9)  0%, transparent 100%),
+      radial-gradient(ellipse 7%  35% at 20% 0%,   rgba(6,0,10,0.85) 0%, transparent 100%),
+      radial-gradient(ellipse 13% 55% at 40% 100%, rgba(8,0,12,0.95) 0%, transparent 100%),
+      radial-gradient(ellipse 42% 9%  at 0%   55%, rgba(8,0,12,0.9)  0%, transparent 100%),
+      radial-gradient(ellipse 40% 11% at 100% 45%, rgba(8,0,12,0.88) 0%, transparent 100%),
+      radial-gradient(ellipse 38% 38% at 0%   0%,   rgba(5,0,10,0.92) 0%, transparent 100%),
+      radial-gradient(ellipse 32% 32% at 100% 0%,   rgba(5,0,10,0.88) 0%, transparent 100%),
+      radial-gradient(ellipse 35% 35% at 0%   100%, rgba(5,0,10,0.9)  0%, transparent 100%),
+      radial-gradient(ellipse 30% 30% at 100% 100%, rgba(5,0,10,0.85) 0%, transparent 100%);
+  }
+  62%  {
+    opacity: 1;
+    /* tentacles start retracting — rift narrowing */
+    background:
+      linear-gradient(to bottom, transparent 41%, rgba(8,0,12,0.9) 47%, rgba(30,0,20,0.95) 50%, rgba(8,0,12,0.9) 53%, transparent 59%),
+      radial-gradient(ellipse 6%  35% at 40% 0%,   rgba(6,0,10,0.75) 0%, transparent 100%),
+      radial-gradient(ellipse 5%  28% at 68% 0%,   rgba(5,0,8,0.65)  0%, transparent 100%),
+      radial-gradient(ellipse 8%  40% at 52% 100%, rgba(6,0,10,0.75) 0%, transparent 100%),
+      radial-gradient(ellipse 28% 7%  at 0%   50%, rgba(6,0,10,0.7)  0%, transparent 100%),
+      radial-gradient(ellipse 26% 6%  at 100% 50%, rgba(6,0,10,0.68) 0%, transparent 100%),
+      radial-gradient(ellipse 28% 28% at 0%   0%,   rgba(4,0,8,0.75) 0%, transparent 100%),
+      radial-gradient(ellipse 24% 24% at 100% 0%,   rgba(4,0,8,0.7)  0%, transparent 100%),
+      radial-gradient(ellipse 26% 26% at 0%   100%, rgba(4,0,8,0.72) 0%, transparent 100%),
+      radial-gradient(ellipse 22% 22% at 100% 100%, rgba(4,0,8,0.68) 0%, transparent 100%);
+  }
+  /* Phase 3: paper heals — crack seals, tentacles withdraw */
+  74%  {
+    opacity: 0.6;
+    background:
+      linear-gradient(to bottom, transparent 46%, rgba(5,0,8,0.5) 49%, transparent 52%),
+      radial-gradient(ellipse 18% 18% at 0%   0%,   rgba(3,0,6,0.5) 0%, transparent 100%),
+      radial-gradient(ellipse 15% 15% at 100% 0%,   rgba(3,0,6,0.45) 0%, transparent 100%),
+      radial-gradient(ellipse 16% 16% at 0%   100%, rgba(3,0,6,0.48) 0%, transparent 100%),
+      radial-gradient(ellipse 14% 14% at 100% 100%, rgba(3,0,6,0.42) 0%, transparent 100%);
+  }
+  86%  { opacity: 0.2; background: none; }
+  100% { opacity: 0;   background: none; }
+}
+
+/* ── Layer 2: content shears along the tear line ── */
+.slv-glitch .slv-content {
+  animation: slv-rip-content 0.7s steps(1) forwards;
+}
+
+@keyframes slv-rip-content {
+  0%   { transform: translate(0,0);    clip-path: none; }
+  /* top half tears left */
+  12%  { transform: translate(-8px,0); clip-path: inset(0 0 52% 0); }
+  /* bottom half tears right */
+  20%  { transform: translate(10px,0); clip-path: inset(50% 0 0 0); }
+  /* both halves max displacement */
+  28%  { transform: translate(-14px,0); clip-path: inset(0 0 48% 0); }
+  36%  { transform: translate(16px,0);  clip-path: inset(48% 0 0 0); }
+  /* tentacle phase — content shudders */
+  44%  { transform: translate(-6px,0);  clip-path: inset(0 0 60% 0); }
+  52%  { transform: translate(8px,0);   clip-path: inset(55% 0 0 0); }
+  60%  { transform: translate(-4px,0);  clip-path: inset(0 0 55% 0); }
+  /* healing */
+  70%  { transform: translate(3px,0);   clip-path: inset(0 0 52% 0); }
+  80%  { transform: translate(-2px,0);  clip-path: none; }
+  90%  { transform: translate(1px,0);   clip-path: none; }
+  100% { transform: translate(0,0);     clip-path: none; }
+}

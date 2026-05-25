@@ -1,0 +1,66 @@
+.console-window {
+  padding: 20px;
+  border: 2px solid #555;
+  font-family: 'Courier New', monospace;
+  max-width: 800px;
+  margin: 20px auto;
+  transition: all 0.5s ease;
+}
+
+/* Bathala: Celestial Mode */
+.celestial-theme {
+  background: radial-gradient(circle, #2b2512 0%, #000 100%);
+  color: #FFD700;
+  border-color: #FFA500;
+  text-shadow: 0 0 8px #FFA500;
+}
+
+/* Bathrawarka: Void Mode */
+.void-theme {
+  background: radial-gradient(circle, #1a0a1a 0%, #000 100%);
+  color: #9370DB;
+  border-color: #8B0000;
+  text-shadow: 0 0 8px #8B0000;
+}
+
+.terminal-content {
+  white-space: pre-wrap;
+  height: 60vh;
+  overflow-y: auto;
+  border-bottom: 1px solid currentColor;
+}
+
+.page-counter input {
+  background: transparent;
+  color: inherit;
+  border: 1px solid currentColor;
+  padding: 5px;
+}
+
+.pagination-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.pagination-container button {
+  padding: 8px 16px;
+  border: 1px solid #444;
+  background: #222;
+  color: white;
+  cursor: pointer;
+}
+
+.active-page {
+  background: #3b82f6; 
+  padding: 8px 16px;
+  color: white;
+}
+
+.page-size-select {
+  background: #222;
+  color: white;
+  border: 1px solid #444;
+  padding: 8px;
+}

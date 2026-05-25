@@ -1,0 +1,29 @@
+.book-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.book-image {
+  width: 100%;
+  max-width: 800px; 
+  height: auto;
+  max-height: 90vh;
+  object-fit: contain; 
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+}
+
+.book-controls {
+  margin-top: 20px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .book-controls button {
+    padding: 15px 30px; 
+    font-size: 1.2rem;
+  }
+}

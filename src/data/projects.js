@@ -31,6 +31,17 @@ export const itProjects = [
     githubLink: "https://github.com/ReyesFME/your-repo-link",
     demoLink: "",
     previewImage: "https://placehold.co/300x200/2a2a2a/ffffff?text=WAVE+Documentation"
+  },
+  {
+    id: "it-4",
+    title: "TTRPG Special Project",
+    category: "System Documentation",
+    description: "A comprehensive TTRPG system archive featuring dynamic documentation viewers and interactive manuscript browsing.",
+    techStack: ["React", "Cloudinary", "System Architecture"],
+    githubLink: "https://github.com/ReyesFME/your-repo-link",
+    demoLink: "",
+    previewImage: "https://placehold.co/300x200/2a2a2a/ffffff?text=TTRPG+Archive",
+    isCustomViewer: true
   }
 ];
 
