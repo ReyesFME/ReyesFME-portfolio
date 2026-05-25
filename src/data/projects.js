@@ -75,16 +75,86 @@ export const artProjects = [
     image: "https://placehold.co/400x400/cccccc/121212?text=Anatomy+Study"
   },
   {
-    id: "art-4",
-    title: "W.A.V.E vs D.R.A.IN Level Narrative Script",
+    id: "write-1",
+    title: "A Tale, The One That Was Overshadowed by the Plague",
     category: "written",
-    description: "Dialogue scripts detailing interactive banter between character units.",
-    medium: "Written - Plaintext Script",
-    image: "https://placehold.co/400x400/cccccc/121212?text=Level+Script"
+    description: "A comprehensive structural narrative exploration exploring dark themes, plague environments, and complex character paths.",
+    medium: "Written - Plaintext Draft",
+    fileUrl: "/creative_writings/A_Tale_The_one_that_was_overshadowed_by_the_Plague.txt"
+  },
+  {
+    id: "write-2",
+    title: "As Alive so As Dead - Chapter 6",
+    category: "written",
+    description: "An intense mid-campaign episodic draft detailing thematic character shifts and structural narrative arcs.",
+    medium: "Written - Live Production Log",
+    fileUrl: "/creative_writings/As_Alive_so_As_Dead_Chapter 6.txt"
+  },
+  {
+    id: "write-3",
+    title: "As Sure as the Sun Will Set",
+    category: "written",
+    description: "A clean speculative fiction sequence exploring world parameters, environmental stakes, and a strong organic hook.",
+    medium: "Written - Plaintext Snippet",
+    fileUrl: "/creative_writings/As_sure_as_the_sun_will_set.txt"
+  },
+  {
+    id: "write-4",
+    title: "Ghosts of Revehavez",
+    category: "written",
+    description: "An ongoing dark fantasy premise inspired by Anastasia. Details exiled royal lineages, a reluctant heir, and immediate crisis catalysts.",
+    medium: "Written - Concept & Setting Draft",
+    fileUrl: "/creative_writings/Ghosts_of_Revehavez.txt"
+  },
+  {
+    id: "write-5",
+    title: "Glitch",
+    category: "written",
+    description: "A specialized narrative framework tracking systemic structural anomalies, pacing loops, and dialogue fragments.",
+    medium: "Written - Subconscious Concept Log",
+    fileUrl: "/creative_writings/Glitch.txt"
+  },
+  {
+    id: "write-6",
+    title: "Imaginality - Chapter 7",
+    category: "written",
+    description: "An episodic narrative segment detailing character motivation benchmarks and highly customized encounter interactions.",
+    medium: "Written - Live Production Draft",
+    fileUrl: "/creative_writings/Imaginality_Chapter 7.txt"
+  },
+  {
+    id: "write-7",
+    title: "Imaginality - World Building",
+    category: "written",
+    description: "Core systemic reference mapping parameters, systemic universe properties, and timeline design limits.",
+    medium: "Written - Structural Parameter Draft",
+    fileUrl: "/creative_writings/Imaginality_World Building.txt"
+  },
+  {
+    id: "write-8",
+    title: "Tethered",
+    category: "written",
+    description: "A dark narrative fragment showcasing structural tension mechanics, world tracking parameters, and thematic limitations.",
+    medium: "Written - Plaintext Spec",
+    fileUrl: "/creative_writings/Tethered.txt"
+  },
+  {
+    id: "write-9",
+    title: "The Marauders",
+    category: "written",
+    description: "An episodic action draft focusing heavily on rapid character pacing, combat layout logic, and descriptive flavor tags.",
+    medium: "Written - Character Interaction Fragment",
+    fileUrl: "/creative_writings/The_Marauders.txt"
+  },
+  {
+    id: "write-10",
+    title: "TTRPG Lore Perspective",
+    category: "written",
+    description: "A comprehensive combat and system design spec sheet detailing specific entity status layers, ability profiles, and host splits.",
+    medium: "Written - Gamedev Design Blueprint",
+    fileUrl: "/creative_writings/TTRPG_Lore_Perspective.txt"
   }
 ];
-
-// Inside src/data/projects.js (Section 3)
 
 // =========================================================================
 // --- REYSTARRIE: FILMSTRIP ASSETS DATA (Scrolling Accent Footer) ---
@@ -92,22 +162,37 @@ export const artProjects = [
 export const filmStripAssets = [
   {
     id: "film-1",
-    title: "Art Asset",
-    image: "https://placehold.co/200x120/1a1a1a/ffffff?text=Art+Asset" 
+    title: "Medusa",
+    image: "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779706975/Medusa_vy5iwd.jpg" 
   },
   {
     id: "film-2",
-    title: "Client Logo",
-    image: "https://placehold.co/200x120/1a1a1a/ffffff?text=Client+Logo"
+    title: "Playing Cards",
+    image: "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779689423/Deck_of_Card_mdna89.jpg"
   },
   {
     id: "film-3",
-    title: "Art Asset",
-    image: "https://placehold.co/200x120/1a1a1a/ffffff?text=Art+Asset"
+    title: "Fanfare",
+    image: "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779689413/Fanfare_zrtzif.png"
   },
   {
     id: "film-4",
-    title: "Client Logo",
-    image: "https://placehold.co/200x120/1a1a1a/ffffff?text=Client+Logo"
+    title: "Mavranth",
+    image: "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779689380/Mavranth_sexu4q.png"
+  },
+  {
+    id: "film-5",
+    title: "Dracula",
+    image: "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779706806/Vamp_aph8yo.png"
+  },
+  {
+    id: "film-6",
+    title: "Heavy is the Heart",
+    image: "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779707469/Heavy_is_the_heart_uhvclp.jpg"
+  },
+  {
+    id: "film-7",
+    title: "Heavy is the Heart",
+    image: "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779706799/Thalassianea_yxupj4.jpg"
   }
 ];
