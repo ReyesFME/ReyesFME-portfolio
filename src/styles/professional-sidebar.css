@@ -68,6 +68,8 @@
   border: 2px solid;
   border-color: #555555 #ffffff #ffffff #555555;
   margin: 6px;
+  height: 500px;       
+  box-sizing: border-box;
 }
 
 /* ── Footer ──────────────────────────────────────────────── */
@@ -241,4 +243,29 @@
 
 .psb-sheet-line--spacer {
   margin-top: 4px;
+}
+
+.psb-window--resume {
+     width: min(900px, 92vw);
+     height: 85vh;
+   }
+   .psb-body--resume-preview {
+     overflow-y: auto;
+     padding: 0;
+   }
+
+/* ── Resume Fullscreen Overrides ── */
+.psb-window--resume {
+  width: 100vw !important;
+  max-width: 100vw !important;
+  height: 100vh !important;
+  margin: 0;
+  border: none; 
+  border-radius: 0;
+}
+
+.psb-window--resume .psb-body {
+  flex: 1; 
+  height: auto !important; /* Overrides the fixed 500px height */
+  overflow-y: auto;
 }

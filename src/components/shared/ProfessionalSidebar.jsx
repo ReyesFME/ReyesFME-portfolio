@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import emailjs from '@emailjs/browser';
 import '../../styles/professional-sidebar.css';
 
+import ResumeViewer from './ResumeViewer';
+
 import linkedinIcon from '../../assets/shared/linkedin-icon.png';
 import gmailIcon    from '../../assets/shared/gmail-icon.png';
 // import resumeQR  from '../../assets/shared/resume-qr.png';
@@ -14,7 +16,7 @@ const EMAILJS_CONFIG = {
   publicKey:  'i3eNdHriCFdmyPQbS',
 };
 
-// ── Sidebar icon class maps───────────────────────────
+// ── Sidebar icon class maps ───────────────────────────
 const STYLES = {
   artist: {
     sidebar:          'professional-sidebar',
@@ -47,6 +49,10 @@ const ProfessionalSidebar = ({ variant = 'artist' }) => {
 
   const [isResumeOpen, setIsResumeOpen] = useState(false);
   const [isEmailOpen,  setIsEmailOpen]  = useState(false);
+  
+  // Zoom state for the resume viewer
+  const [resumeZoom, setResumeZoom] = useState(1);
+  
   const [emailSubject, setEmailSubject] = useState('');
   const [emailMessage, setEmailMessage] = useState('');
   const [cloudLink,    setCloudLink]    = useState('');
@@ -92,7 +98,10 @@ const ProfessionalSidebar = ({ variant = 'artist' }) => {
           <span className={s.iconLabel}>Gmail</span>
         </button>
 
-        <button className={`${s.iconBtn} resume-btn-cell`} type="button" onClick={() => setIsResumeOpen(true)}>
+        <button className={`${s.iconBtn} resume-btn-cell`} type="button" onClick={() => {
+          setIsResumeOpen(true);
+          setResumeZoom(1); // Reset zoom to 100% every time window is opened
+        }}>
           <div className={s.qrFrame}>
             {typeof resumeQR !== 'undefined'
               ? <img src={resumeQR} alt="Resume" className={s.qrImg} />
@@ -105,28 +114,47 @@ const ProfessionalSidebar = ({ variant = 'artist' }) => {
       {/* ── Resume Modal ── */}
       {isResumeOpen && (
         <div className="psb-overlay" onClick={() => setIsResumeOpen(false)}>
-          <div className="psb-window" onClick={e => e.stopPropagation()}>
+          <div className="psb-window psb-window--resume" onClick={e => e.stopPropagation()}>
 
             <div className="psb-header">
-              <span className="psb-title">📄 resume_viewer.exe</span>
+              <span className="psb-title">&#9881; resume_viewer.exe</span>
               <button type="button" className="psb-close-btn" onClick={() => setIsResumeOpen(false)}>✕</button>
             </div>
 
-            <div className="psb-body">
-              <div className="psb-sheet">
-                <div className="psb-sheet-line psb-sheet-line--header" />
-                <div className="psb-sheet-line psb-sheet-line--full" />
-                <div className="psb-sheet-line psb-sheet-line--mid" />
-                <div className="psb-sheet-line psb-sheet-line--short psb-sheet-line--spacer" />
-                <div className="psb-sheet-line psb-sheet-line--full" />
-                <div className="psb-sheet-line psb-sheet-line--mid" />
-                <div className="psb-sheet-line psb-sheet-line--short-alt" />
+            <div className="psb-body psb-body--resume-preview">
+              {/* Dynamic Zoom Container */}
+              <div style={{ zoom: resumeZoom, display: 'flex', justifyContent: 'center' }}>
+                <ResumeViewer bare={true} />
               </div>
             </div>
 
             <div className="psb-footer">
               <span className="psb-file-count">1 file(s) ready for download.</span>
-              <a href="/resume.pdf" download="Fiona_Reyes_Resume.pdf" className="psb-btn">Download File</a>
+              
+              {/* Zoom Controls */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '4px', marginRight: '16px' }}>
+                <button 
+                  type="button" 
+                  className="psb-btn" 
+                  style={{ minWidth: '30px', padding: '3px 8px' }} 
+                  onClick={() => setResumeZoom(z => Math.max(0.5, z - 0.2))}
+                >
+                  -
+                </button>
+                <span style={{ color: '#000', fontFamily: 'Courier New', fontSize: '12px', fontWeight: 'bold', minWidth: '45px', textAlign: 'center' }}>
+                  {Math.round(resumeZoom * 100)}%
+                </span>
+                <button 
+                  type="button" 
+                  className="psb-btn" 
+                  style={{ minWidth: '30px', padding: '3px 8px' }} 
+                  onClick={() => setResumeZoom(z => Math.min(2.5, z + 0.2))}
+                >
+                  +
+                </button>
+              </div>
+
+              <a href="/Reyes-Resume.pdf" download="Reyes-Resume.pdf" className="psb-btn">Download File</a>
               <button type="button" className="psb-btn psb-btn--muted" onClick={() => setIsResumeOpen(false)}>Cancel</button>
             </div>
 
