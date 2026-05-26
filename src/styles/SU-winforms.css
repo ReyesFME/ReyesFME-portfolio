@@ -1,0 +1,679 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Share+Tech+Mono&display=swap');
+
+/* ── Reset ─────────────────────────────────────────────────────── */
+.su-wf-root *, .su-wf-root *::before, .su-wf-root *::after {
+  box-sizing: border-box; margin: 0; padding: 0;
+}
+.su-wf-root {
+  font-family: 'Crimson Text', Georgia, serif;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ── Desktop wallpaper ─────────────────────────────────────────── */
+.su-desktop {
+  width: 100%;
+  height: 100%;
+  min-height: 520px;
+  background-size: cover;
+  background-position: center top;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 32px 40px;
+  gap: 36px;
+}
+
+/* ── Desktop gem icons──────────── */
+.su-desktop-icons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+}
+
+.su-desktop-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.18s ease, filter 0.18s ease;
+}
+.su-desktop-icon:hover {
+  transform: scale(1.12);
+  filter: drop-shadow(0 0 12px rgba(145, 79, 221, 0.7));
+}
+.su-desktop-icon:active {
+  transform: scale(0.96);
+}
+
+.su-desktop-icon-emoji {
+  font-size: 48px;
+  line-height: 1;
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.6));
+}
+
+.su-desktop-icon-label {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  color: #fff;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.9), 0 0 8px rgba(0,0,0,0.8);
+  letter-spacing: 0.08em;
+  text-align: center;
+  max-width: 80px;
+  line-height: 1.3;
+  background: rgba(0,0,0,0.35);
+  padding: 2px 6px;
+  border-radius: 2px;
+}
+
+/* ── Taskbar at bottom ─────────────────────────────────────────── */
+.su-taskbar {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 36px;
+  background: rgba(20, 14, 40, 0.88);
+  border-top: 1px solid rgba(90, 75, 129, 0.6);
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  gap: 10px;
+  backdrop-filter: blur(8px);
+  z-index: 10;
+}
+
+.su-taskbar-gem {
+  font-size: 18px;
+  opacity: 0.55;
+  cursor: default;
+  transition: opacity 0.2s, transform 0.2s;
+  position: relative;
+}
+.su-taskbar-gem.open {
+  opacity: 1;
+  cursor: pointer;
+  animation: su-taskbar-bounce 0.4s ease;
+}
+.su-taskbar-gem.open:hover { transform: translateY(-2px); }
+
+@keyframes su-taskbar-bounce {
+  0%   { transform: translateY(0); }
+  40%  { transform: translateY(-6px); }
+  70%  { transform: translateY(-2px); }
+  100% { transform: translateY(0); }
+}
+
+.su-taskbar-label {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  color: #7ab8cc;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-left: auto;
+}
+
+/* ── App window overlay ────────────────────────────────────────── */
+.su-app-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  animation: su-overlay-in 0.2s ease;
+  backdrop-filter: blur(3px);
+}
+@keyframes su-overlay-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.su-app-window {
+  width: min(780px, 95%);
+  max-height: 90%;
+  overflow-y: auto;
+  background: rgba(8, 12, 22, 0.6);
+  border: 1px solid rgba(168, 216, 232, 0.25);
+  box-shadow: 0 32px 80px rgba(0,0,0,0.75), 0 0 0 1px rgba(255,255,255,0.04);
+  animation: su-window-in 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+}
+@keyframes su-window-in {
+  from { opacity: 0; transform: scale(0.88) translateY(20px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* ── Window titlebar ───────────────────────────────────────────── */
+.su-window-titlebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 14px;
+  background: rgba(40, 30, 60, 0.9);
+  border-bottom: 1px solid rgba(90, 75, 129, 0.5);
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+
+.su-window-title {
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  color: #9b8fc0;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.su-window-controls {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+}
+
+.su-window-btn {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  transition: filter 0.15s;
+}
+.su-window-btn:hover { filter: brightness(1.4); }
+.su-window-btn.close  { background: #e05c5c; }
+.su-window-btn.min    { background: #d4a540; }
+.su-window-btn.expand { background: #4caf7d; }
+
+/* ── Screen fade-in ────────────────────────────────────────────── */
+.su-screen {
+  animation: su-fadein 0.3s ease;
+}
+@keyframes su-fadein {
+  from { opacity: 0; transform: translateY(5px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ================================================================
+   CALCULATOR  (Form 6)
+   ================================================================ */
+.su-calcu {
+  background-size: cover;
+  background-position: center;
+  min-height: 460px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 24px;
+}
+
+.calcu-shell {
+  width: 300px;
+  background: rgba(10, 16, 28, 0.82);
+  border: 1px solid rgba(168, 216, 232, 0.25);
+  backdrop-filter: blur(12px);
+  padding: 20px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+}
+
+.calcu-title {
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  color: #7ab8cc;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.calcu-display {
+  background: rgba(5, 10, 18, 0.92);
+  border: 1px solid rgba(168, 216, 232, 0.2);
+  padding: 10px 14px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 26px;
+  color: #c8f0e0;
+  text-align: right;
+  min-height: 52px;
+  margin-bottom: 12px;
+  word-break: break-all;
+  text-shadow: 0 0 10px rgba(168,240,200,0.3);
+}
+
+.calcu-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+}
+
+.calcu-btn {
+  background: rgba(30, 50, 70, 0.85);
+  border: 1px solid rgba(168, 216, 232, 0.15);
+  color: #d8f0f8;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 15px;
+  padding: 14px 0;
+  cursor: pointer;
+  transition: filter 0.1s, transform 0.08s;
+}
+.calcu-btn:hover  { filter: brightness(1.4); }
+.calcu-btn:active { transform: scale(0.93); filter: brightness(0.85); }
+.calcu-btn.op     { color: #a8e8d0; }
+.calcu-btn.eq     { background: rgba(70,130,110,0.8); color: #fff; font-size: 20px; }
+.calcu-btn.eq:hover { filter: brightness(1.2); }
+.calcu-btn.wide   { grid-column: span 2; }
+.calcu-btn.clear  { color: #f0a8a8; }
+
+.calcu-err {
+  color: #f08080;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  text-align: center;
+  padding: 2px 0;
+}
+
+/* ================================================================
+   TEMPERATURE  (Forms 8–11)
+   ================================================================ */
+.su-temp-input {
+  background-size: cover;
+  background-position: center;
+  min-height: 460px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 24px;
+}
+
+.temp-box {
+  background: rgba(10, 18, 30, 0.274);
+  border: 1px solid rgba(168, 216, 232, 0.28);
+  backdrop-filter: blur(12px);
+  padding: 36px 44px;
+  text-align: center;
+  min-width: 300px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+}
+
+.temp-heading {
+  font-family: 'Cinzel', serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #d8f0ff;
+  letter-spacing: 0.08em;
+  margin-bottom: 4px;
+}
+
+.temp-sub {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  color: #7ab8cc;
+  letter-spacing: 0.15em;
+  margin-bottom: 22px;
+  text-transform: uppercase;
+}
+
+.temp-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.temp-num-input {
+  background: rgba(5, 12, 22, 0.88);
+  border: 1px solid rgba(168, 216, 232, 0.38);
+  color: #a8f0d0;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 28px;
+  text-align: center;
+  padding: 10px 12px;
+  width: 120px;
+}
+.temp-num-input:focus { outline: none; border-color: #a8d8e8; }
+
+.temp-unit {
+  font-family: 'Cinzel', serif;
+  font-size: 20px;
+  color: #7ab8cc;
+}
+
+.btn-confirm {
+  background: rgba(60, 100, 130, 0.8);
+  border: 1px solid rgba(168, 216, 232, 0.38);
+  color: #e8f8ff;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  padding: 10px 28px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: filter 0.15s;
+}
+.btn-confirm:hover { filter: brightness(1.3); }
+
+.su-temp-result {
+  min-height: 460px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: right;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding-bottom: 40px;
+  gap: 14px;
+}
+
+.temp-result-label {
+  font-family: 'Cinzel', serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.85);
+  background: rgba(0,0,0,0.45);
+  padding: 8px 24px;
+  letter-spacing: 0.1em;
+}
+
+.btn-back {
+  background: rgba(150, 200, 220, 0.5);
+  border: 1px solid rgba(255,255,255,0.38);
+  color: #fff;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  padding: 10px 28px;
+  cursor: pointer;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+  transition: filter 0.15s;
+  text-transform: uppercase;
+}
+.btn-back:hover { filter: brightness(1.25); }
+
+/* ================================================================
+   REGISTRATION  (Form 13)
+   ================================================================ */
+.su-reg {
+  background-size: cover;
+  background-position: center top;
+  min-height: 460px;
+  padding: 16px;
+}
+
+.reg-frame { max-width: 700px; margin: 0 auto; }
+
+.reg-panel2 {
+  background-size: cover;
+  background-position: center;
+  border: 1px solid rgba(255,255,255,0.18);
+  padding: 18px 24px;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.reg-title-big {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(15px, 2.5vw, 24px);
+  font-weight: 900;
+  color: #180e20;
+  letter-spacing: 0.04em;
+  margin-bottom: 3px;
+}
+.reg-school     { font-family: 'Cinzel', serif; font-size: 12px; font-weight: 700; color: #1a1a1a; }
+.reg-school-sub { font-size: 11px; color: #333; font-style: italic; }
+
+.reg-avatar {
+  width: 72px; height: 72px;
+  object-fit: cover;
+  border: none;
+  border-radius: 50%;
+  flex-shrink: 0;
+  filter: sepia(100%) hue-rotate(250deg) saturate(300%) contrast(1.2);
+}
+
+.reg-section {
+  background: rgba(245, 235, 215, 0.9);
+  border: 1px solid rgba(0,0,0,0.14);
+  margin-bottom: 4px;
+}
+
+.reg-section-hdr {
+  background-size: cover;
+  background-color: #c2a87a;
+  color: #1a1a1a;
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 5px 13px;
+  letter-spacing: 0.06em;
+}
+
+.reg-body { padding: 12px 16px; background: rgba(246, 232, 250, 0.75); }
+
+.reg-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 9px; align-items: flex-end; }
+.reg-field { display: flex; flex-direction: column; gap: 2px; }
+
+.reg-label {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #5a5040;
+}
+
+.reg-input {
+  background: rgba(251, 245, 255, 0.92);
+  border: 1px solid #a588b8;
+  color: #230b29;
+  padding: 4px 7px;
+  font-family: 'Crimson Text', serif;
+  font-size: 12px;
+  min-width: 0;
+}
+.reg-input:focus { outline: none; border-color: #6c408a; }
+
+.reg-select {
+  background: rgba(247, 245, 255, 0.92);
+  border: 1px solid #a188b8;
+  color: #11081a;
+  padding: 4px 6px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  cursor: pointer;
+}
+.reg-select:focus { outline: none; border-color: #66408a; }
+
+.reg-textarea {
+  background: rgba(250, 245, 255, 0.92);
+  border: 1px solid #a588b8;
+  color: #15081a;
+  padding: 7px 9px;
+  font-family: 'Crimson Text', serif;
+  font-size: 12px;
+  resize: vertical;
+  width: 100%;
+}
+.reg-textarea:focus { outline: none; border-color: #60408a; }
+
+.reg-checkbox {
+  display: flex; align-items: center; gap: 5px;
+  font-size: 12px; cursor: pointer; color: #1c102a;
+}
+.reg-checkbox input { accent-color: #8a407e; }
+
+.reg-submit-row {
+  display: flex; justify-content: flex-end; padding: 10px 0 3px;
+}
+
+.btn-submit {
+  background-color: #b07858;
+  background-size: cover;
+  background-blend-mode: multiply;
+  border: 1px solid #62388a;
+  color: #fff;
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  padding: 8px 22px;
+  cursor: pointer;
+  transition: filter 0.15s;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+}
+.btn-submit:hover { filter: brightness(1.18); }
+
+/* ── Toast modal ───────────────────────────────────────────────── */
+.su-toast-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.65);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 999;
+  animation: su-fadein 0.2s ease;
+}
+.su-toast-box {
+  background: rgba(228, 210, 240, 0.97);
+  border: 2px solid #5c408a;
+  padding: 32px 44px; text-align: center; max-width: 300px;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.7);
+}
+.su-toast-icon  { font-size: 30px; margin-bottom: 9px; }
+.su-toast-title { font-family: 'Cinzel', serif; font-size: 16px; color: #27103a; margin-bottom: 7px; font-weight: 700; }
+.su-toast-msg   { font-size: 13px; color: #49306a; margin-bottom: 20px; }
+.btn-ok {
+  background: #6f408a; color: #fff; border: none;
+  font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 0.1em;
+  padding: 8px 26px; cursor: pointer; transition: background 0.15s;
+}
+.btn-ok:hover { background: #6f50a0; }
+
+
+.su-gem-icon {
+  object-fit: contain;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.su-gem-icon.desktop-icon {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 8px;
+  /* Adds a slight glow/shadow to make it pop on the background */
+  filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.4));
+}
+
+.su-gem-icon.title-icon {
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+  transform: translateY(-1px); /* micro-adjustment to align with text */
+}
+
+.su-gem-icon.taskbar-icon {
+  width: 28px;
+  height: 28px;
+}
+
+/* New Start Menu style for the Bismuth icon */
+.su-taskbar-start {
+  margin-right: 15px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.su-taskbar-start:hover {
+  transform: scale(1.1);
+  filter: drop-shadow(0px 0px 5px rgba(255, 255, 255, 0.5));
+}
+
+.btn-close-app {
+  background: transparent;
+  border: none;
+  color: #555;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.btn-close-app:hover {
+  background: rgba(255, 95, 86, 0.9); /* Red hover effect */
+  color: white;
+}
+
+.su-start-menu {
+  position: absolute;
+  bottom: 50px; /* Adjust this slightly if your taskbar is taller/shorter */
+  left: 10px;
+  width: 280px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(214, 194, 238, 0.5);
+  border-radius: 8px;
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: slideUp 0.2s ease-out forwards;
+  z-index: 1000;
+}
+
+.su-start-header {
+  background: rgba(139, 119, 165, 0.4);
+  padding: 12px 15px;
+  font-weight: 600;
+  color: #333;
+  border-bottom: 1px solid rgba(32, 5, 54, 0.3);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 14px;
+}
+
+.su-start-body {
+  padding: 5px;
+}
+
+.su-start-link {
+  padding: 12px 10px;
+  color: #444;
+  text-decoration: none;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.su-start-link:hover {
+  background: rgba(255, 255, 255, 0.9);
+  color: #6919d2;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+@keyframes slideUp {
+  0% { transform: translateY(15px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+.foldericon {
+  width: 20px;
+  height: auto;
+  margin-right: 8px;
+}

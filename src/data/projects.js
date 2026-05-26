@@ -1,6 +1,7 @@
 // =========================================================================
 //  --- FIONA REYES: IT PROFESSIONAL DATA (File Explorer System) ---
 // =========================================================================
+
 export const itProjects = [
   {
     id: "it-1",
@@ -24,16 +25,50 @@ export const itProjects = [
   },
   {
     id: "it-3",
-    title: "Project WAVE SRS & Architecture",
+    title: "C# WinForms PF101 Project",
+    category: "Coding Projects",
+    description: "Selected forms showcasing a Steven Universe inspired WinForms project, rebuilt interactively with React.",
+    techStack: ["C#", "React", "CSS Glassmorphism"],
+    githubLink: "https://github.com/ReyesFME/your-repo-link",
+    demoLink: "",
+    previewImage: "",
+    isCustomViewer: true,
+    customComponent: "StevenUniverseApp"
+  },
+  {
+    id: "it-4",
+    title: "Inventory Management System",
+    category: "Coding Projects",
+    description: "A Python Tkinter UI simulation featuring dynamic state management and mock SQLite database interactions.",
+    techStack: ["Python", "Tkinter", "React"],
+    githubLink: "https://github.com/ReyesFME/your-repo-link",
+    demoLink: "",
+    previewImage: "https://placehold.co/300x200/2a2a2a/ffffff?text=Tkinter+Inventory",
+    isCustomViewer: true,
+    customComponent: "TkinterInventoryApp"
+  },
+  {
+    id: "it-5",
+    title: "Project WAVE GDD",
     category: "System Documentation",
-    description: "Comprehensive software requirements specification and UML diagramming (Gane-Sarson DFDs) for an environmental arcade shooter.",
+    description: "Comprehensive software requirements specification for an environmental arcade shooter.",
     techStack: ["UML", "System Architecture"],
     githubLink: "https://github.com/ReyesFME/your-repo-link",
     demoLink: "",
     previewImage: "https://placehold.co/300x200/2a2a2a/ffffff?text=WAVE+Documentation"
   },
   {
-    id: "it-4",
+    id: "it-6",
+    title: "Project WAVE Project Management",
+    category: "System Documentation",
+    description: "Task and Ticketing for Project WAVE",
+    techStack: ["UML", "System Architecture"],
+    githubLink: "https://github.com/ReyesFME/your-repo-link",
+    demoLink: "",
+    previewImage: "https://placehold.co/300x200/2a2a2a/ffffff?text=WAVE+Documentation"
+  },
+  {
+    id: "it-7",
     title: "TTRPG Special Project",
     category: "System Documentation",
     description: "A comprehensive TTRPG system archive featuring dynamic documentation viewers and interactive manuscript browsing.",
@@ -41,7 +76,20 @@ export const itProjects = [
     githubLink: "https://github.com/ReyesFME/your-repo-link",
     demoLink: "",
     previewImage: "https://placehold.co/300x200/2a2a2a/ffffff?text=TTRPG+Archive",
-    isCustomViewer: true
+    isCustomViewer: true,
+    customComponent: "TTRPGArchiveViewer"
+  },
+  {
+    id: "it-8",
+    title: "Capstone Project DFDs",
+    category: "System Documentation",
+    description: "Contextual, Level 1, Level 2 DFDs of MyHakbang (A capstone project)",
+    techStack: ["React", "Cloudinary", "System Architecture"],
+    githubLink: "https://github.com/ReyesFME/your-repo-link",
+    demoLink: "",
+    previewImage: "https://placehold.co/300x200/2a2a2a/ffffff?text=TTRPG+Archive",
+    isCustomViewer: true,
+    customComponent: "TTRPGArchiveViewer"
   }
 ];
 

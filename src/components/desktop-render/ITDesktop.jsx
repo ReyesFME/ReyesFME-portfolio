@@ -15,10 +15,13 @@ import sysArchIcon from '../../assets/shared/document.png';
 import codingIcon  from '../../assets/shared/laptop.png';
 import illustIcon  from '../../assets/shared/draw.png';
 import sysDocIcon  from '../../assets/shared/document.png';
-import psIcon      from '../../assets/shared/PS.png';
-import clientIcon  from '../../assets/shared/notepad.png';
+import mmIcon      from '../../assets/shared/floppy.png';
+import gameIcon    from '../../assets/shared/game.png';
 
+// --- CUSTOM INTERACTIVE VIEWERS ---
 import TtrpgBookReader from '../TTRPG/TtrpgBookReader.jsx';
+import StevenUniverseApp from '../shared/steven_universe/SU_winforms_native_react.jsx';
+//import TkinterInventoryApp from '../shared/inventory_management/TkinterInventory.jsx';
 
 const TECH_SKILLS = [
   { id: 'react',   label: 'React',               icon: reactIcon   },
@@ -28,11 +31,11 @@ const TECH_SKILLS = [
 ];
 
 const FOLDER_CATEGORIES = [
-  { id: 'coding', label: 'Coding Projects',       icon: codingIcon, dataKey: 'Coding Projects'      },
-  { id: 'illust', label: 'Illustrations',         icon: illustIcon, dataKey: 'Illustrations'         },
+  { id: 'coding', label: 'Coding Projects',       icon: codingIcon, dataKey: 'Coding Projects'       },
+  { id: 'illust', label: 'Subject Illustrations', icon: illustIcon, dataKey: 'Illustrations'         },
   { id: 'sysdoc', label: 'System Documentations', icon: sysDocIcon, dataKey: 'System Documentation' },
-  { id: 'ps',     label: 'Photoshop Works',       icon: psIcon,     dataKey: 'Photoshop Works'       },
-  { id: 'client', label: 'Client-based Works',    icon: clientIcon, dataKey: 'Client-based Works'    },
+  { id: 'mm',     label: 'Multimedia',            icon: mmIcon,     dataKey: 'Multimedia Works'       },
+  { id: 'game', label: 'GameDev Assets',          icon: gameIcon, dataKey: 'Client-based Works'    },
 ];
 
 const ITDesktop = ({ togglePersona }) => {
@@ -172,9 +175,17 @@ const ITDesktop = ({ togglePersona }) => {
 
                     <div className="psb-body itd-detail-body">
                       {activeProject.isCustomViewer ? (
-                        // TtrpgBookReader handles the choice screen → terminal flow internally
-                        <TtrpgBookReader />
+                        /* DYNAMIC COMPONENT ROUTER */
+                        activeProject.customComponent === "StevenUniverseApp" ? (
+                          <StevenUniverseApp />
+                        ) : activeProject.customComponent === "TkinterInventoryApp" ? (
+                          <TkinterInventoryApp />
+                        ) : (
+                          // Fallback to the TTRPG viewer for any other custom viewer 
+                          <TtrpgBookReader />
+                        )
                       ) : (
+                        /* STANDARD PROJECT PREVIEW (Images & Links) */
                         <>
                           <img src={activeProject.previewImage} alt={activeProject.title} className="itd-detail-preview-img" />
                           <p className="itd-proj-category">{activeProject.category}</p>
@@ -186,9 +197,10 @@ const ITDesktop = ({ togglePersona }) => {
                             ))}
                           </div>
                           <div className="itd-project-links">
+                            {/*}
                             {activeProject.githubLink && (
-                              <a href={activeProject.githubLink} target="_blank" rel="noopener noreferrer" className="psb-btn">GitHub →</a>
-                            )}
+                              <a href={activeProject.githubLink} target="_blank" rel="noopener noreferrer" className="psb-btn">GitHub </a>
+                            )}*/}
                             {activeProject.demoLink && (
                               <a href={activeProject.demoLink} target="_blank" rel="noopener noreferrer" className="psb-btn psb-btn--muted">Live Demo →</a>
                             )}
