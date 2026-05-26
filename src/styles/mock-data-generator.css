@@ -1,0 +1,400 @@
+/* =========================================================================
+   MockDataGenerator.css
+   Styles for the Clinical Mock Data Generator interactive viewer
+   ========================================================================= */
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  92%       { opacity: 1; }
+  93%       { opacity: 0.85; }
+  94%       { opacity: 1; }
+}
+
+/* ── Scrollbars ─────────────────────────────────────────────── */
+.mdg-root ::-webkit-scrollbar           { width: 4px; height: 4px; background: #0a0a0a; }
+.mdg-root ::-webkit-scrollbar-thumb     { background: #222; }
+.mdg-root *                             { scrollbar-width: thin; scrollbar-color: #2a2a2a #0a0a0a; }
+.mdg-root button:hover                  { opacity: 0.8; }
+
+/* ── Root ───────────────────────────────────────────────────── */
+.mdg-root {
+  font-family: 'Courier New', Courier, monospace;
+  background:  #0a0a0a;
+  color:       #c8c8c8;
+  /* Fill whatever container it's placed in — no 100vh */
+  width:       100%;
+  height:      100%;
+  display:     flex;
+  flex-direction: column;
+  box-sizing:  border-box;
+  overflow:    hidden;
+}
+
+/* ── Choice screen ──────────────────────────────────────────── */
+.mdg-choice-wrap {
+  flex: 1;
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  flex-direction:  column;
+  gap:             0;
+  padding:         40px 20px;
+  overflow-y:      auto;
+}
+
+.mdg-choice-path {
+  width:          100%;
+  max-width:      520px;
+  margin-bottom:  4px;
+  font-size:      9px;
+  color:          #222;
+  letter-spacing: 1px;
+}
+
+.mdg-choice-box {
+  border:     1px solid #444;
+  padding:    36px 48px;
+  max-width:  520px;
+  width:      100%;
+  background: #0f0f0f;
+  box-shadow: 0 0 40px rgba(200, 200, 200, 0.03);
+  box-sizing: border-box;
+}
+
+.mdg-choice-title {
+  font-size:      13px;
+  letter-spacing: 3px;
+  color:          #888;
+  text-transform: uppercase;
+  margin-bottom:  6px;
+}
+
+.mdg-choice-file {
+  font-size:      20px;
+  color:          #e0e0e0;
+  margin-bottom:  6px;
+  letter-spacing: 0.5px;
+}
+
+.mdg-choice-desc {
+  font-size:      11px;
+  color:          #555;
+  margin-bottom:  32px;
+  letter-spacing: 1px;
+}
+
+.mdg-choice-btns {
+  display:        flex;
+  flex-direction: column;
+  gap:            10px;
+}
+
+.mdg-choice-footer-top,
+.mdg-choice-footer-bot {
+  width:          100%;
+  max-width:      520px;
+  font-size:      9px;
+  letter-spacing: 1px;
+  display:        flex;
+  justify-content: space-between;
+}
+
+.mdg-choice-footer-top { margin-top: 12px; color: #222; }
+.mdg-choice-footer-bot { color: #1e1e1e; }
+
+/* ── Buttons (shared) ───────────────────────────────────────── */
+.mdg-btn-run,
+.mdg-btn-src,
+.mdg-btn-back,
+.mdg-btn-download {
+  font-family:    inherit;
+  cursor:         pointer;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border:         none;
+  transition:     background 0.15s, border-color 0.15s, color 0.1s, opacity 0.1s;
+  box-sizing:     border-box;
+}
+
+.mdg-btn-run {
+  background:  #1e1e1e;
+  border:      1px solid #666;
+  color:       #e0e0e0;
+  padding:     12px 20px;
+  font-size:   12px;
+  text-align:  left;
+  width:       100%;
+}
+
+.mdg-btn-src {
+  background:  transparent;
+  border:      1px solid #333;
+  color:       #888;
+  padding:     12px 20px;
+  font-size:   12px;
+  text-align:  left;
+  width:       100%;
+}
+
+.mdg-btn-icon { margin-right: 10px; color: #bbb; }
+
+.mdg-btn-back {
+  background:     transparent;
+  border:         1px solid #333;
+  color:          #666;
+  padding:        4px 12px;
+  font-size:      10px;
+  letter-spacing: 1px;
+}
+
+.mdg-btn-download {
+  background:     transparent;
+  border:         1px solid #333;
+  color:          #666;
+  padding:        6px 14px;
+  font-size:      10px;
+  letter-spacing: 1px;
+  flex-shrink:    0;
+}
+
+.mdg-btn-download:hover { color: #c8c8c8; border-color: #666; }
+
+/* ── Terminal header bar ────────────────────────────────────── */
+.mdg-term-bar {
+  display:         flex;
+  align-items:     center;
+  justify-content: space-between;
+  padding:         8px 16px;
+  background:      #111;
+  border-bottom:   1px solid #2a2a2a;
+  flex-shrink:     0;
+}
+
+.mdg-term-bar-title {
+  font-size:      11px;
+  color:          #555;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* ── Terminal body ──────────────────────────────────────────── */
+.mdg-term-body {
+  flex:            1;
+  display:         flex;
+  flex-direction:  column;
+  overflow:        hidden;
+  min-height:      0; /* critical for flex children to shrink */
+}
+
+.mdg-term-scroll {
+  overflow-y: auto;
+  padding:    20px 24px;
+}
+
+/* Compact collapsed log once data is ready */
+.mdg-term-scroll--collapsed {
+  flex:       0 0 auto;
+  max-height: 220px;
+  border-bottom: 1px solid #1a1a1a;
+}
+
+/* Expanded log fills remaining space */
+.mdg-term-scroll--expanded {
+  flex: 1;
+}
+
+.mdg-term-line {
+  font-size:   12px;
+  line-height: 1.9;
+  white-space: pre-wrap;
+  word-break:  break-word;
+}
+
+.mdg-term-dim    { color: #444; }
+.mdg-term-bright { color: #e0e0e0; }
+.mdg-term-accent { color: #aaa; }
+.mdg-term-success { color: #888; }
+
+.mdg-term-cursor {
+  display:        inline-block;
+  width:          8px;
+  height:         14px;
+  background:     #c8c8c8;
+  vertical-align: middle;
+  margin-left:    1px;
+  animation:      blink 1s step-end infinite;
+}
+
+/* ── Data panel ─────────────────────────────────────────────── */
+.mdg-data-panel {
+  flex:           1;
+  display:        flex;
+  flex-direction: column;
+  overflow:       hidden;
+  min-height:     0;
+}
+
+/* ── Tabs ───────────────────────────────────────────────────── */
+.mdg-tabs {
+  display:      flex;
+  border-bottom: 1px solid #222;
+  flex-shrink:  0;
+  overflow-x:   auto;
+}
+
+.mdg-tab {
+  padding:        8px 14px;
+  font-size:      10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor:         pointer;
+  border:         none;
+  background:     transparent;
+  color:          #444;
+  font-family:    inherit;
+  border-bottom:  2px solid transparent;
+  white-space:    nowrap;
+  transition:     color 0.1s;
+}
+
+.mdg-tab--active {
+  color:         #c8c8c8;
+  border-bottom: 2px solid #888;
+}
+
+.mdg-tab-count         { margin-left: 5px; color: #2a2a2a; }
+.mdg-tab--active .mdg-tab-count { color: #555; }
+
+/* ── Table wrapper — THIS is what makes the table scrollable ── */
+.mdg-table-wrap {
+  flex:       1;
+  overflow-y: auto;
+  overflow-x: auto;   /* horizontal scroll enabled */
+  padding:    16px 24px;
+  min-height: 0;
+}
+
+.mdg-table {
+  width:            100%;
+  min-width:        900px;  /* forces horizontal scroll before collapsing */
+  border-collapse:  collapse;
+  font-size:        11px;
+}
+
+.mdg-th {
+  text-align:     left;
+  color:          #555;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-size:      9px;
+  padding:        6px 10px;
+  border-bottom:  1px solid #222;
+  white-space:    nowrap;
+  font-family:    inherit;
+}
+
+.mdg-td {
+  padding:       7px 10px;
+  border-bottom: 1px solid #181818;
+  color:         #a0a0a0;
+  max-width:     220px;
+  overflow:      hidden;
+  text-overflow: ellipsis;
+  white-space:   nowrap;
+}
+
+.mdg-td--mono {
+  padding:       7px 10px;
+  border-bottom: 1px solid #181818;
+  color:         #666;
+  white-space:   nowrap;
+  font-family:   inherit;
+  font-size:     10px;
+}
+
+.mdg-td--row-num { color: #2e2e2e; }
+
+.mdg-tr--even { background: #0a0a0a; }
+.mdg-tr--odd  { background: #0d0d0d; }
+
+/* ── Table footer — kept visible, never clipped ─────────────── */
+.mdg-table-footer {
+  padding:         10px 24px;
+  border-top:      1px solid #1a1a1a;
+  display:         flex;
+  align-items:     center;
+  justify-content: space-between;
+  flex-shrink:     0;       /* never squish */
+  background:      #0a0a0a; /* ensure it's opaque */
+  gap:             12px;
+}
+
+.mdg-footer-count {
+  font-size:      10px;
+  color:          #444;
+  letter-spacing: 1px;
+}
+
+/* ── Source viewer ──────────────────────────────────────────── */
+.mdg-src-wrap {
+  flex:           1;
+  display:        flex;
+  flex-direction: column;
+  overflow:       hidden;
+  min-height:     0;
+}
+
+.mdg-src-header {
+  display:         flex;
+  align-items:     center;
+  justify-content: space-between;
+  padding:         8px 16px;
+  border-bottom:   1px solid #1e1e1e;
+  background:      #0d0d0d;
+  flex-shrink:     0;
+}
+
+.mdg-src-filename {
+  font-size:      11px;
+  color:          #555;
+  letter-spacing: 2px;
+}
+
+.mdg-src-scroll {
+  flex:       1;
+  overflow-y: auto;
+  padding:    16px 0;
+}
+
+.mdg-src-line {
+  display:     flex;
+  align-items: flex-start;
+}
+
+.mdg-src-num {
+  color:       #2e2e2e;
+  font-size:   11px;
+  padding:     1px 16px 1px 8px;
+  min-width:   48px;
+  text-align:  right;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.mdg-src-code {
+  color:       #8a8a8a;
+  font-size:   11px;
+  line-height: 1.8;
+  white-space: pre;
+  padding:     1px 0;
+}

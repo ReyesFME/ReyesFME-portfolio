@@ -1,0 +1,108 @@
+.mm-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: #1a1a1a;
+  color: #eaeaea;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.mm-header {
+  padding: 15px 20px;
+  background-color: #252525;
+  border-bottom: 1px solid #3a3a3a;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.mm-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #ffffff;
+  margin: 0;
+}
+
+.mm-meta {
+  font-size: 0.85rem;
+  color: #a0a0a0;
+}
+
+.mm-content-area {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+}
+
+/* Image Mode Styles */
+.mm-image-canvas {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: #121212;
+  overflow: auto;
+}
+
+.mm-image-canvas img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border: 1px solid #333;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+}
+
+/* Text Mode Styles */
+.mm-text-reader {
+  flex: 1;
+  padding: 30px;
+  background-color: #1e1e1e;
+  overflow-y: auto;
+  line-height: 1.6;
+  font-size: 0.95rem;
+  white-space: pre-wrap; /* Preserves your text file formatting */
+}
+
+/* Custom Scrollbar */
+.mm-text-reader::-webkit-scrollbar,
+.mm-image-canvas::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.mm-text-reader::-webkit-scrollbar-track,
+.mm-image-canvas::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+.mm-text-reader::-webkit-scrollbar-thumb,
+.mm-image-canvas::-webkit-scrollbar-thumb {
+  background: #4a4a4a;
+  border-radius: 4px;
+}
+.mm-text-reader::-webkit-scrollbar-thumb:hover,
+.mm-image-canvas::-webkit-scrollbar-thumb:hover {
+  background: #6a6a6a;
+}
+
+/* Gallery Mode Styles (Side-by-Side) */
+.mm-image-gallery {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 20px;
+  background-color: #121212;
+  overflow: auto;
+  flex-wrap: wrap; /* Allows them to stack if the window gets too small */
+}
+
+.mm-image-gallery img {
+  max-width: calc(50% - 10px); /* Forces two images to fit perfectly side-by-side */
+  height: auto;
+  object-fit: contain;
+  border: 1px solid #333;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+}

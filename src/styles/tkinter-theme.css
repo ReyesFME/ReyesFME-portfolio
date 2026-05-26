@@ -1,0 +1,496 @@
+/* --------------------------------------------------------------------------
+   SCREEN WRAPPER
+   -------------------------------------------------------------------------- */
+.tki-screen {
+  width: 100%;
+  height: 100%;
+  min-height: 480px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 13px;
+  color: #1a1a1a;
+  background-color: #ece9d8;
+  position: relative;
+}
+
+/* --------------------------------------------------------------------------
+   WELCOME SCREEN
+   -------------------------------------------------------------------------- */
+.tki-welcome-screen {
+  align-items: center;
+  justify-content: center;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.tki-welcome-card {
+  background: rgba(255, 255, 255, 0.88);
+  border: 2px solid #7a9fbf;
+  border-radius: 4px;
+  padding: 36px 44px;
+  max-width: 460px;
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255,255,255,0.9);
+}
+
+.tki-welcome-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1a3a5c;
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+
+.tki-welcome-subtitle {
+  font-size: 12px;
+  color: #555;
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+/* --------------------------------------------------------------------------
+   HEADER BAR
+   -------------------------------------------------------------------------- */
+.tki-header {
+  background: linear-gradient(to bottom, #3a6ea5, #2c5488);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 14px;
+  flex-shrink: 0;
+  border-bottom: 1px solid #1e3e6a;
+}
+
+.tki-header-title {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.tki-header-actions {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+/* --------------------------------------------------------------------------
+   CONTROLS BAR
+   -------------------------------------------------------------------------- */
+.tki-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+  padding: 8px 12px;
+  background: #f0ede0;
+  border-bottom: 1px solid #c0bdb0;
+  flex-shrink: 0;
+}
+
+.tki-controls-label {
+  font-weight: 600;
+  color: #2a2a2a;
+  white-space: nowrap;
+}
+
+/* --------------------------------------------------------------------------
+   INPUTS & SELECTS
+   -------------------------------------------------------------------------- */
+.tki-input,
+.tki-select {
+  font-family: "Segoe UI", Tahoma, sans-serif;
+  font-size: 12px;
+  padding: 3px 6px;
+  border: 1px solid #7f9db9;
+  border-radius: 2px;
+  background: #ffffff;
+  color: #1a1a1a;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.tki-input:focus,
+.tki-select:focus {
+  border-color: #3a6ea5;
+  box-shadow: 0 0 0 2px rgba(58, 110, 165, 0.18);
+}
+
+.tki-input[type="number"] {
+  width: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   BUTTONS
+   -------------------------------------------------------------------------- */
+.tki-btn {
+  font-family: "Segoe UI", Tahoma, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 3px;
+  border: 1px solid #7a9fbf;
+  background: linear-gradient(to bottom, #f5f4ef, #dddbd0);
+  color: #1a1a1a;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.1s, box-shadow 0.1s;
+  line-height: 1.6;
+}
+
+.tki-btn:hover {
+  background: linear-gradient(to bottom, #ffffff, #e8e5d8);
+  border-color: #3a6ea5;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.14);
+}
+
+.tki-btn:active {
+  background: linear-gradient(to bottom, #d0cec4, #e8e5d8);
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.15);
+}
+
+.tki-btn--primary {
+  background: linear-gradient(to bottom, #5a9dd5, #2e6db4);
+  border-color: #1e5094;
+  color: #ffffff;
+  padding: 8px 28px;
+  font-size: 13px;
+}
+
+.tki-btn--primary:hover {
+  background: linear-gradient(to bottom, #74aee0, #3a7ec4);
+}
+
+.tki-btn--header {
+  font-size: 11px;
+  padding: 3px 10px;
+  background: rgba(255,255,255,0.15);
+  border-color: rgba(255,255,255,0.4);
+  color: #ffffff;
+}
+
+.tki-btn--header:hover {
+  background: rgba(255,255,255,0.28);
+}
+
+.tki-btn--action {
+  width: 100%;
+  text-align: center;
+  padding: 5px 8px;
+}
+
+.tki-btn--danger {
+  border-color: #b56060;
+  color: #7a1a1a;
+}
+
+.tki-btn--danger:hover {
+  background: linear-gradient(to bottom, #ffe8e8, #f5d0d0);
+  border-color: #8a2020;
+}
+
+/* --------------------------------------------------------------------------
+   CHART
+   -------------------------------------------------------------------------- */
+.tki-chart-container {
+  background: #fafaf6;
+  border-bottom: 1px solid #c0bdb0;
+  padding: 12px 16px;
+  flex-shrink: 0;
+}
+
+.tki-chart-title {
+  font-weight: 700;
+  font-size: 12px;
+  color: #2a3a50;
+  margin-bottom: 10px;
+}
+
+.tki-chart-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.tki-chart-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 50px;
+  flex-shrink: 0;
+}
+
+.tki-chart-bar-wrap {
+  width: 36px;
+  display: flex;
+  align-items: flex-end;
+  height: 140px;
+}
+
+.tki-chart-bar {
+  width: 100%;
+  background: linear-gradient(to top, #2e6db4, #74aee0);
+  border-radius: 2px 2px 0 0;
+  border: 1px solid #1e5094;
+  transition: height 0.3s ease;
+}
+
+.tki-chart-bar--low {
+  background: linear-gradient(to top, #c0392b, #e74c3c);
+  border-color: #922b21;
+}
+
+.tki-chart-label {
+  font-size: 10px;
+  color: #444;
+  text-align: center;
+  word-break: break-word;
+  max-width: 50px;
+  line-height: 1.2;
+}
+
+.tki-chart-qty {
+  font-size: 10px;
+  font-weight: 700;
+  color: #2a3a50;
+}
+
+/* --------------------------------------------------------------------------
+   MAIN LAYOUT (TABLE + FORM SIDE BY SIDE)
+   -------------------------------------------------------------------------- */
+.tki-main {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  padding: 10px;
+  gap: 10px;
+}
+
+/* --------------------------------------------------------------------------
+   LABELFRAME (XP-style group box)
+   -------------------------------------------------------------------------- */
+.tki-table-frame,
+.tki-form-frame {
+  border: 1px solid #a0b4c8;
+  border-radius: 3px;
+  background: #fafaf8;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+.tki-labelframe-title {
+  position: relative;
+  left: 5px;
+  background: #fafaf8;
+  padding: 0 4px 10px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #2a3a50;
+  white-space: nowrap;
+}
+
+.tki-table-frame {
+  flex: 1;
+  min-width: 0;
+  padding-top: 10px;
+}
+
+.tki-form-frame {
+  width: 220px;
+  flex-shrink: 0;
+  padding: 16px 10px 10px;
+}
+
+/* --------------------------------------------------------------------------
+   TABLE
+   -------------------------------------------------------------------------- */
+.tki-table-scroll {
+  flex: 1;
+  overflow: auto;
+  padding: 0 6px;
+}
+
+.tki-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  table-layout: fixed;
+}
+
+.tki-table thead tr {
+  background: linear-gradient(to bottom, #e8f0f8, #d0dce8);
+  border-bottom: 2px solid #a0b4c8;
+}
+
+.tki-table th {
+  padding: 5px 8px;
+  text-align: left;
+  font-weight: 700;
+  font-size: 11px;
+  color: #1a2a3a;
+  border-right: 1px solid #c0cdd8;
+  user-select: none;
+}
+
+.tki-table th:last-child {
+  border-right: none;
+}
+
+.tki-table td {
+  padding: 5px 8px;
+  border-bottom: 1px solid #e8e4d8;
+  border-right: 1px solid #eee;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tki-table td:last-child {
+  border-right: none;
+}
+
+.tki-td-center {
+  text-align: center;
+}
+
+.tki-row-even {
+  background: #ffffff;
+}
+
+.tki-row-odd {
+  background: #f6f4ee;
+}
+
+.tki-row-low {
+  background: #ffe6e6 !important;
+  color: #7a1a1a;
+}
+
+.tki-row-selected {
+  background: #cce4f7 !important;
+  color: #0a2a4a;
+  outline: 1px solid #3a6ea5;
+}
+
+.tki-table tbody tr {
+  cursor: pointer;
+  transition: background 0.08s;
+}
+
+.tki-table tbody tr:hover:not(.tki-row-selected) {
+  background: #ddeef8 !important;
+}
+
+.tki-table-empty {
+  text-align: center;
+  color: #888;
+  padding: 20px;
+  font-style: italic;
+}
+
+.tki-table-footer {
+  padding: 5px 10px;
+  font-size: 11px;
+  color: #555;
+  border-top: 1px solid #c8c4b8;
+  flex-shrink: 0;
+  background: #f0ede0;
+}
+
+.tki-low-notice {
+  color: #8a2020;
+  font-weight: 600;
+  margin-left: 6px;
+}
+
+/* --------------------------------------------------------------------------
+   PRODUCT FORM
+   -------------------------------------------------------------------------- */
+.tki-form-error {
+  font-size: 11px;
+  color: #8a2020;
+  background: #ffe8e8;
+  border: 1px solid #e0a0a0;
+  border-radius: 2px;
+  padding: 4px 8px;
+  margin-bottom: 8px;
+}
+
+.tki-form-grid {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 5px 8px;
+  margin-bottom: 10px;
+}
+
+.tki-form-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #2a2a2a;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.tki-form-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+/* --------------------------------------------------------------------------
+   TOAST NOTIFICATION
+   -------------------------------------------------------------------------- */
+.tki-toast {
+  position: absolute;
+  top: 44px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 6px 18px;
+  border-radius: 3px;
+  font-size: 12px;
+  font-weight: 600;
+  z-index: 999;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.22);
+  animation: tki-fadein 0.18s ease;
+  pointer-events: none;
+}
+
+.tki-toast--success {
+  background: #d4edda;
+  border: 1px solid #5aaa6f;
+  color: #1a5a2a;
+}
+
+.tki-toast--info {
+  background: #d1ecf1;
+  border: 1px solid #4a9aaa;
+  color: #0a4a5a;
+}
+
+.tki-toast--warn {
+  background: #fff3cd;
+  border: 1px solid #c0922a;
+  color: #5a3a00;
+}
+
+@keyframes tki-fadein {
+  from { opacity: 0; transform: translateX(-50%) translateY(-6px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+/* --------------------------------------------------------------------------
+   DASHBOARD SCREEN
+   -------------------------------------------------------------------------- */
+.tki-dashboard-screen {
+  background: #ece9d8;
+}

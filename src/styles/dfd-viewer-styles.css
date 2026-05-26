@@ -1,0 +1,88 @@
+.dfd-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: #1e1e1e;
+  color: #eaeaea;
+}
+
+.dfd-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  border-bottom: 1px solid #333;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.dfd-tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.dfd-btn {
+  padding: 8px 16px;
+  background-color: #2a2a2a;
+  color: #eaeaea;
+  border: 1px solid #4a4a4a;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: monospace;
+  transition: background-color 0.2s ease;
+}
+
+.dfd-btn.active {
+  background-color: #4a4a4a;
+}
+
+.dfd-btn:hover:not(.active) {
+  background-color: #3a3a3a;
+}
+
+.dfd-zoom-controls {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-family: monospace;
+}
+
+.dfd-zoom-level {
+  min-width: 50px;
+  text-align: center;
+}
+
+.dfd-image-area {
+  flex: 1;
+  padding: 20px;
+  overflow: auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.dfd-image {
+  height: auto;
+  object-fit: contain;
+  border: 1px solid #333;
+  transition: width 0.2s ease-in-out;
+  background-color: #fff;
+}
+
+/* Sleek Scrollbar */
+.dfd-scroll::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+.dfd-scroll::-webkit-scrollbar-track {
+  background: #1e1e1e;
+}
+.dfd-scroll::-webkit-scrollbar-thumb {
+  background: #4a4a4a;
+  border-radius: 5px;
+  border: 2px solid #1e1e1e;
+}
+.dfd-scroll::-webkit-scrollbar-thumb:hover {
+  background: #6a6a6a;
+}

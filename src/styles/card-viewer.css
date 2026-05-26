@@ -1,0 +1,196 @@
+.card-viewer-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: #1a1a1a;
+  color: #eaeaea;
+  overflow: hidden;
+}
+
+.card-controls {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  padding: 15px;
+  background-color: #252525;
+  border-bottom: 1px solid #333;
+  z-index: 10;
+}
+
+.card-btn {
+  padding: 10px 20px;
+  background-color: #3a3a3a;
+  color: #fff;
+  border: 1px solid #555;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: monospace;
+  font-weight: bold;
+  transition: all 0.2s;
+}
+
+.card-btn:hover:not(:disabled) {
+  background-color: #555;
+  transform: translateY(-2px);
+}
+
+.card-btn:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.card-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.card-play-area {
+  flex: 1;
+  position: relative;
+  padding: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: auto;
+}
+
+/* --- Spread Mode (Grid/Flex) --- */
+.card-spread {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: flex-start;
+  align-content: flex-start;
+  width: 100%;
+  height: 100%;
+}
+
+.card-spread .playing-card {
+  position: relative;
+  transform: none !important; /* Overrides the messy stack rotation */
+}
+
+/* --- Stack Mode --- */
+.card-stack {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-stack .playing-card {
+  position: absolute;
+}
+
+.card-stack .playing-card:hover {
+  transform: translateY(-20px) scale(1.05) !important;
+  z-index: 100 !important;
+}
+
+/* --- 3D Card Container --- */
+.playing-card {
+  width: 220px;
+  height: 300px;
+  perspective: 1000px; /* Creates the 3D depth */
+  transition: transform 0.4s ease-out, top 0.4s, left 0.4s;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* The Inner Wrapper that actually rotates */
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+  transform-style: preserve-3d;
+  /* FIX: Initially rotate 180 degrees so the back face shows first */
+  transform: rotateY(180deg);
+}
+
+/* The Flip Trigger (Now rotates to 0 to show the front) */
+.playing-card.is-flipped .card-inner {
+  transform: rotateY(0deg);
+}
+
+/* Front and Back Faces */
+.card-front, 
+.card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden; /* Hides the reverse side when flipped */
+  
+  /* FIX: Set explicit solid background colors to fix transparency */
+  background-color: #000; 
+  
+  border-radius: 12px;
+  border: 2px solid #444;
+  
+  /* FIX: Lessened black shadow intensity and spread */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.4); 
+  
+  overflow: hidden;
+}
+
+/* FIX: Standard mapping needs the back side rotated relative to the front initially */
+.card-back {
+  /* Back face stays standard rotateY(0), but the inner wrapper is already flipped */
+  transform: rotateY(0deg);
+}
+
+.card-front {
+  /* Front face is pre-rotated 180 degrees backwards */
+  transform: rotateY(180deg);
+}
+
+.card-front img, 
+.card-back img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+/* Shuffling Animation State */
+.is-shuffling .playing-card {
+  opacity: 0.7;
+  transform: scale(0.9) rotate(calc(var(--rand-rot) * 3deg)) translate(calc(var(--rand-x) * 1px), calc(var(--rand-y) * 1px)) !important;
+}
+
+/* --- Navigation Arrows (Stack Mode) --- */
+.deck-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(40, 40, 40, 0.8);
+  color: #fff;
+  border: 2px solid #555;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 1000; /* Keeps them above the cards */
+  transition: all 0.2s;
+}
+
+.deck-arrow:hover {
+  background-color: #555;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.deck-arrow:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.deck-arrow-left {
+  left: 10%;
+}
+
+.deck-arrow-right {
+  right: 10%;
+}

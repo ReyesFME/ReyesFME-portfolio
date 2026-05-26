@@ -7,21 +7,25 @@ export const itProjects = [
     id: "it-1",
     title: "CPU Scheduling Processing Program",
     category: "Coding Projects",
-    description: "An event-driven program calculating process scheduling (FCFS, SJF) with Gantt chart visualizations.",
-    techStack: ["C#", "WinForms"],
+    description: "An event-driven program calculating process scheduling (FCFS, SJF, SRTF, Priority, Round Robin) with Gantt chart visualizations.",
+    techStack: ["Python", "React"],
     githubLink: "https://github.com/ReyesFME/your-repo-link",
-    demoLink: "", 
-    previewImage: "https://placehold.co/300x200/2a2a2a/ffffff?text=CPU+Scheduling" 
+    demoLink: "",
+    previewImage: "",
+    isCustomViewer: true,
+    customComponent: "CPUSchedulerApp"
   },
   {
     id: "it-2",
-    title: "MyHakbang Clinical Data Generator",
+    title: "Clinical Mock Data Generator",
     category: "Coding Projects",
-    description: "A Python script utilizing Pandas to generate and clean synthetic clinical datasets for a Decision Support System.",
+    description: "A Python to generate and clean synthetic clinical datasets for a Decision Support System.",
     techStack: ["Python", "Pandas"],
     githubLink: "https://github.com/ReyesFME/your-repo-link",
     demoLink: "",
-    previewImage: "https://placehold.co/300x200/2a2a2a/ffffff?text=MyHakbang+Data"
+    previewImage: "",
+    isCustomViewer: true,
+    customComponent: "MockReportGeneratorApp"
   },
   {
     id: "it-3",
@@ -49,23 +53,15 @@ export const itProjects = [
   },
   {
     id: "it-5",
-    title: "Project WAVE GDD",
+    title: "Project W.A.V.E. GDD and Project Management",
     category: "System Documentation",
     description: "Comprehensive software requirements specification for an environmental arcade shooter.",
     techStack: ["UML", "System Architecture"],
     githubLink: "https://github.com/ReyesFME/your-repo-link",
     demoLink: "",
-    previewImage: "https://placehold.co/300x200/2a2a2a/ffffff?text=WAVE+Documentation"
-  },
-  {
-    id: "it-6",
-    title: "Project WAVE Project Management",
-    category: "System Documentation",
-    description: "Task and Ticketing for Project WAVE",
-    techStack: ["UML", "System Architecture"],
-    githubLink: "https://github.com/ReyesFME/your-repo-link",
-    demoLink: "",
-    previewImage: "https://placehold.co/300x200/2a2a2a/ffffff?text=WAVE+Documentation"
+    previewImage: "https://placehold.co/300x200/2a2a2a/ffffff?text=WAVE+Documentation",
+    isCustomViewer: true,
+    customComponent: "WaveDocViewerApp"
   },
   {
     id: "it-7",
@@ -89,7 +85,317 @@ export const itProjects = [
     demoLink: "",
     previewImage: "https://placehold.co/300x200/2a2a2a/ffffff?text=TTRPG+Archive",
     isCustomViewer: true,
-    customComponent: "TTRPGArchiveViewer"
+    customComponent: "DfdImageViewerApp"
+  },
+  {
+    id: "mm-1",
+    title: "Multimedia Film Fest Script",
+    category: "Multimedia Works",
+    description: "",
+    medium: "Written",
+    fileUrl: "/IT_writings/MM_(BSIT2-3)_ FILM FEST_2025.txt", // Must be in public folder
+    isCustomViewer: true,
+    customComponent: "MultimediaViewerApp"
+  },
+  {
+    id: "mm-2",
+    title: "Client-based Work: Gidel Mood Board",
+    category: "Multimedia Works",
+    description: "A Submission Work to the subject: MM",
+    medium: "Client-Based Work · Canva, Photoshop.",
+    image: "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779685396/1_jm4y49.png",
+    isCustomViewer: true,
+    customComponent: "MultimediaViewerApp"
+  },
+  {
+    id: "mm-3",
+    title: "Client-based Work: Secret Cafe Mood Board",
+    category: "Multimedia Works",
+    description: "A Submission Work to the subject: MM",
+    medium: "Client-Based Work · Canva, Photoshop.",
+    image: "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779685283/The_Secret_Cafe_Brand_board_v721ty.png",
+    isCustomViewer: true,
+    customComponent: "MultimediaViewerApp"
+  },
+  {
+    id: "mm-4",
+    title: "Activity: Custom Money Design",
+    category: "Multimedia Works",
+    description: "Type: Classroom Activity · Canva, Photoshop.",
+    medium: "Digital Design",
+    images: [
+      "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779801005/150_Bill_Front_vxewpm.png", 
+      "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779801004/150_Bill_Back_qbmnmd.png"
+    ],
+    isCustomViewer: true,
+    customComponent: "MultimediaViewerApp"
+  },
+  {
+    id: "mm-5",
+    title: "Artist Profile",
+    category: "Multimedia Works",
+    description: "Photoshop.",
+    medium: "Digital Design · Photoshop",
+    image: "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779685222/Artist-Profile_sedgge.png",
+    isCustomViewer: true,
+    customComponent: "MultimediaViewerApp"
+  },
+  {
+    id: "mm-6",
+    title: "Punk Poster",
+    category: "Multimedia Works",
+    description: "Photoshop.",
+    medium: "Digital Design · Photoshop",
+    image: "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779685210/Punk-Poster_qmvlse.jpg",
+    isCustomViewer: true,
+    customComponent: "MultimediaViewerApp"
+  },
+  {
+    id: "mm-7",
+    title: "Custom Book Cover",
+    category: "Multimedia Works",
+    description: "Photoshop.",
+    medium: "Digital Design · Photoshop",
+    image: "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779685182/book-cover_xrg9ub.jpg",
+    isCustomViewer: true,
+    customComponent: "MultimediaViewerApp"
+  },
+  {
+    id: "mm-8",
+    title: "Custom Book Cover",
+    category: "Multimedia Works",
+    description: "Photoshop.",
+    medium: "Digital Design · Photoshop",
+    image: "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779685226/Book-Cover-Code___Chaos_j8hfcw.jpg",
+    isCustomViewer: true,
+    customComponent: "MultimediaViewerApp"
+  },
+  {
+    id: "mm-9",
+    title: "Gengar",
+    category: "Multimedia Works",
+    description: "Photoshop.",
+    medium: "Digital Design · Photoshop",
+    image: "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779685237/GENGAR_2_latudc.png",
+    isCustomViewer: true,
+    customComponent: "MultimediaViewerApp"
+  },
+  {
+    id: "mm-10",
+    title: "Coat of Arms for Platoon",
+    category: "Multimedia Works",
+    description: "Photoshop.",
+    medium: "Digital Design · Ibis Paint",
+    image: "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779687649/MP_Coat_of_Arms_nlogwj.png",
+    isCustomViewer: true,
+    customComponent: "MultimediaViewerApp"
+  },
+  {
+    id: "mm-11",
+    title: "Org Shirt for Platoon",
+    category: "Multimedia Works",
+    description: "Photoshop.",
+    medium: "Digital Design · Ibis Paint",
+    image: "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779687771/MP-org-shirt_fyyfi6.png",
+    isCustomViewer: true,
+    customComponent: "MultimediaViewerApp"
+  },
+  {
+    id: "mm-12",
+    title: "Reading Visual Arts: Sketch",
+    category: "Multimedia Works",
+    description: "Traditional Drawing.",
+    medium: "Traditional Design · Pencil and Pen",
+    image: "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779689436/Sketchbook_quote_v2m9w1.jpg",
+    isCustomViewer: true,
+    customComponent: "MultimediaViewerApp"
+  },
+  {
+    id: "mm-13",
+    title: "Reading Visual Arts: Drawing Lines Activity · Tower of Babel",
+    category: "Multimedia Works",
+    description: "Traditional Drawing.",
+    medium: "Traditional Design · Pencil and Pen",
+    image: "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779689448/RVA_Tower_of_Babel_fprfrx.jpg",
+    isCustomViewer: true,
+    customComponent: "MultimediaViewerApp"
+  },
+  {
+    id: "mm-14",
+    title: "Reading Visual Arts: Geometric Art",
+    category: "Multimedia Works",
+    description: "Traditional Drawing.",
+    medium: "Traditional Design · Ibis Paint",
+    image: "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779706826/Geometric_Art_me57ob.jpg",
+    isCustomViewer: true,
+    customComponent: "MultimediaViewerApp"
+  },
+  {
+    id: "mm-15",
+    title: "Rizal Activity: My Life as a Book Cover",
+    category: "Multimedia Works",
+    description: "Digital Design.",
+    medium: "Digital Design · Photoshop",
+    image: "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779685193/life_cover_assignment_lhrvfb.jpg",
+    isCustomViewer: true,
+    customComponent: "MultimediaViewerApp"
+  },
+  {
+    id: "mm-15",
+    title: "Basic Game Mood Board",
+    category: "Game Development Assets",
+    description: "Digital Design.",
+    medium: "Digital Design · Ibis Paint",
+    image: "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779686410/Drowned_Treasure_Logo_Mood_Board_ldjuwd.png",
+    isCustomViewer: true,
+    customComponent: "MultimediaViewerApp"
+  },
+  {
+    id: "mm-16",
+    title: "Character Illustrations",
+    category: "Game Development Assets",
+    description: "Ibis Paint",
+    medium: "Digital Design",
+    images: [
+      "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779801005/150_Bill_Front_vxewpm.png", 
+      "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779801004/150_Bill_Back_qbmnmd.png",
+      "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779801004/150_Bill_Back_qbmnmd.png",
+      "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779801004/150_Bill_Back_qbmnmd.png"
+    ],
+    isCustomViewer: true,
+    customComponent: "MultimediaViewerApp"
+  },
+  {
+    id: "gd-4", 
+    title: "Game 1: Card Deck",
+    category: "Game Development Assets", 
+    description: "Interactive showcase of the Final Card Lineup. Click any card to flip it over!",
+    medium: "Digital Asset",
+    
+    cardBacks: {
+      //Action Cards
+      typeAction: "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779686432/12_oloopc.png",
+      
+      // Sea Events Card
+      typeSea_t: "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779686429/13_ax9yov.png",
+      
+      // Upgrade Card
+      typeUpgrade: "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779686558/26_rhnxwg.png"
+    },
+
+    // Assign each front to one of those types
+    cardData: [ 
+      { type: "typeAction", front: "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779686426/1_eew2dk.png" },
+      { type: "typeAction", front: "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779686455/2_sbtkfl.png" },
+      { type: "typeAction", front: "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779686437/11_eiend3.png" },
+      { type: "typeAction", front: "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779686426/1_eew2dk.png" },
+      
+      // Wait and Bait
+      { type: "typeSea_t", front: "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779686440/15_cgzf7h.png" },
+      // Tidal Catastrophe
+      { type: "typeSea_t", front: "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779686442/14_taf9hf.png" },
+      //Stranded
+      { type: "typeSea_t", front: "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779686445/16_pqzyqa.png" },
+      //Rogue Waters
+      { type: "typeSea_t", front: "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779686447/17_p79hfk.png" },
+      //Rest and Repair
+      { type: "typeSea_t", front: "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779686450/18_x0gkbf.png" },
+      //Paldoooooo
+      { type: "typeSea_t", front: "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779686452/19_k2tdre.png" },
+      //Old Map
+      { type: "typeSea_t", front: "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779686457/20_fdfqur.png" },
+      //Fish Overboard
+      { type: "typeSea_t", front: "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779686460/21_apefqa.png" },
+      //Dutchman's Blessing
+      { type: "typeSea_t", front: "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779686462/22_xlo0iu.png" },
+      //Blessing of the Sea Spirit
+      { type: "typeSea_t", front: "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779686495/23_qc3tck.png" },
+
+
+      //Player Base Card
+      { type: "typeUpgrade", front: "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779686568/27_bjk3oc.png" },
+      //Fishing Gear Upgrade level 2
+      { type: "typeUpgrade", front: "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779686569/31_zcrfdo.png" },
+       //Fishing Gear Upgrade level 3
+      { type: "typeUpgrade", front: "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779686569/31_zcrfdo.png" },
+      // Boat Upgrade level 2
+      { type: "typeUpgrade", front: "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779686570/28_ebflc3.png" },
+      // Boat Upgrade level 3
+      { type: "typeUpgrade", front: "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779686570/29_g6cjsi.png" }
+
+    ],
+    isCustomViewer: true,
+    customComponent: "CardDeckViewerApp"
+  },
+  {
+    id: "gd-5",
+    title: "TTRPG Character Illustrations: Bathala's Pantheon",
+    category: "Game Development Assets",
+    description: "Ibis Paint",
+    medium: "Digital Design",
+    image:"https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779687049/Bathala_s_pantheon_Final_w5vk5l.png",
+    isCustomViewer: true,
+    customComponent: "MultimediaViewerApp"
+  },
+  {
+    id: "gd-6",
+    title: "TTRPG Character Illustrations: Bathrawarka's Pantheon",
+    category: "Game Development Assets",
+    description: "Ibis Paint",
+    medium: "Digital Design",
+    image:"https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779686814/BathrawarkasPantheon_ks90hw.jpg",
+    isCustomViewer: true,
+    customComponent: "MultimediaViewerApp"
+  },
+  {
+    id: "gd-7",
+    title: "TTRPG Pre-Made Character Illustrations: Gahumagia",
+    category: "Game Development Assets",
+    description: "Ibis Paint",
+    medium: "Digital Design",
+    image:"https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779686803/Gahumagiapremade_ncbciz.jpg",
+    isCustomViewer: true,
+    customComponent: "MultimediaViewerApp"
+  },
+  {
+    id: "gd-8",
+    title: "TTRPG Pre-Made Character Illustrations: Babaylan",
+    category: "Game Development Assets",
+    description: "Ibis Paint",
+    medium: "Digital Design",
+    image:"https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779686358/Babaylan_premade_kfd23x.png",
+    isCustomViewer: true,
+    customComponent: "MultimediaViewerApp"
+  },
+  {
+    id: "gd-9",
+    title: "TTRPG Pre-Made Character Illustrations: Animato",
+    category: "Game Development Assets",
+    description: "Ibis Paint",
+    medium: "Digital Design",
+    image:"https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779686355/Animato_premade_dy0wdj.png",
+    isCustomViewer: true,
+    customComponent: "MultimediaViewerApp"
+  },
+  {
+    id: "gd-10",
+    title: "TTRPG Pre-Made Character Illustrations: Katalonan",
+    category: "Game Development Assets",
+    description: "Ibis Paint",
+    medium: "Digital Design",
+    image:"https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779686354/katalonan_premade_lr5zpy.png",
+    isCustomViewer: true,
+    customComponent: "MultimediaViewerApp"
+  },
+  {
+    id: "gd-11",
+    title: "TTRPG Pre-Made Character Illustrations: Pajareador",
+    category: "Game Development Assets",
+    description: "Ibis Paint",
+    medium: "Digital Design",
+    image:"https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779686352/pajareador_premade_yvivij.png",
+    isCustomViewer: true,
+    customComponent: "MultimediaViewerApp"
   }
 ];
 

@@ -19,15 +19,25 @@ import mmIcon      from '../../assets/shared/floppy.png';
 import gameIcon    from '../../assets/shared/game.png';
 
 // --- CUSTOM INTERACTIVE VIEWERS ---
-import TtrpgBookReader from '../TTRPG/TtrpgBookReader.jsx';
-import StevenUniverseApp from '../shared/steven_universe/SU_winforms_native_react.jsx';
-//import TkinterInventoryApp from '../shared/inventory_management/TkinterInventory.jsx';
+import CPUSchedulerApp        from '../shared/CPU_Scheduling/CPUScheduler.jsx';
+import TtrpgBookReader        from '../TTRPG/TtrpgBookReader.jsx';
+import StevenUniverseApp      from '../shared/steven_universe/SU_winforms_native_react.jsx';
+import TkinterInventoryApp    from '../shared/inventory_management/TkinterInventory.jsx';
+import MockReportGeneratorApp from '../shared/Mock_Data_Generator/MockDataGenerator.jsx';
+import WaveDocViewer          from '../shared/WaveDocViewer.jsx';
+import DfdViewer              from '../shared/DfdViewer.jsx';
+import MultimediaViewer       from '../shared/MultimediaViewer.jsx';
+import CardDeckViewer         from '../shared/GameDevCards/CardDeckViewer.jsx';
+
+
+
+
 
 const TECH_SKILLS = [
   { id: 'react',   label: 'React',               icon: reactIcon   },
   { id: 'python',  label: 'Python',              icon: pythonIcon  },
   { id: 'js',      label: 'JavaScript',          icon: jsIcon      },
-  { id: 'sysarch', label: 'System Architecture', icon: sysArchIcon },
+  { id: 'sysarch', label: 'UML',                 icon: sysArchIcon },
 ];
 
 const FOLDER_CATEGORIES = [
@@ -35,7 +45,7 @@ const FOLDER_CATEGORIES = [
   { id: 'illust', label: 'Subject Illustrations', icon: illustIcon, dataKey: 'Illustrations'         },
   { id: 'sysdoc', label: 'System Documentations', icon: sysDocIcon, dataKey: 'System Documentation' },
   { id: 'mm',     label: 'Multimedia',            icon: mmIcon,     dataKey: 'Multimedia Works'       },
-  { id: 'game', label: 'GameDev Assets',          icon: gameIcon, dataKey: 'Client-based Works'    },
+  { id: 'game',   label: 'GameDev Assets',        icon: gameIcon, dataKey: 'Game Development Assets'    },
 ];
 
 const ITDesktop = ({ togglePersona }) => {
@@ -81,7 +91,9 @@ const ITDesktop = ({ togglePersona }) => {
         </div>
 
         <p className="itd-tagline">
-          3rd year IT Student in Pamantasan ng Lungsod ng Valenzuela.<br />
+          Creative, Critical, and Detail-Oriented  with technological education 
+          and capabilities to yield meaningful results in a variety of media and discipline.
+          3rd year IT Student in Pamantasan ng Lungsod ng Valenzuela.
           Currently seeking a company I can render my OJT hours to.
         </p>
 
@@ -93,7 +105,7 @@ const ITDesktop = ({ togglePersona }) => {
           <div className="itd-more-info-panel">
             <p> Valenzuela City, Philippines</p>
             <p> Bachelor of Science in Information Technology</p>
-            <p> Expected graduation: 2026</p>
+            <p> Expected graduation: 2027</p>
           </div>
         )}
 
@@ -169,41 +181,38 @@ const ITDesktop = ({ togglePersona }) => {
                 {activeProject ? (
                   <>
                     <div className="psb-header">
-                      <span className="psb-title">📄 {activeProject.title}</span>
+                      <span className="psb-title">🗁 {activeProject.title}</span>
                       <button type="button" className="psb-close-btn" onClick={handleCloseProject}>✕</button>
                     </div>
 
                     <div className="psb-body itd-detail-body">
                       {activeProject.isCustomViewer ? (
-                        /* DYNAMIC COMPONENT ROUTER */
-                        activeProject.customComponent === "StevenUniverseApp" ? (
-                          <StevenUniverseApp />
-                        ) : activeProject.customComponent === "TkinterInventoryApp" ? (
-                          <TkinterInventoryApp />
-                        ) : (
-                          // Fallback to the TTRPG viewer for any other custom viewer 
-                          <TtrpgBookReader />
-                        )
+                        activeProject.customComponent === "CPUSchedulerApp" ? <CPUSchedulerApp /> :
+                        activeProject.customComponent === "MockReportGeneratorApp" ? <MockReportGeneratorApp /> :
+                        activeProject.customComponent === "StevenUniverseApp" ? <StevenUniverseApp /> :
+                        activeProject.customComponent === "TkinterInventoryApp" ? <TkinterInventoryApp /> :
+                        activeProject.customComponent === "WaveDocViewerApp" ? <WaveDocViewer /> :
+                        activeProject.customComponent === "DfdImageViewerApp" ? <DfdViewer />:
+                        activeProject.customComponent === "MultimediaViewerApp" ? <MultimediaViewer project={activeProject} /> :
+                        activeProject.customComponent === "CardDeckViewerApp" ? <CardDeckViewer project={activeProject} /> :
+                        <TtrpgBookReader />
                       ) : (
-                        /* STANDARD PROJECT PREVIEW (Images & Links) */
                         <>
                           <img src={activeProject.previewImage} alt={activeProject.title} className="itd-detail-preview-img" />
-                          <p className="itd-proj-category">{activeProject.category}</p>
-                          <h2 className="itd-proj-title">{activeProject.title}</h2>
-                          <p className="itd-proj-desc">{activeProject.description}</p>
-                          <div className="itd-tech-stack">
-                            {activeProject.techStack.map(tech => (
-                              <span key={tech} className="itd-tech-tag">{tech}</span>
-                            ))}
-                          </div>
-                          <div className="itd-project-links">
-                            {/*}
-                            {activeProject.githubLink && (
-                              <a href={activeProject.githubLink} target="_blank" rel="noopener noreferrer" className="psb-btn">GitHub </a>
-                            )}*/}
-                            {activeProject.demoLink && (
-                              <a href={activeProject.demoLink} target="_blank" rel="noopener noreferrer" className="psb-btn psb-btn--muted">Live Demo →</a>
-                            )}
+                          <div className="itd-detail-info">
+                            <p className="itd-proj-category">{activeProject.category}</p>
+                            <h2 className="itd-proj-title">{activeProject.title}</h2>
+                            <p className="itd-proj-desc">{activeProject.description}</p>
+                            <div className="itd-tech-stack">
+                              {activeProject.techStack.map(tech => (
+                                <span key={tech} className="itd-tech-tag">{tech}</span>
+                              ))}
+                            </div>
+                            <div className="itd-project-links">
+                              {activeProject.demoLink && (
+                                <a href={activeProject.demoLink} target="_blank" rel="noopener noreferrer" className="psb-btn psb-btn--muted">Live Demo →</a>
+                              )}
+                            </div>
                           </div>
                         </>
                       )}
