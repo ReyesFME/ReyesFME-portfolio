@@ -252,16 +252,26 @@ export const itProjects = [
   },
   {
     id: "mm-16",
-    title: "Character Illustrations",
+    title: "Main Characters Illustrations",
     category: "Game Development Assets",
     description: "Ibis Paint",
     medium: "Digital Design",
     images: [
-      "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779801005/150_Bill_Front_vxewpm.png", 
-      "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779801004/150_Bill_Back_qbmnmd.png",
-      "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779801004/150_Bill_Back_qbmnmd.png",
-      "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779801004/150_Bill_Back_qbmnmd.png"
+      "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779706446/Character_Illustration_-_Adamante_Ventura_te5mt9.png", 
+      "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779814308/Angelo_Abayon_xexmg1.jpg",
+      "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779706432/Character_Illustration_-_-Fulgencio_Mariano_qydffx.png",
+      "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779706427/Character_Illustration_-_Nathaniel_Capal_jt7fmp.png"
     ],
+    isCustomViewer: true,
+    customComponent: "MultimediaViewerApp"
+  },
+  {
+    id: "mm-17",
+    title: "Enemy Characters Illustrations",
+    category: "Game Development Assets",
+    description: "Ibis Paint",
+    medium: "Digital Design",
+    image: "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779685557/received_1742133207176996_pgrkfj.jpg",
     isCustomViewer: true,
     customComponent: "MultimediaViewerApp"
   },
@@ -406,27 +416,173 @@ export const itProjects = [
 export const artProjects = [
   {
     id: "art-1",
-    title: "Project WAVE Main Character Sprite",
+    title: "Ecstacies of St. Theresa",
     category: "digital",
-    description: "Multi-layered 2D character assets (David Gretenburgoh and Vår Montrose) built for smooth Unity environment integration.",
+    description: "A digital portrait of the statue, Ecstacies of St. Theresa, by Gian Lorenzo Bernini",
     medium: "Digital - ibis Paint",
-    image: "https://placehold.co/400x400/cccccc/121212?text=Art+Asset"
+    image: "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779689383/The_Ecstacies_of_St._Teresa_pbua9e.png",
+    isCustomViewer: true,
+    customComponent: "MultimediaViewerApp"
   },
   {
     id: "art-2",
-    title: "Websys Client Logo Redesign",
+    title: "Thalassinea",
     category: "digital",
-    description: "Vector logo design and clean branding layout mockups for a freelance client system.",
+    description: "Custom DND Character Design",
     medium: "Digital",
-    image: "https://placehold.co/400x400/cccccc/121212?text=Client+Logo"
+    image: "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779706799/Thalassianea_yxupj4.jpg",
+    isCustomViewer: true,
+    customComponent: "MultimediaViewerApp"
   },
   {
     id: "art-3",
-    title: "Anatomy & Motion Ink Study",
+    title: "The Shadow that is Loathing",
     category: "traditional",
-    description: "Gesture and kinetic flow sketches practicing high-speed posture framing.",
-    medium: "Traditional - Ink & Bristol",
-    image: "https://placehold.co/400x400/cccccc/121212?text=Anatomy+Study"
+    description: "Fanmade Character from the game: Shadows Over Loathing",
+    medium: "Traditional - Pen, Pencil, Acrylic Paint",
+    image: "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779689419/Shadows_that_is_Loathing_lckm0x.jpg",
+    isCustomViewer: true,
+    customComponent: "MultimediaViewerApp"
+  },
+  {
+    id: "art-4",
+    title: "Backroom Entities Concept",
+    category: "traditional",
+    description: "Concept/Charactrer Design for custom backroom entity",
+    medium: "Traditional - Copic Markers, Pen, Pencil, Acrylic Paint",
+    image: "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779689422/Concept_-_Backroom_entities_byre9b.jpg",
+    isCustomViewer: true,
+    customComponent: "MultimediaViewerApp"
+  },
+  {
+    id: "art-5",
+    title: "Deck of Cards",
+    category: "traditional",
+    description: "Charactrer Design for the four suites of cards",
+    medium: "Traditional - Copic Markers, Pen, Pencil",
+    image: "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779689423/Deck_of_Card_mdna89.jpg",
+    isCustomViewer: true,
+    customComponent: "MultimediaViewerApp"
+  },
+  {
+    id: "art-6",
+    title: "Medusa",
+    category: "traditional",
+    description: "Charactrer Design for the four suites of cards",
+    medium: "Traditional - Pencil",
+    image: "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779706975/Medusa_vy5iwd.jpg",
+    isCustomViewer: true,
+    customComponent: "MultimediaViewerApp"
+  },
+  {
+    id: "art-7",
+    title: "Memento Mori",
+    category: "traditional",
+    description: "Illustration of Death and Quote of Stoicism",
+    medium: "Traditional - Acrylic Paint, Pen, Pencil",
+    image: "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779689418/Memento_Mori_jhdmlx.jpg",
+    isCustomViewer: true,
+    customComponent: "MultimediaViewerApp"
+  },
+  {
+    id: "art-8",
+    title: "Junji Ito",
+    category: "traditional",
+    description: "Illustration of my favourite panels from Junji Ito's Manga",
+    medium: "Traditional - Pen, Pencil",
+    image: "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779689417/Junji_Ito_p8i816.jpg",
+    isCustomViewer: true,
+    customComponent: "MultimediaViewerApp"
+  },
+  {
+    id: "art-9",
+    title: "Fanfare",
+    category: "traditional",
+    description: "Illustration of the characters in my original story, Imaginality",
+    medium: "Traditional - Copic Markers, Pen, Pencil, Washi Tapes",
+    image: "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779689413/Fanfare_zrtzif.png",
+    isCustomViewer: true,
+    customComponent: "MultimediaViewerApp"
+  },
+  {
+    id: "art-10",
+    title: "Goddess Flo",
+    category: "traditional",
+    description: "Redesign of the character, Flo, from Diner Dash",
+    medium: "Traditional - Copic Markers, Pen, Pencil",
+    image: "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779689414/Goddess_Flo_i8dj9j.jpg",
+    isCustomViewer: true,
+    customComponent: "MultimediaViewerApp"
+  },
+  {
+    id: "art-11",
+    title: "Drakiel Concept Art",
+    category: "digital",
+    description: "Concept Art of a character from my story.",
+    medium: "Digital - Ibis Paint",
+    image: "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779689412/Drakiel_concept_odx1pl.png",
+    isCustomViewer: true,
+    customComponent: "MultimediaViewerApp"
+  },
+  {
+    id: "art-12",
+    title: "Statua de Felisina Desolata",
+    category: "digital",
+    description: "Portrait of a statue made by Giovanni Battista",
+    medium: "Digital - Ibis Paint",
+    image: "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779689383/Statua_di_Felsina_Desolata_sdiaam.png",
+    isCustomViewer: true,
+    customComponent: "MultimediaViewerApp"
+  },
+  {
+    id: "art-13",
+    title: "Obi Wan Kenobi",
+    category: "digital",
+    description: "Jedi Knight, my second favorite Jedi after his master, Qui-Gon Jinn",
+    medium: "Digital - Ibis Paint",
+    image: "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779706793/Obi_Wan_Kenobi_x2xyre.png",
+    isCustomViewer: true,
+    customComponent: "MultimediaViewerApp"
+  },
+  {
+    id: "art-14",
+    title: "Robert Langdon",
+    category: "digital",
+    description: "My imaaginative design of how Robert Langdon looks like as I'm reading the book. (No offense to Tom Hanks.)",
+    medium: "Digital - Ibis Paint",
+    image: "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779689381/Robert_Langdon_y1ccl9.png",
+    isCustomViewer: true,
+    customComponent: "MultimediaViewerApp"
+  },
+  {
+    id: "art-15",
+    title: "Mavranth",
+    category: "digital",
+    description: "A Genshin inspired Original Character design.",
+    medium: "Digital - Ibis Paint",
+    image: "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779689380/Mavranth_sexu4q.png",
+    isCustomViewer: true,
+    customComponent: "MultimediaViewerApp"
+  },
+  {
+    id: "art-16",
+    title: "Taurus",
+    category: "digital",
+    description: "A design of the astrological sign, Taurus",
+    medium: "Digital - Ibis Paint",
+    image: "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779689381/Day_8_Taurus_xccrdr.png",
+    isCustomViewer: true,
+    customComponent: "MultimediaViewerApp"
+  },
+  {
+    id: "art-17",
+    title: "Vampire",
+    category: "digital",
+    description: "A portrait of a vampire as seen from an artist's eyes",
+    medium: "Digital - Ibis Paint",
+    image: "https://res.cloudinary.com/dwqatvm5x/image/upload/q_auto/f_auto/v1779706806/Vamp_aph8yo.png",
+    isCustomViewer: true,
+    customComponent: "MultimediaViewerApp"
   },
   {
     id: "write-1",

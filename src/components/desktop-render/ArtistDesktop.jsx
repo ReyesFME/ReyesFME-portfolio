@@ -3,6 +3,7 @@ import { artProjects } from '../../data/projects';
 import FilmStrip from '../../components/FilmStrip.jsx';
 import SocialBar from '../shared/SocialBar.jsx';
 import ProfessionalSidebar from '../shared/ProfessionalSidebar.jsx';
+import MultimediaViewer from '../shared/MultimediaViewer.jsx';
 import '../../styles/artist-desktop.css';
 import '../../styles/professional-sidebar.css';
 
@@ -13,9 +14,19 @@ import writtenIcon     from '../../assets/shared/notepad.png';
 import artistCharacter from '../../assets/shared/ArtistModel.png';
 
 const ArtistDesktop = () => {
-  const [activeFolder, setActiveFolder] = useState(null);
+  const [activeFolder, setActiveFolder]   = useState(null);
+  const [activeProject, setActiveProject] = useState(null);
 
   const filteredProjects = artProjects.filter(p => p.category === activeFolder);
+
+  const handleCloseFolder = () => {
+    setActiveFolder(null);
+    setActiveProject(null);
+  };
+
+  const handleCloseProject = () => {
+    setActiveProject(null);
+  };
 
   return (
     <div className="artist-desktop-container">
@@ -34,12 +45,19 @@ const ArtistDesktop = () => {
         <h2 className="workspace-heading">Personal Projects</h2>
         <div className="desktop-icons-row">
           {[
-            { key: 'digital',     icon: digitalIcon,     label: 'Digital'      },
-            { key: 'traditional', icon: traditionalIcon, label: 'Traditional'  },
-            { key: 'written',     icon: writtenIcon,     label: 'Written'      },
+            { key: 'digital',     icon: digitalIcon,     label: 'Digital'     },
+            { key: 'traditional', icon: traditionalIcon, label: 'Traditional' },
+            { key: 'written',     icon: writtenIcon,     label: 'Written'     },
           ].map(({ key, icon, label }) => (
-            <button key={key} className="desktop-icon-btn" type="button" onClick={() => setActiveFolder(key)}>
-              <div className="icon-frame"><img src={icon} alt={label} className="icon-graphic" /></div>
+            <button
+              key={key}
+              className="desktop-icon-btn"
+              type="button"
+              onClick={() => { setActiveFolder(key); setActiveProject(null); }}
+            >
+              <div className="icon-frame">
+                <img src={icon} alt={label} className="icon-graphic" />
+              </div>
               <span className="icon-label">{label}</span>
             </button>
           ))}
@@ -68,36 +86,62 @@ const ArtistDesktop = () => {
 
       {/* ── File Explorer Modal — XP chrome ── */}
       {activeFolder && (
-        <div className="psb-overlay" onClick={() => setActiveFolder(null)}>
-          <div
-            className="psb-window"
-            onClick={e => e.stopPropagation()}
-            style={{ width: 'clamp(300px, 58vw, 680px)', maxWidth: '92vw' }}
-          >
-            <div className="psb-header">
-              <span className="psb-title">🗁 file_explorer.exe — C:\Projects\{activeFolder}</span>
-              <button type="button" className="psb-close-btn" onClick={() => setActiveFolder(null)}>✕</button>
+        <div className="psb-overlay">
+          <div className={`itd-split-panel${activeProject ? ' itd-split-panel--detail-open' : ''}`}>
+
+            {/* ── Left pane: file list ── */}
+            <div className="psb-window itd-split-explorer">
+              <div className="psb-header">
+                <span className="psb-title">🗁 file_explorer.exe — C:\Projects\{activeFolder}</span>
+                <button type="button" className="psb-close-btn" onClick={handleCloseFolder}>✕</button>
+              </div>
+
+              <div className="psb-body itd-explorer-body">
+                {filteredProjects.length > 0 ? (
+                  filteredProjects.map(project => (
+                    <button
+                      key={project.id}
+                      className={`itd-explorer-file${activeProject?.id === project.id ? ' itd-explorer-file--active' : ''}`}
+                      type="button"
+                      onClick={() => setActiveProject(project)}
+                    >
+                      <div className="itd-file-icon">🗎</div>
+                      <span className="itd-file-name">{project.title}</span>
+                    </button>
+                  ))
+                ) : (
+                  <div className="itd-empty-dir">[ SYSTEM ALERT: Directory is currently unpopulated ]</div>
+                )}
+              </div>
+
+              <div className="psb-footer">
+                <span className="psb-file-count">{filteredProjects.length} object(s) detected in matrix cluster.</span>
+                <button type="button" className="psb-btn psb-btn--muted" onClick={handleCloseFolder}>Close Directory</button>
+              </div>
             </div>
 
-            <div className="psb-body explorer-body-grid">
-              {filteredProjects.length > 0 ? (
-                filteredProjects.map(project => (
-                  <div key={project.id} className="explorer-file-item">
-                    <div className="file-icon-placeholder">🗎</div>
-                    <span className="file-item-name">{project.title}</span>
-                  </div>
-                ))
-              ) : (
-                <div className="empty-directory-fallback">
-                  <span className="empty-text">[ SYSTEM ALERT: Directory is currently unpopulated ]</span>
-                </div>
-              )}
+            {/* ── Right pane: project detail / viewer ── */}
+            <div className={`itd-split-detail${activeProject ? ' itd-split-detail--open' : ''}`}>
+              <div className="psb-window" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+                {activeProject && (
+                  <>
+                    <div className="psb-header">
+                      <span className="psb-title">🗁 {activeProject.title}</span>
+                      <button type="button" className="psb-close-btn" onClick={handleCloseProject}>✕</button>
+                    </div>
+
+                    <div className="psb-body itd-detail-body">
+                      <MultimediaViewer project={activeProject} />
+                    </div>
+
+                    <div className="psb-footer">
+                      <button type="button" className="psb-btn psb-btn--muted" onClick={handleCloseProject}>Close Preview</button>
+                    </div>
+                  </>
+                )}
+              </div>
             </div>
 
-            <div className="psb-footer">
-              <span className="psb-file-count">{filteredProjects.length} object(s) detected in matrix cluster.</span>
-              <button type="button" className="psb-btn psb-btn--muted" onClick={() => setActiveFolder(null)}>Close Directory</button>
-            </div>
           </div>
         </div>
       )}
