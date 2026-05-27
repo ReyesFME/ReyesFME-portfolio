@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import SystemLogViewer from './SystemLogViewer.jsx';
+import ImmersiveTtrpgReader from './ImmersiveTTRPGViewer.jsx'; // Import the flipbook here!
 import '../../styles/ttrpg-styles.css';
 
 const TtrpgBookReader = () => {
@@ -7,11 +8,12 @@ const TtrpgBookReader = () => {
 
   if (viewMode === 'draft') {
     return (
-      <div className="ttrpg-reader-root">
+      <div className="ttrpg-reader-root" style={{ width: '100%', height: '100%', position: 'relative' }}>
         <button
           type="button"
           className="ttrpg-back-btn"
           onClick={() => setViewMode(null)}
+          style={{ position: 'absolute', top: '10px', left: '10px', zIndex: 100 }}
         >
           ← BACK TO SELECTION
         </button>
@@ -20,23 +22,11 @@ const TtrpgBookReader = () => {
     );
   }
 
-  // published is not yet configured — keep the slot but mark it disabled
   if (viewMode === 'published') {
     return (
-      <div className="ttrpg-reader-root">
-        <button
-          type="button"
-          className="ttrpg-back-btn"
-          onClick={() => setViewMode(null)}
-        >
-          ← BACK TO SELECTION
-        </button>
-        <div className="ttrpg-coming-soon">
-          <span className="ttrpg-coming-soon-icon">[PUB]</span>
-          <p>PUBLISHED VERSION</p>
-          <p className="ttrpg-coming-soon-sub">[ ASSET PIPELINE NOT CONFIGURED ]</p>
-          <p className="ttrpg-coming-soon-sub">Cloudinary integration pending.</p>
-        </div>
+      <div className="ttrpg-reader-root" style={{ width: '100%', height: '100%' }}>
+        {/* We pass a function to 'onClose' so the flipbook knows how to return to the selection terminal */}
+        <ImmersiveTtrpgReader onClose={() => setViewMode(null)} />
       </div>
     );
   }
@@ -66,10 +56,10 @@ const TtrpgBookReader = () => {
           </span>
         </button>
 
-        {/* Published Version — coming soon */}
+        {/* Published Version */}
         <button
           type="button"
-          className="ttrpg-choice-card ttrpg-choice-card--published ttrpg-choice-card--disabled"
+          className="ttrpg-choice-card ttrpg-choice-card--published"
           onClick={() => setViewMode('published')}
         >
           <span className="ttrpg-choice-card-icon">[PUB]</span>
@@ -77,8 +67,8 @@ const TtrpgBookReader = () => {
           <span className="ttrpg-choice-card-desc">
             Illustrated manuscript completed with character and background assets.
           </span>
-          <span className="ttrpg-choice-card-status ttrpg-choice-card-status--pending">
-            ○ PENDING CONFIGURATION
+          <span className="ttrpg-choice-card-status ttrpg-choice-card-status--active">
+            ● AVAILABLE
           </span>
         </button>
       </div>

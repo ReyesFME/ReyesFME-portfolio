@@ -313,6 +313,7 @@
   flex-direction: row;   /* stack the two rows vertically */
   gap: 32px;
   align-items: center;
+  justify-content: center;
   width: 100%;
   max-width: 640px;
 }

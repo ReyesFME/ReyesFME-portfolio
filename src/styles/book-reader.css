@@ -27,3 +27,246 @@
     font-size: 1.2rem;
   }
 }
+
+.ttrpg-reader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #121212;
+    padding: 20px;
+}
+
+/* Individual Page Wrapper  */
+.demoPage {
+    background-color: #1e1e1e;
+}
+
+/* The Image inside the Page */
+.ttrpg-page-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Flipbook Container styling */
+.ttrpg-flipbook {
+    box-shadow: 0 0 25px rgba(0,0,0,0.8); /* Slightly darkened the shadow for the dark theme */
+}
+
+/* Hide scrollbars for the zoom container */
+.ttrpg-zoom-container::-webkit-scrollbar { 
+    display: none; 
+}
+.ttrpg-zoom-container { 
+    -ms-overflow-style: none; 
+    scrollbar-width: none; 
+}
+
+/* Base page image */
+.demoPage {
+    background-color: #1e1e1e;
+}
+.ttrpg-page-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Main Container Layouts */
+.ttrpg-viewer-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    overflow: hidden;
+}
+
+.ttrpg-viewer-container--fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
+    background-color: rgba(15, 15, 15, 0.98);
+    padding: 20px;
+}
+
+/* Top Utility Buttons */
+.ttrpg-top-utils {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    display: flex;
+    gap: 10px;
+    z-index: 10000;
+}
+
+.ttrpg-util-btn {
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: monospace;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.ttrpg-util-btn--exit {
+    background-color: #1a1a1a;
+    color: #ffffff;
+    border: 1px solid #4e4e4e;
+}
+
+.ttrpg-util-btn--close {
+    background-color: #424242;
+    color: white;
+    border: none;
+}
+
+/* Zoom Container & Wrapper */
+.ttrpg-zoom-container {
+    width: 100%;
+    height: 85%;
+    display: flex;
+}
+
+.ttrpg-viewer-container--fullscreen .ttrpg-zoom-container {
+    width: 90vw;
+    height: 75vh;
+}
+
+.ttrpg-zoom-wrapper {
+    will-change: transform;
+    margin: 0 auto;
+}
+
+.ttrpg-zoom-wrapper--transition {
+    transition: transform 0.3s ease;
+}
+
+/* Bottom Navigation Panel */
+.ttrpg-bottom-nav {
+    position: absolute;
+    bottom: 70px;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    z-index: 10000;
+    background-color: #0a0a0c;
+    padding: 8px 20px;
+    border-radius: 8px;
+    border: 1px solid #1a1a24;
+}
+
+.ttrpg-zoom-controls {
+    display: flex;
+    gap: 5px;
+    margin-right: 15px;
+}
+
+.ttrpg-zoom-btn {
+    background-color: #15151a;
+    color: #fff;
+    border: 1px solid #333;
+    border-radius: 4px;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    font-family: monospace;
+    font-weight: bold;
+    font-size: 1.2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ttrpg-zoom-btn:disabled {
+    color: #444;
+    cursor: default;
+}
+
+.ttrpg-nav-btn {
+    background-color: #0a0a0c;
+    color: #6b6b6b;
+    border: 1px solid #a8a8a8;
+    border-radius: 4px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-family: monospace;
+    font-weight: bold;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+}
+
+.ttrpg-nav-btn:disabled {
+    color: #333;
+    border-color: #1b1b1b;
+    cursor: default;
+}
+
+.ttrpg-next-text {
+    color: #9c9c9c;
+    text-shadow: 0 0 5px rgba(145, 145, 145, 0.5);
+}
+
+.ttrpg-nav-btn:disabled .ttrpg-next-text {
+    color: inherit;
+    text-shadow: none;
+}
+
+/* Page Tracker */
+.ttrpg-page-tracker {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: monospace;
+    font-size: 1rem;
+    color: #c9c9c9;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.ttrpg-page-input {
+    background-color: transparent;
+    border: 1px solid #585858;
+    color: #b6b6b6;
+    text-align: center;
+    font-family: monospace;
+    font-size: 1rem;
+    font-weight: bold;
+    outline: none;
+    padding: 2px 0;
+    transition: width 0.2s;
+}
+
+@media (max-width: 768px) {
+    .ttrpg-viewer-container--fullscreen {
+        padding: 0;
+    }
+    .ttrpg-top-utils {
+        top: 10px;
+        right: 10px;
+    }
+    .ttrpg-util-btn {
+        padding: 8px 12px;
+        font-size: 0.75rem;
+    }
+    .ttrpg-viewer-container--fullscreen .ttrpg-zoom-container {
+        width: 100vw;
+        height: 80vh;
+        margin-top: 40px;
+    }
+    .ttrpg-bottom-nav {
+        bottom: 15px;
+    }
+}

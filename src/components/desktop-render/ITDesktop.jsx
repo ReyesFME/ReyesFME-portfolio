@@ -42,7 +42,6 @@ const TECH_SKILLS = [
 
 const FOLDER_CATEGORIES = [
   { id: 'coding', label: 'Coding Projects',       icon: codingIcon, dataKey: 'Coding Projects'       },
-  { id: 'illust', label: 'Subject Illustrations', icon: illustIcon, dataKey: 'Illustrations'         },
   { id: 'sysdoc', label: 'System Documentations', icon: sysDocIcon, dataKey: 'System Documentation' },
   { id: 'mm',     label: 'Multimedia',            icon: mmIcon,     dataKey: 'Multimedia Works'       },
   { id: 'game',   label: 'GameDev Assets',        icon: gameIcon, dataKey: 'Game Development Assets'    },
@@ -52,6 +51,7 @@ const ITDesktop = ({ togglePersona }) => {
   const [activeFolder,  setActiveFolder]  = useState(null);
   const [activeProject, setActiveProject] = useState(null);
   const [showMoreInfo,  setShowMoreInfo]  = useState(false);
+  const [activeView, setActiveView] = useState('menu');
 
   const filteredProjects = activeFolder
     ? itProjects.filter(p => p.category === activeFolder.dataKey)

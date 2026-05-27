@@ -40,7 +40,6 @@ const TECH_SKILLS = [
 
 const FOLDER_CATEGORIES = [
   { id: 'coding', label: 'Coding Projects',       icon: codingIcon, dataKey: 'Coding Projects'         },
-  { id: 'illust', label: 'Illustrations',          icon: illustIcon, dataKey: 'Illustrations'           },
   { id: 'sysdoc', label: 'System Documentations', icon: sysDocIcon, dataKey: 'System Documentation'    },
   { id: 'mm',     label: 'Multimedia',             icon: mmIcon,     dataKey: 'Multimedia Works'         },
   { id: 'game',   label: 'GameDev Assets',         icon: gameIcon,   dataKey: 'Game Development Assets' },
