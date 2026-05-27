@@ -5,23 +5,29 @@ const CONTACT = [
   { icon: '>>', label: '#430 Dela Cruz St., Arkong Bato, Valenzuela City' },
   { icon: '>>', label: '09551087286' },
   { icon: '>>', label: 'technofiona607@gmail.com' },
+  { icon: '>>', label: 'websitelink-pagnaka-up-na.site' },
 ];
 
 const EXPERIENCE = [
   {
-    role: 'Lead Designer, UI/UX & System Designer — Capstone Project',
-    date: 'JAN 2026 – PRESENT',
-    desc: "Orchestrated the system's overall aesthetic — moodboard, Figma mockups, and custom assets — followed by frontend coding with full desktop-to-mobile responsiveness. Major contributor to system architecture: DFDs, Functional and Non-Functional Requirements, and consulted on additional diagrams.",
+    role: 'Lead Designer, UI/UX and System Designer — Capstone Project',
+    date: 'JANUARY 2026 - PRESENT',
+    desc: "Orchestrated the system's overall aesthetic, providing moodboard, Figma mockups and custom assets—followed by subsequent coding of the frontend using React and JS, ensuring responsiveness from desktop to mobile. Major contributor of system architecture namely: DFDs, Functional and Non-Functional Requirements, and consulted with other needed diagrams.",
   },
   {
-    role: 'Project Manager, Game Designer & Developer — Project 4b',
-    date: 'JAN 2026 – MAY 2026',
-    desc: 'Initiated cohesive Game Design Document (GDD), managed the full project pipeline, and guided the team through collaboration. Contributed major assets: narrative scripts, custom-edited SFX, backgrounds, and miscellaneous assets.',
+    role: 'Project Manager, Game Designer, Artist — Project W.A.V.E.',
+    date: 'JANUARY 2026 - MAY 2026',
+    desc: "Initiated the group to form a cohesive Game Design Document (GDD), created and managed the 5-month project pipeline. Guided a cross-functional 6-man team, pioneering collaboration and communication while also contributing major assets such as narrative scripts, custom-edited sound effects, backgrounds and miscellaneous assets.",
   },
   {
-    role: 'Script Writer, Multimedia — Film Fest',
+    role: 'Project Manager, Game Designer, Artist — Tabletop Role Playing Game (TTRPG): Approaching Dusk',
+    date: 'SEPTEMBER 2025 - DECEMBER 2025',
+    desc: "Procured the main game storyline, mechanics, aesthetics, and assets: concept art and character designs for the Filipino-themed TTRPG project.",
+  },
+  {
+    role: 'Script Writer, Multimedia — IT Film Fest',
     date: 'APRIL 2025',
-    desc: 'Spearheaded final plot selection and wrote the majority of the final script — modified and approved by associate writers.',
+    desc: "Authored the primary script and pitched the selected narrative plot for a multimedia film festival entry. Collaborated closely with associate writers to refine, modify, and finalize the script for production.",
   },
 ];
 
@@ -29,19 +35,17 @@ const TECHNICAL_SKILLS = [
   'UI/UX Design',
   'System Architecture',
   'Project Management',
-  'Technical Requirement Writing',
+  'Requirement Writing',
+  'Creative Writing',
   'Multimedia',
-  'Digital & Traditional Illustration',
-  'Narrative / Script Writing',
 ];
 
-const SOFT_SKILLS = [
-  'Teamwork & Collaboration',
+const PROFESSIONAL_SKILLS = [
+  'Teamwork and Collaboration',
   'Adaptability',
   'Time Management',
-  'Workplace Ethics & Empathy',
-  'Critical & Creative Thinking',
-  'High-Pressure Environments',
+  'Workplace Ethics and Empathy',
+  'Thrives in fast-paced, high-pressure environment',
 ];
 
 const LANGUAGES = ['Python', 'React', 'JavaScript', 'UML'];
@@ -67,9 +71,7 @@ const ResumeViewer = ({ bare = false }) => {
       <div className="rv-header">
         <h1 className="rv-name">REYES, FIONA MAE E.</h1>
         <p className="rv-tagline">
-          Creative, Critical, and Detail-Oriented &mdash; technological education &amp; capabilities
-          to yield meaningful results across media and discipline. 3rd year IT Student in
-          Pamantasan ng Lungsod ng Valenzuela. Currently seeking a company to render OJT hours.
+          Seeking an OJT opportunity to leverage strong project management communication, and UI/UX design skills in a fast-paced environment. Creative and detail-oriented 3rd-year IT student bridging the gap between technical system design and multimedia art. Experienced in managing project pipelines, from initial data flow diagrams and concept art to final asset creation.
         </p>
         <div className="rv-contact-row">
           {CONTACT.map((item, i) => (
@@ -100,24 +102,13 @@ const ResumeViewer = ({ bare = false }) => {
         <div className="rv-section-title">EDUCATION</div>
         <div className="rv-entry">
           <p className="rv-edu-line">
-            Pamantasan ng Lungsod ng Valenzuela &mdash; B.S. Information Technology
+            Pamantasan ng Lungsod ng Valenzuela &mdash; Bachelor of Science in Information Technology
           </p>
           <p className="rv-edu-sub">
-            Maysan, Valenzuela City &nbsp;|&nbsp; Started AUG 2023 &nbsp;|&nbsp; Expected Graduation: JUNE / JULY 2027
+            AUGUST 2023 - Expected JULY 2027
           </p>
-        </div>
-      </div>
-
-      {/* Projects */}
-      <div className="rv-section">
-        <div className="rv-section-title">PROJECTS</div>
-        <div className="rv-entry">
-          <div className="rv-entry-header">
-            <span className="rv-entry-role">Lead Artist, Game Designer, Project Manager &mdash; TTRPG Special Project</span>
-          </div>
-          <p className="rv-entry-desc">
-            Tabletop Role Playing Game &mdash; custom world-building, asset creation, and project
-            management for a collaborative special project.
+          <p className="rv-edu-sub" style={{ marginTop: '4px' }}>
+            2024-PRESENT: Member of Students Helping in Imminent Events and Life-threatening Disasters (S.H.I.E.L.D.)
           </p>
         </div>
       </div>
@@ -134,9 +125,9 @@ const ResumeViewer = ({ bare = false }) => {
             </div>
           </div>
           <div className="rv-skill-col">
-            <p className="rv-skill-col-title">// SOFT_SKILLS</p>
+            <p className="rv-skill-col-title">// PROFESSIONAL_SKILLS</p>
             <div className="rv-skill-tags">
-              {SOFT_SKILLS.map((s, i) => (
+              {PROFESSIONAL_SKILLS.map((s, i) => (
                 <span key={i} className="rv-skill-tag">{s}</span>
               ))}
             </div>
@@ -145,12 +136,22 @@ const ResumeViewer = ({ bare = false }) => {
       </div>
 
       {/* Languages */}
-      <div className="rv-section rv-section--last">
+      <div className="rv-section">
         <div className="rv-section-title">LANGUAGES</div>
         <div className="rv-lang-row">
           {LANGUAGES.map((lang, i) => (
             <span key={i} className="rv-lang-tag">{lang}</span>
           ))}
+        </div>
+      </div>
+
+      {/* References */}
+      <div className="rv-section rv-section--last">
+        <div className="rv-section-title">REFERENCES</div>
+        <div className="rv-entry">
+          <p className="rv-edu-line">Kenmar C. Bernardino, MSIT</p>
+          <p className="rv-edu-sub">Department Chairperson, PLV-IT Department</p>
+          <p className="rv-edu-sub">ceit.bernardino@gmail.com</p>
         </div>
       </div>
 

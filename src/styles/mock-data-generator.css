@@ -190,7 +190,7 @@
   display:         flex;
   flex-direction:  column;
   overflow:        hidden;
-  min-height:      0; /* critical for flex children to shrink */
+  min-height:      0;
 }
 
 .mdg-term-scroll {
@@ -276,14 +276,14 @@
 .mdg-table-wrap {
   flex:       1;
   overflow-y: auto;
-  overflow-x: auto;   /* horizontal scroll enabled */
+  overflow-x: auto;  
   padding:    16px 24px;
   min-height: 0;
 }
 
 .mdg-table {
   width:            100%;
-  min-width:        900px;  /* forces horizontal scroll before collapsing */
+  min-width:        900px;  
   border-collapse:  collapse;
   font-size:        11px;
 }

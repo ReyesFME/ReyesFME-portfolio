@@ -103,7 +103,6 @@
   height: 100%;
   transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
   transform-style: preserve-3d;
-  /* FIX: Initially rotate 180 degrees so the back face shows first */
   transform: rotateY(180deg);
 }
 
@@ -120,7 +119,6 @@
   height: 100%;
   backface-visibility: hidden; /* Hides the reverse side when flipped */
   
-  /* FIX: Set explicit solid background colors to fix transparency */
   background-color: #000; 
   
   border-radius: 12px;
@@ -132,7 +130,6 @@
   overflow: hidden;
 }
 
-/* FIX: Standard mapping needs the back side rotated relative to the front initially */
 .card-back {
   /* Back face stays standard rotateY(0), but the inner wrapper is already flipped */
   transform: rotateY(0deg);

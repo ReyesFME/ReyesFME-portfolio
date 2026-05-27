@@ -133,7 +133,6 @@
   display: flex;
   flex-direction: column;
   gap: 2.5vh; 
-  /* Safe boundaries preventing your folder workspace from expanding past the screen mid-point */
   max-width: 45vw; 
 }
 
@@ -690,12 +689,10 @@
   }
 }
 
-/* Compact Screens / Square Monitors (Fixes the specific floating bug from your screenshot) */
 @media screen and (max-width: 1024px) {
   .character-img {
     position: absolute;
     height: 68vh; 
-    /* Heavy layout drop offset compensation ensures she stays glued to the tilted track frame */
     transform: translateY(-10vh); 
     right: 6vw;
   }

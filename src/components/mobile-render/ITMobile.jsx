@@ -16,6 +16,8 @@ import illustIcon  from '../../assets/shared/draw.png';
 import sysDocIcon  from '../../assets/shared/document.png';
 import mmIcon      from '../../assets/shared/floppy.png';
 import gameIcon    from '../../assets/shared/game.png';
+import linkedinIcon from '../../assets/shared/linkedin-icon.png';
+import gmailIcon    from '../../assets/shared/gmail-icon.png';
 
 // --- CUSTOM INTERACTIVE VIEWERS ---
 import CPUSchedulerApp        from '../shared/CPU_Scheduling/CPUScheduler.jsx';
@@ -25,7 +27,7 @@ import TkinterInventoryApp    from '../shared/inventory_management/TkinterInvent
 import MockReportGeneratorApp from '../shared/Mock_Data_Generator/MockDataGenerator.jsx';
 import WaveDocViewer          from '../shared/WaveDocViewer.jsx';
 import DfdViewer              from '../shared/DfdViewer.jsx';
-import MultimediaViewer       from '../shared/MultimediaViewer.jsx';
+import MultimediaViewer, { Lightbox } from '../shared/MultimediaViewer.jsx';
 import CardDeckViewer         from '../shared/GameDevCards/CardDeckViewer.jsx';
 import ResumeViewer           from '../shared/ResumeViewer.jsx';
 
@@ -44,7 +46,8 @@ const FOLDER_CATEGORIES = [
   { id: 'game',   label: 'GameDev Assets',         icon: gameIcon,   dataKey: 'Game Development Assets' },
 ];
 
-const resolveViewer = (project) => {
+// onMobileLightboxOpen is threaded in so MultimediaViewer can bubble up image taps
+const resolveViewer = (project, onMobileLightboxOpen) => {
   if (!project.isCustomViewer) return null;
   switch (project.customComponent) {
     case 'CPUSchedulerApp':        return <CPUSchedulerApp />;
@@ -53,7 +56,13 @@ const resolveViewer = (project) => {
     case 'TkinterInventoryApp':    return <TkinterInventoryApp />;
     case 'WaveDocViewerApp':       return <WaveDocViewer />;
     case 'DfdImageViewerApp':      return <DfdViewer />;
-    case 'MultimediaViewerApp':    return <MultimediaViewer project={project} />;
+    case 'MultimediaViewerApp':
+      return (
+        <MultimediaViewer
+          project={project}
+          onMobileLightboxOpen={onMobileLightboxOpen}
+        />
+      );
     case 'CardDeckViewerApp':      return <CardDeckViewer project={project} />;
     default:                       return <TtrpgBookReader />;
   }
@@ -71,12 +80,15 @@ const ITMobile = ({ togglePersona }) => {
   const [activeFolder,  setActiveFolder]  = useState(null);
   const [activeProject, setActiveProject] = useState(null);
   const [showMoreInfo,  setShowMoreInfo]  = useState(false);
-  const [isResumeOpen, setIsResumeOpen]   = useState(false);
+  const [isResumeOpen,  setIsResumeOpen]  = useState(false);
 
   const [isEmailOpen,   setIsEmailOpen]   = useState(false);
   const [emailSubject,  setEmailSubject]  = useState('');
   const [emailMessage,  setEmailMessage]  = useState('');
   const [cloudLink,     setCloudLink]     = useState('');
+
+  // Mobile lightbox state (lives here so it renders above all overlays)
+  const [mobileLightbox, setMobileLightbox] = useState(null);
 
   const handleSendEmail = (e) => {
     e.preventDefault();
@@ -119,12 +131,12 @@ const ITMobile = ({ togglePersona }) => {
           <img src={professionalFirstName} alt="Fiona" className="itm-name-img" draggable="false" />
           <PersonaToggle currentPersona="it" togglePersona={togglePersona} isInline={true} />
           <img src={professionalLastName}  alt="Reyes" className="itm-name-img" draggable="false" />
-          
         </div>
 
         <p className="itm-info-tagline">
-          3rd year IT Student in Pamantasan ng Lungsod ng Valenzuela.
-          Currently seeking a company I can render my OJT hours to.
+          Seeking an OJT opportunity to leverage strong project management, communication, and UI/UX design skills in a fast-paced environment. 
+          Creative and detail-oriented 3rd-year IT student bridging the gap between technical system design and multimedia art. 
+          Experienced in managing project pipelines, from initial data flow diagrams and concept art to final asset creation. 
         </p>
 
         <button
@@ -138,25 +150,22 @@ const ITMobile = ({ togglePersona }) => {
         {showMoreInfo && (
           <div className="itm-info-panel">
             <div className="itm-info-links">
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="itm-info-link-btn">
-                <div className="itm-info-link-icon itm-info-link-icon--placeholder" aria-hidden="true" />
+              <a href="https://www.linkedin.com/in/reyesfme7/" target="_blank" rel="noopener noreferrer" className="itm-info-link-btn">
+                <img src={linkedinIcon} alt="LinkedIn" className="itm-info-link-icon" />
                 <span>LinkedIn</span>
               </a>
-              <button 
-                type="button" 
-                className="itm-info-link-btn" 
+              <button
+                type="button"
+                className="itm-info-link-btn"
                 onClick={() => setIsEmailOpen(true)}
-                style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
               >
-                <div className="itm-info-link-icon itm-info-link-icon--placeholder" aria-hidden="true" />
+                <img src={gmailIcon} alt="Gmail" className="itm-info-link-icon" />
                 <span>Gmail</span>
               </button>
-
-              <button 
-                type="button" 
-                className="itm-info-link-btn" 
+              <button
+                type="button"
+                className="itm-info-link-btn"
                 onClick={() => setIsResumeOpen(true)}
-                style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
               >
                 <div className="itm-info-link-icon itm-info-link-icon--qr" aria-hidden="true" />
                 <span>Resume</span>
@@ -186,6 +195,7 @@ const ITMobile = ({ togglePersona }) => {
               </button>
             ))}
           </div>
+
           <div className="itm-folders-row itm-folders-row--offset">
             {FOLDER_CATEGORIES.slice(3).map(folder => (
               <button
@@ -203,29 +213,28 @@ const ITMobile = ({ togglePersona }) => {
           </div>
 
           <div className="itm-skills-row">
-          {TECH_SKILLS.map(skill => (
-            <div key={skill.id} className="itm-skill-item">
-              <div className="itm-skill-circle">
-                <img src={skill.icon} alt={skill.label} className="itm-skill-img" />
+            {TECH_SKILLS.map(skill => (
+              <div key={skill.id} className="itm-skill-item">
+                <div className="itm-skill-circle">
+                  <img src={skill.icon} alt={skill.label} className="itm-skill-img" />
+                </div>
+                <span className="itm-skill-label">{skill.label}</span>
               </div>
-              <span className="itm-skill-label">{skill.label}</span>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
         </div>
       </main>
 
       {/* ── FOOTER ───────────────────────────────────────── */}
       <footer className="itm-footer">
-                <SocialBar />
-
+        <SocialBar />
       </footer>
 
-      {/* ── OVERLAY ──────────────────────────────────────── */}
+      {/* ── PROJECT FOLDER OVERLAY ───────────────────────── */}
       {activeFolder && (
         <div className="itm-overlay">
 
-          {/* STATE A: explorer — no project selected yet */}
+          {/* STATE A: explorer */}
           {!activeProject && (
             <div className="itm-window itm-fullscreen-window">
               <div className="itm-window-header">
@@ -264,7 +273,7 @@ const ITMobile = ({ togglePersona }) => {
             </div>
           )}
 
-          {/* STATE B: detail — full-screen, explorer hidden */}
+          {/* STATE B: detail */}
           {activeProject && (
             <div className="itm-window itm-fullscreen-window">
               <div className="itm-window-header">
@@ -274,7 +283,7 @@ const ITMobile = ({ togglePersona }) => {
 
               <div className="itm-detail-body">
                 {activeProject.isCustomViewer ? (
-                  resolveViewer(activeProject)
+                  resolveViewer(activeProject, (src, alt) => setMobileLightbox({ src, alt }))
                 ) : (
                   <>
                     <img
@@ -318,34 +327,39 @@ const ITMobile = ({ togglePersona }) => {
               </div>
             </div>
           )}
-
         </div>
       )}
 
-      {/* ── RESUME OVERLAY ──────────────────────────────────────── */}
+      {/* ── RESUME OVERLAY ───────────────────────────────── */}
       {isResumeOpen && (
         <div className="itm-overlay">
           <div className="itm-window itm-fullscreen-window">
             <div className="itm-window-header">
               <span className="itm-window-title">🗎 resume_viewer.exe</span>
-              <button 
-                type="button" 
-                className="itm-window-close-btn" 
+              <button
+                type="button"
+                className="itm-window-close-btn"
                 onClick={() => setIsResumeOpen(false)}
               >
                 ✕
               </button>
             </div>
-            
+
             <div className="itm-detail-body">
-              {/* bare={true} strips the desktop titlebar since we built a mobile one above */}
-              <ResumeViewer bare={true} /> 
+              <ResumeViewer bare={true} />
             </div>
 
             <div className="itm-window-footer">
-              <button 
-                type="button" 
-                className="itm-btn itm-btn--muted" 
+              <a 
+                href="/Reyes-Resume.pdf" 
+                download="Reyes-Resume.pdf" 
+                className="itm-btn"
+              >
+                Download File
+              </a>
+              <button
+                type="button"
+                className="itm-btn itm-btn--muted"
                 onClick={() => setIsResumeOpen(false)}
               >
                 Close
@@ -355,58 +369,104 @@ const ITMobile = ({ togglePersona }) => {
         </div>
       )}
 
-      {/* ── GMAIL OVERLAY ──────────────────────────────────────── */}
+      {/* ── GMAIL OVERLAY ────────────────────────────────── */}
       {isEmailOpen && (
         <div className="itm-overlay">
-          <form className="itm-window itm-fullscreen-window" onSubmit={handleSendEmail}>
-            
+          <form
+            className="itm-window itm-fullscreen-window"
+            onSubmit={handleSendEmail}
+          >
             <div className="itm-window-header">
               <span className="itm-window-title">✉ gmail_sender.exe</span>
-              <button 
-                type="button" 
-                className="itm-window-close-btn" 
+              <button
+                type="button"
+                className="itm-window-close-btn"
                 onClick={() => setIsEmailOpen(false)}
               >
                 ✕
               </button>
             </div>
-            
-            <div className="itm-detail-body" style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
-              
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                <label style={{ color: '#aaa', fontSize: '0.8rem', fontFamily: 'monospace' }}>To:</label>
-                <input type="text" value="technofiona607@gmail.com" disabled style={{ padding: '10px', background: '#222', border: '1px solid #444', color: '#888', borderRadius: '4px' }} />
-              </div>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                <label style={{ color: '#aaa', fontSize: '0.8rem', fontFamily: 'monospace' }}>Subject:</label>
-                <input type="text" placeholder="Project Inquiry / Job Opportunity" value={emailSubject} onChange={e => setEmailSubject(e.target.value)} required style={{ padding: '10px', background: '#111', border: '1px solid #555', color: '#fff', borderRadius: '4px' }} />
-              </div>
+            <div className="itm-detail-body">
+              <div className="itm-email-body">
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                <label style={{ color: '#aaa', fontSize: '0.8rem', fontFamily: 'monospace' }}>Cloud Link:</label>
-                <input type="url" placeholder="Paste Google Drive / Dropbox link here..." value={cloudLink} onChange={e => setCloudLink(e.target.value)} style={{ padding: '10px', background: '#111', border: '1px solid #555', color: '#fff', borderRadius: '4px' }} />
-                <span style={{ color: '#888', fontSize: '0.7rem', fontStyle: 'italic' }}>⚠ Make sure to enable public sharing access permissions!</span>
-              </div>
+                <div className="itm-email-row">
+                  <span className="itm-email-label">To:</span>
+                  <input
+                    type="text"
+                    className="itm-email-input itm-input--static"
+                    value="technofiona607@gmail.com"
+                    disabled
+                    readOnly
+                  />
+                </div>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', flex: 1 }}>
-                <label style={{ color: '#aaa', fontSize: '0.8rem', fontFamily: 'monospace' }}>Message:</label>
-                <textarea placeholder="Type your transmission details here..." value={emailMessage} onChange={e => setEmailMessage(e.target.value)} required style={{ padding: '10px', background: '#111', border: '1px solid #555', color: '#fff', minHeight: '150px', resize: 'none', borderRadius: '4px' }} />
-              </div>
+                <div className="itm-email-row">
+                  <span className="itm-email-label">Subject:</span>
+                  <input
+                    type="text"
+                    className="itm-email-input"
+                    placeholder="Project Inquiry / Job Opportunity"
+                    value={emailSubject}
+                    onChange={e => setEmailSubject(e.target.value)}
+                    required
+                  />
+                </div>
 
+                <div className="itm-email-row">
+                  <span className="itm-email-label">Cloud Link:</span>
+                  <div className="itm-input-stack">
+                    <input
+                      type="url"
+                      className="itm-email-input"
+                      placeholder="Paste Google Drive / Dropbox link here..."
+                      value={cloudLink}
+                      onChange={e => setCloudLink(e.target.value)}
+                    />
+                    <span className="itm-field-note">
+                      ⚠ Make sure to enable public sharing access permissions!
+                    </span>
+                  </div>
+                </div>
+
+                <div className="itm-email-row itm-email-row--grow">
+                  <span className="itm-email-label">Message:</span>
+                  <textarea
+                    className="itm-email-textarea"
+                    placeholder="Type your transmission details here..."
+                    value={emailMessage}
+                    onChange={e => setEmailMessage(e.target.value)}
+                    required
+                  />
+                </div>
+
+              </div>
             </div>
 
             <div className="itm-window-footer">
-              <button type="submit" className="itm-btn itm-btn--muted" style={{ background: '#333', color: '#fff', borderColor: '#666' }}>
+              <button type="submit" className="itm-btn itm-btn--primary">
                 Send Mail
               </button>
-              <button type="button" className="itm-btn itm-btn--muted" onClick={() => setIsEmailOpen(false)}>
+              <button
+                type="button"
+                className="itm-btn itm-btn--muted"
+                onClick={() => setIsEmailOpen(false)}
+              >
                 Cancel
               </button>
             </div>
-
           </form>
         </div>
+      )}
+
+      {/* ── MOBILE LIGHTBOX — rendered at root level, above all overlays ── */}
+      {mobileLightbox && (
+        <Lightbox
+          src={mobileLightbox.src}
+          alt={mobileLightbox.alt}
+          onClose={() => setMobileLightbox(null)}
+          mobileMode={true}
+        />
       )}
 
     </div>

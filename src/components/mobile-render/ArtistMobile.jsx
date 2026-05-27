@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { artProjects } from '../../data/projects';
 import FilmStrip from '../../components/FilmStrip.jsx';
 import SocialBar from '../shared/SocialBar.jsx';
-import MultimediaViewer from '../shared/MultimediaViewer.jsx';
+import MultimediaViewer, { Lightbox } from '../shared/MultimediaViewer.jsx';
 import '../../styles/artist-mobile.css';
 import emailjs from '@emailjs/browser';
 
@@ -12,6 +12,9 @@ import traditionalIcon from '../../assets/shared/draw.png';
 import writtenIcon     from '../../assets/shared/notepad.png';
 import artistCharacter from '../../assets/shared/ArtistModel.png';
 import ResumeViewer    from '../shared/ResumeViewer.jsx';
+import linkedinIcon    from '../../assets/shared/linkedin-icon.png';
+import gmailIcon       from '../../assets/shared/gmail-icon.png';
+
 
 
 const ART_FOLDER_CATEGORIES = [
@@ -58,6 +61,9 @@ const ArtistMobile = ({ personaToggle }) => {
   const [emailMessage,  setEmailMessage]  = useState('');
   const [cloudLink,     setCloudLink]     = useState('');
 
+  // ── Mobile lightbox state (lives here so it renders above all overlays) ──
+  const [mobileLightbox, setMobileLightbox] = useState(null); // { src, alt } | null
+
   const filteredProjects = activeFolder
     ? artProjects.filter(p => p.category === activeFolder.dataKey)
     : [];
@@ -94,29 +100,29 @@ const ArtistMobile = ({ personaToggle }) => {
         {showMoreInfo && (
           <div className="am-info-panel">
             <div className="am-info-links">
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="am-info-link-btn">
-                <div className="am-info-link-icon" aria-hidden="true" />
-                <span>LinkedIn</span>
-              </a>
-              <button 
-                type="button" 
-                className="itm-info-link-btn" 
-                onClick={() => setIsEmailOpen(true)}
-                style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
-              >
-                <div className="itm-info-link-icon itm-info-link-icon--placeholder" aria-hidden="true" />
-                <span>Gmail</span>
-              </button>
-              <button 
-                type="button" 
-                className="itm-info-link-btn" 
-                onClick={() => setIsResumeOpen(true)}
-                style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
-              >
-                <div className="itm-info-link-icon itm-info-link-icon--qr" aria-hidden="true" />
-                <span>Resume</span>
-              </button>
-            </div>
+                <a href="https://www.linkedin.com/in/reyesfme7/" target="_blank" rel="noopener noreferrer" className="am-info-link-btn">
+                  <img src={linkedinIcon} alt="LinkedIn" className="am-info-link-icon" />
+                  <span>LinkedIn</span>
+                </a>
+                <button 
+                  type="button" 
+                  className="itm-info-link-btn" 
+                  onClick={() => setIsEmailOpen(true)}
+                  style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
+                >
+                  <img src={gmailIcon} alt="Gmail" className="itm-info-link-icon" />
+                  <span>Gmail</span>
+                </button>
+                <button 
+                  type="button" 
+                  className="itm-info-link-btn" 
+                  onClick={() => setIsResumeOpen(true)}
+                  style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
+                >
+                  <div className="itm-info-link-icon itm-info-link-icon--qr" aria-hidden="true" />
+                  <span>Resume</span>
+                </button>
+              </div>
           </div>
         )}
       </header>
@@ -220,7 +226,11 @@ const ArtistMobile = ({ personaToggle }) => {
                 <button type="button" className="am-window-close-btn" onClick={handleCloseFolder}>✕</button>
               </div>
               <div className="am-detail-body">
-                <MultimediaViewer project={activeProject} />
+                {/* Pass onMobileLightboxOpen so tapping an image bubbles up here */}
+                <MultimediaViewer
+                  project={activeProject}
+                  onMobileLightboxOpen={(src, alt) => setMobileLightbox({ src, alt })}
+                />
               </div>
               <div className="am-window-footer">
                 <button type="button" className="am-btn am-btn--muted" onClick={handleBackToExplorer}>← Back to files</button>
@@ -246,11 +256,17 @@ const ArtistMobile = ({ personaToggle }) => {
             </div>
             
             <div className="itm-detail-body">
-              {/* bare={true} strips the desktop titlebar since we built a mobile one above */}
               <ResumeViewer bare={true} /> 
             </div>
 
             <div className="itm-window-footer">
+              <a 
+                href="/Reyes-Resume.pdf" 
+                download="Reyes-Resume.pdf" 
+                className="itm-btn"
+              >
+                Download File
+              </a>
               <button 
                 type="button" 
                 className="itm-btn itm-btn--muted" 
@@ -315,6 +331,16 @@ const ArtistMobile = ({ personaToggle }) => {
 
           </form>
         </div>
+      )}
+
+      {/* ── MOBILE LIGHTBOX — rendered at root level, above all overlays ── */}
+      {mobileLightbox && (
+        <Lightbox
+          src={mobileLightbox.src}
+          alt={mobileLightbox.alt}
+          onClose={() => setMobileLightbox(null)}
+          mobileMode={true}
+        />
       )}
       
     </div>
