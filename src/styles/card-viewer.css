@@ -46,7 +46,6 @@
 .card-play-area {
   flex: 1;
   position: relative;
-  padding: 30px;
   display: flex;
   justify-content: center;
   align-items: center;

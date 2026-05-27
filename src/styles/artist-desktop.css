@@ -44,6 +44,7 @@
   z-index: 1;
 }
 */
+
 .artist-topbar {
   width: 100%;
   display: flex;
@@ -79,16 +80,15 @@
 .artist-name {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   overflow: hidden;
   position: absolute;
   top: 2vh;
-  right: 1vw;
-  width: clamp(250px, 50vw, 600px); 
+  right: 0;
+  width: 100%; 
 }
 
 .artist-name img {
-  width: 100%;
   max-height: 22vh;
   object-fit: contain;
   object-position: center center;
@@ -718,8 +718,10 @@
     right: calc(50% - 550px);
   }
 
-  .artist-name {
-    right: calc(50% - 680px); 
+  .persona-toggle-logo.persona-art-style {
+    width: 10vw !important;
+    max-width: none !important;
+    height: auto !important;
   }
 }
 
@@ -795,10 +797,6 @@
     right: calc(50% - 550px); 
   }
 
-  .artist-name {
-    right: calc(30% - 780px);
-    width: 1020px;           
-  }
 }
 
 @media screen and (max-width: 1200px) {
@@ -1188,3 +1186,4 @@ kaartehan*/
 .persona-it-style {
   cursor: pointer;
 }
+

@@ -138,3 +138,28 @@
   height: 80px !important;
   width: auto !important;
 }
+
+.persona-toggle-anchor {
+  cursor: pointer;
+  user-select: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.persona-toggle-anchor:not(.persona-toggle-inline) {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 200;
+}
+
+.persona-toggle-inline {
+  position: static;
+}
+
+.persona-toggle-logo {
+  width: 80px;
+  height: auto;
+  display: block;
+}

@@ -1,25 +1,149 @@
 @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&display=swap');
 
-/* ── Outer wrapper (holds scanline overlay) ──────────────── */
+/* TYPOGRAPHY & TEXT STYLES (All fonts, colors, fluid sizes, and line-heights isolated here) */
+
+.rv-root {
+  font-family: 'Share Tech Mono', 'Courier New', monospace;
+  color: #c8c8c8;
+}
+
+.rv-title-text {
+  font-family: 'Share Tech Mono', 'Courier New', monospace;
+  font-size: 12px;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+}
+
+.rv-winbtn {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  color: #ffffff;
+}
+
+.rv-prompt {
+  font-size: clamp(0.7rem, 1.2vw + 0.3rem, 0.9rem);
+  color: #555555;
+  letter-spacing: 0.3px;
+}
+
+.rv-name {
+  font-family: 'VT323', monospace;
+  font-size: clamp(1.8rem, 4vw + 0.8rem, 3.2rem);
+  color: #ffffff;
+  letter-spacing: 2px;
+  line-height: 1;
+}
+
+.rv-tagline {
+  font-size: clamp(0.8rem, 1.5vw + 0.4rem, 1.1rem);
+  color: #666666;
+  letter-spacing: 0.3px;
+  line-height: 1.6;
+}
+
+.rv-contact-icon {
+  font-size: clamp(0.75rem, 1.2vw + 0.4rem, 1rem);
+  color: #444444;
+  letter-spacing: -1px;
+}
+
+.rv-contact-label {
+  font-size: clamp(0.75rem, 1.2vw + 0.4rem, 1rem);
+  color: #888888;
+  letter-spacing: 0.2px;
+}
+
+.rv-section-title {
+  font-family: 'VT323', monospace;
+  font-size: clamp(1.1rem, 2vw + 0.5rem, 1.4rem);
+  color: #cccccc;
+  letter-spacing: 2px;
+}
+
+.rv-section-title::before {
+  content: '>';
+  font-family: 'Share Tech Mono', monospace;
+  font-size: clamp(11px, 1.5vw + 4px, 14px);
+  color: #444444;
+}
+
+.rv-entry-role {
+  font-size: clamp(1.1rem, 2vw + 0.5rem, 1.6rem);
+  color: #e0e0e0;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+}
+
+.rv-entry-date {
+  font-size: clamp(0.75rem, 1.5vw + 0.3rem, 1rem);
+  color: #555555;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+}
+
+.rv-entry-desc {
+  font-size: clamp(0.9rem, 1.8vw + 0.4rem, 1.3rem);
+  color: #777777;
+  line-height: 1.65;
+  letter-spacing: 0.2px;
+}
+
+.rv-edu-line {
+  font-size: clamp(0.9rem, 1.8vw + 0.4rem, 1.3rem);
+  color: #aaaaaa;
+  letter-spacing: 0.3px;
+}
+
+.rv-edu-sub {
+  font-size: clamp(0.65rem, 1.2vw + 0.3rem, 0.85rem);
+  color: #666666;
+  letter-spacing: 0.2px;
+}
+
+.rv-skill-col-title {
+  font-size: clamp(1.1rem, 2vw + 0.5rem, 1.5rem);
+  color: #444444;
+  letter-spacing: 1px;
+}
+
+.rv-skill-tag {
+  font-family: 'Share Tech Mono', 'Courier New', monospace;
+  font-size: clamp(0.75rem, 1.5vw + 0.3rem, 1rem);
+  color: #888888;
+  letter-spacing: 0.3px;
+}
+
+.rv-lang-tag {
+  font-family: 'Share Tech Mono', 'Courier New', monospace;
+  font-size: clamp(0.75rem, 1.5vw + 0.3rem, 1.1rem);
+  color: #bbbbbb;
+  letter-spacing: 0.5px;
+}
+
+.rv-footer-left,
+.rv-footer-right {
+  font-family: 'Share Tech Mono', 'Courier New', monospace;
+  font-size: 9px;
+  color: #444444;
+  letter-spacing: 0.5px;
+}
+
 .rv-outer {
   position: relative;
   max-width: 680px;
   width: 100%;
 }
 
-/* ── Window chrome ───────────────────────────────────────── */
 .rv-root {
   background: #111111;
   border: 2px solid;
   border-color: #5a5656 #333333 #333333 #ffffff;
-  font-family: 'Share Tech Mono', 'Courier New', monospace;
-  color: #c8c8c8;
   box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.8);
   box-sizing: border-box;
   overflow: hidden;
 }
 
-/* ── Title bar ───────────────────────────────────────────── */
+/* ── Window chrome ───────────────────────────────────────── */
 .rv-titlebar {
   background: linear-gradient(to bottom, #4a4a4a 0%, #1a1a1a 100%);
   padding: 5px 8px;
@@ -45,13 +169,6 @@
   flex-shrink: 0;
 }
 
-.rv-title-text {
-  color: #ffffff;
-  font-family: 'Share Tech Mono', 'Courier New', monospace;
-  font-size: 12px;
-  letter-spacing: 0.5px;
-}
-
 .rv-winbtns {
   display: flex;
   gap: 3px;
@@ -63,13 +180,10 @@
   background: linear-gradient(to bottom, #777777, #444444);
   border: 1px solid;
   border-color: #aaaaaa #222222 #222222 #aaaaaa;
-  font-size: 9px;
-  color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: default;
-  font-family: 'Share Tech Mono', monospace;
   flex-shrink: 0;
 }
 
@@ -79,12 +193,8 @@
   background: #111111;
 }
 
-/* ── Prompt line ─────────────────────────────────────────── */
 .rv-prompt {
-  color: #555555;
-  font-size: 10px;
   margin: 0 0 16px;
-  letter-spacing: 0.3px;
 }
 
 .rv-cursor {
@@ -109,21 +219,11 @@
 }
 
 .rv-name {
-  font-family: 'VT323', monospace;
-  font-size: 38px;
-  color: #ffffff;
-  letter-spacing: 2px;
-  line-height: 1;
   margin: 0 0 6px;
 }
 
 .rv-tagline {
-  font-size: 10px;
-  color: #666666;
-  letter-spacing: 0.3px;
-  line-height: 1.6;
   margin: 0 0 10px;
-  max-width: 520px;
 }
 
 .rv-contact-row {
@@ -138,18 +238,6 @@
   gap: 5px;
 }
 
-.rv-contact-icon {
-  color: #444444;
-  font-size: 9px;
-  letter-spacing: -1px;
-}
-
-.rv-contact-label {
-  font-size: 10px;
-  color: #888888;
-  letter-spacing: 0.2px;
-}
-
 /* ── Sections ────────────────────────────────────────────── */
 .rv-section {
   margin-bottom: 18px;
@@ -160,10 +248,6 @@
 }
 
 .rv-section-title {
-  font-family: 'VT323', monospace;
-  font-size: 18px;
-  color: #cccccc;
-  letter-spacing: 2px;
   border-bottom: 1px solid #2a2a2a;
   padding-bottom: 3px;
   margin-bottom: 12px;
@@ -172,16 +256,9 @@
   gap: 8px;
 }
 
-.rv-section-title::before {
-  content: '>';
-  color: #444444;
-  font-size: 13px;
-  font-family: 'Share Tech Mono', monospace;
-}
-
 /* ── Entries ─────────────────────────────────────────────── */
 .rv-entry {
-  margin-bottom: 14px;
+  margin-bottom: 30px;
   padding-left: 12px;
   border-left: 1px solid #222222;
 }
@@ -199,40 +276,20 @@
   margin-bottom: 4px;
 }
 
-.rv-entry-role {
-  font-size: 11px;
-  color: #e0e0e0;
-  letter-spacing: 0.3px;
-}
-
 .rv-entry-date {
-  font-size: 10px;
-  color: #555555;
-  white-space: nowrap;
-  letter-spacing: 0.3px;
   flex-shrink: 0;
 }
 
 .rv-entry-desc {
-  font-size: 10px;
-  color: #777777;
-  line-height: 1.65;
-  letter-spacing: 0.2px;
   margin: 0;
 }
 
 /* ── Education ───────────────────────────────────────────── */
 .rv-edu-line {
-  font-size: 11px;
-  color: #aaaaaa;
-  letter-spacing: 0.3px;
   margin: 0 0 3px;
 }
 
 .rv-edu-sub {
-  font-size: 10px;
-  color: #666666;
-  letter-spacing: 0.2px;
   margin: 0;
 }
 
@@ -240,13 +297,10 @@
 .rv-skills-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 14px;
+  gap: 20px;
 }
 
 .rv-skill-col-title {
-  font-size: 9px;
-  color: #444444;
-  letter-spacing: 1px;
   margin: 0 0 6px;
 }
 
@@ -257,13 +311,9 @@
 }
 
 .rv-skill-tag {
-  font-size: 10px;
-  color: #888888;
   padding: 2px 7px;
   border: 1px solid #252525;
   background: #161616;
-  letter-spacing: 0.3px;
-  font-family: 'Share Tech Mono', 'Courier New', monospace;
 }
 
 /* ── Languages ───────────────────────────────────────────── */
@@ -274,13 +324,9 @@
 }
 
 .rv-lang-tag {
-  font-size: 11px;
-  color: #bbbbbb;
   padding: 3px 10px;
   border: 1px solid #2e2e2e;
   background: #1a1a1a;
-  letter-spacing: 0.5px;
-  font-family: 'Share Tech Mono', 'Courier New', monospace;
 }
 
 /* ── Footer ──────────────────────────────────────────────── */
@@ -291,14 +337,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-.rv-footer-left,
-.rv-footer-right {
-  font-size: 9px;
-  color: #444444;
-  letter-spacing: 0.5px;
-  font-family: 'Share Tech Mono', 'Courier New', monospace;
 }
 
 /* ── Scanline overlay ────────────────────────────────────── */
@@ -315,14 +353,10 @@
   );
 }
 
-/* ── Responsive ──────────────────────────────────────────── */
+/* RESPONSIVE LAYOUT BREAKPOINTS */
 @media (max-width: 520px) {
   .rv-skills-grid {
     grid-template-columns: 1fr;
-  }
-
-  .rv-name {
-    font-size: 28px;
   }
 
   .rv-contact-row {

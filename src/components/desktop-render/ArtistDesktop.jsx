@@ -13,7 +13,7 @@ import traditionalIcon from '../../assets/shared/draw.png';
 import writtenIcon     from '../../assets/shared/notepad.png';
 import artistCharacter from '../../assets/shared/ArtistModel.png';
 
-const ArtistDesktop = () => {
+const ArtistDesktop = ({ personaToggle }) => {
   const [activeFolder, setActiveFolder]   = useState(null);
   const [activeProject, setActiveProject] = useState(null);
 
@@ -30,11 +30,12 @@ const ArtistDesktop = () => {
 
   return (
     <div className="artist-desktop-container">
-
       <div className="artist-intro-block">
         <div className="artist-name">
+          {personaToggle}
           <img src={artistname} alt="Reystarrie" />
         </div>
+
         <p className="artist-tagline">
           A self-taught artist that's always up to something,<br />
           always have ideas to creatively manifest the vision.

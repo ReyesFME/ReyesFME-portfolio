@@ -1,8 +1,3 @@
-/* =========================================================================
-   MockDataGenerator.css
-   Styles for the Clinical Mock Data Generator interactive viewer
-   ========================================================================= */
-
 @keyframes blink {
   0%, 100% { opacity: 1; }
   50%       { opacity: 0; }
@@ -80,10 +75,12 @@
 }
 
 .mdg-choice-file {
-  font-size:      20px;
+  font-size:      1.3rem;
   color:          #e0e0e0;
   margin-bottom:  6px;
   letter-spacing: 0.5px;
+  white-space:    auto;
+  max-width: 700px;
 }
 
 .mdg-choice-desc {
@@ -397,4 +394,16 @@
   line-height: 1.8;
   white-space: pre;
   padding:     1px 0;
+}
+
+@media (min-width: 0px) and (max-width: 319px) {
+  .mdg-choice-file {
+    font-size: 0.5rem;
+  }
+}
+
+@media (min-width: 320px) and (max-width: 768px) {
+  .mdg-choice-file {
+    font-size: 0.69rem;
+  }
 }
