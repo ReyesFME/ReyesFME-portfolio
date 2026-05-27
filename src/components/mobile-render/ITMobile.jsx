@@ -3,6 +3,7 @@ import { itProjects } from '../../data/projects';
 import SocialBar from '../shared/SocialBar.jsx';
 import PersonaToggle from '../shared/PersonaToggle.jsx';
 import '../../styles/it-mobile.css';
+import emailjs from '@emailjs/browser';
 
 import professionalFirstName from '../../assets/shared/Fiona-tag.png';
 import professionalLastName  from '../../assets/shared/Reyes-tag.png';
@@ -59,10 +60,42 @@ const resolveViewer = (project) => {
 };
 
 const ITMobile = ({ togglePersona }) => {
+
+  const EMAILJS_CONFIG = {
+    serviceId:  'service_ayl3utp',
+    templateId: 'template_lm65jib',
+    publicKey:  'i3eNdHriCFdmyPQbS',
+  };
+  emailjs.init(EMAILJS_CONFIG.publicKey);
+
   const [activeFolder,  setActiveFolder]  = useState(null);
   const [activeProject, setActiveProject] = useState(null);
   const [showMoreInfo,  setShowMoreInfo]  = useState(false);
   const [isResumeOpen, setIsResumeOpen]   = useState(false);
+
+  const [isEmailOpen,   setIsEmailOpen]   = useState(false);
+  const [emailSubject,  setEmailSubject]  = useState('');
+  const [emailMessage,  setEmailMessage]  = useState('');
+  const [cloudLink,     setCloudLink]     = useState('');
+
+  const handleSendEmail = (e) => {
+    e.preventDefault();
+    emailjs
+      .send(
+        EMAILJS_CONFIG.serviceId,
+        EMAILJS_CONFIG.templateId,
+        { subject: emailSubject, message: emailMessage, cloudLink: cloudLink || 'None provided' },
+        EMAILJS_CONFIG.publicKey,
+      )
+      .then(() => {
+        alert('✉ SYSTEM: Transmission successfully routed.');
+        setEmailSubject('');
+        setEmailMessage('');
+        setCloudLink('');
+        setIsEmailOpen(false);
+      })
+      .catch(() => alert('ERROR: Terminal link delivery failed. Verify dashboard API credentials.'));
+  };
 
   const filteredProjects = activeFolder
     ? itProjects.filter(p => p.category === activeFolder.dataKey)
@@ -109,10 +142,16 @@ const ITMobile = ({ togglePersona }) => {
                 <div className="itm-info-link-icon itm-info-link-icon--placeholder" aria-hidden="true" />
                 <span>LinkedIn</span>
               </a>
-              <a href="mailto:fiona@email.com" className="itm-info-link-btn">
+              <button 
+                type="button" 
+                className="itm-info-link-btn" 
+                onClick={() => setIsEmailOpen(true)}
+                style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
+              >
                 <div className="itm-info-link-icon itm-info-link-icon--placeholder" aria-hidden="true" />
                 <span>Gmail</span>
-              </a>
+              </button>
+
               <button 
                 type="button" 
                 className="itm-info-link-btn" 
@@ -315,6 +354,61 @@ const ITMobile = ({ togglePersona }) => {
           </div>
         </div>
       )}
+
+      {/* ── GMAIL OVERLAY ──────────────────────────────────────── */}
+      {isEmailOpen && (
+        <div className="itm-overlay">
+          <form className="itm-window itm-fullscreen-window" onSubmit={handleSendEmail}>
+            
+            <div className="itm-window-header">
+              <span className="itm-window-title">✉ gmail_sender.exe</span>
+              <button 
+                type="button" 
+                className="itm-window-close-btn" 
+                onClick={() => setIsEmailOpen(false)}
+              >
+                ✕
+              </button>
+            </div>
+            
+            <div className="itm-detail-body" style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                <label style={{ color: '#aaa', fontSize: '0.8rem', fontFamily: 'monospace' }}>To:</label>
+                <input type="text" value="technofiona607@gmail.com" disabled style={{ padding: '10px', background: '#222', border: '1px solid #444', color: '#888', borderRadius: '4px' }} />
+              </div>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                <label style={{ color: '#aaa', fontSize: '0.8rem', fontFamily: 'monospace' }}>Subject:</label>
+                <input type="text" placeholder="Project Inquiry / Job Opportunity" value={emailSubject} onChange={e => setEmailSubject(e.target.value)} required style={{ padding: '10px', background: '#111', border: '1px solid #555', color: '#fff', borderRadius: '4px' }} />
+              </div>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                <label style={{ color: '#aaa', fontSize: '0.8rem', fontFamily: 'monospace' }}>Cloud Link:</label>
+                <input type="url" placeholder="Paste Google Drive / Dropbox link here..." value={cloudLink} onChange={e => setCloudLink(e.target.value)} style={{ padding: '10px', background: '#111', border: '1px solid #555', color: '#fff', borderRadius: '4px' }} />
+                <span style={{ color: '#888', fontSize: '0.7rem', fontStyle: 'italic' }}>⚠ Make sure to enable public sharing access permissions!</span>
+              </div>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', flex: 1 }}>
+                <label style={{ color: '#aaa', fontSize: '0.8rem', fontFamily: 'monospace' }}>Message:</label>
+                <textarea placeholder="Type your transmission details here..." value={emailMessage} onChange={e => setEmailMessage(e.target.value)} required style={{ padding: '10px', background: '#111', border: '1px solid #555', color: '#fff', minHeight: '150px', resize: 'none', borderRadius: '4px' }} />
+              </div>
+
+            </div>
+
+            <div className="itm-window-footer">
+              <button type="submit" className="itm-btn itm-btn--muted" style={{ background: '#333', color: '#fff', borderColor: '#666' }}>
+                Send Mail
+              </button>
+              <button type="button" className="itm-btn itm-btn--muted" onClick={() => setIsEmailOpen(false)}>
+                Cancel
+              </button>
+            </div>
+
+          </form>
+        </div>
+      )}
+
     </div>
   );
 };
