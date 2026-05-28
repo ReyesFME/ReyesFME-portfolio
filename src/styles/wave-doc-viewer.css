@@ -412,3 +412,77 @@
   text-align:  center;
   letter-spacing: 0.1em;
 }
+
+/* ─── FIX: prevent footer clipping on short screens ─────────────── */
+
+/* The core problem: content at 70% fixed flex-basis starves the footer.
+   Switch to a flex-grow model so footer/meta always get their natural size. */
+.wdv-content {
+  flex: 1 1 0;       /* grow to fill available space instead of claiming 70% */
+  min-height: 80px;  /* always show at least a sliver of content */
+}
+
+/* Meta strip: don't let it flex-shrink to nothing */
+.wdv-meta-strip {
+  flex-shrink: 0;
+  min-height:  0;
+}
+
+/* Footer: already has flex-shrink: 0, but add min-height so it never collapses */
+.wdv-footer {
+  flex-shrink: 0;
+  min-height:  44px;
+}
+
+/* ─── MOBILE───────────────── */
+@media (max-width: 520px) {
+  .wdv-select-grid {
+    grid-template-columns: 1fr;
+    padding: 0 14px;
+  }
+
+  .wdv-select-tag  { font-size: 20px; }
+  .wdv-select-sub  { font-size: 10px; }
+  .wdv-doc-card    { padding: 14px; }
+  .wdv-doc-title   { font-size: 17px; }
+
+  .wdv-header {
+    padding:    5px 10px;
+    gap:        6px;
+    min-height: 0;
+  }
+
+  .wdv-header-title  { font-size: 14px; }
+  .wdv-section-pill  { display: none; } 
+  .wdv-header-page   { display: none; } 
+
+  /* Content padding */
+  .wdv-content { padding: 12px 14px 8px; }
+
+  .wdv-meta-strip {
+    padding:    7px 14px;
+    gap:        16px;
+    flex-wrap:  nowrap;
+    overflow-x: auto;
+  }
+
+  .wdv-meta-label { font-size: 8px; }
+  .wdv-meta-value { font-size: 13px; }
+
+  .wdv-footer {
+    padding:  5px 10px;
+    gap:      6px;
+    flex-wrap: wrap;
+  }
+
+  .wdv-page-input { width: 44px; font-size: 11px; }
+  .wdv-exec-btn   { padding: 3px 8px; font-size: 10px; }
+  .wdv-nav-btn    { padding: 3px 8px; font-size: 10px; }
+  .wdv-prompt     { font-size: 14px; }
+  .wdv-page-counter { font-size: 10px; min-width: 36px; }
+}
+
+@media (max-height: 420px) {
+  .wdv-meta-strip { display: none; }
+  .wdv-content { padding: 8px 14px; }
+}

@@ -269,4 +269,117 @@
     .ttrpg-bottom-nav {
         bottom: 15px;
     }
+
+    .ttrpg-back-to-selection {
+    display: visible;
+  }
+
+  .ttrpg-bottom-nav {
+    gap: 6px;
+    padding: 6px 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 6px;
+    margin-bottom: 4px;
+  }
+
+  /* Prev / Next / Back nav buttons */
+  .ttrpg-nav-btn {
+    padding: 5px 5px;
+    font-size: 0.6rem;
+    gap: 4px;
+  }
+
+  /* Zoom +/- buttons */
+  .ttrpg-zoom-controls {
+    gap: 4px;
+    margin-right: 6px;
+  }
+
+  .ttrpg-zoom-btn {
+    width: 15px;
+    height: 15px;
+    font-size: 0.7rem;
+  }
+
+  /* Page tracker text + input */
+  .ttrpg-page-tracker {
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+    gap: 5px;
+  }
+
+  .ttrpg-page-input {
+    font-size: 0.7rem;
+    padding: 2px 2px;
+    width: 32px !important;
+  }
+
+  /* Top util buttons (FULL / COVER) */
+  .ttrpg-util-btn {
+    padding: 5px 10px;
+    font-size: 0.65rem;
+  }
+
+  .ttrpg-viewer-container {
+    height: 100%;
+    min-height: 0;
+  }
+
+  .ttrpg-viewer-container--fullscreen {
+    padding: 0;
+    padding-top: 44px; 
+  }
+
+  .ttrpg-bottom-nav {
+    margin-top: 8px;
+    margin-bottom: 6px;
+    padding: 8px 10px;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+
+.ttrpg-viewer-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 500px;
+}
+
+.ttrpg-zoom-container {
+  flex: 1 1 0;
+  min-height: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ttrpg-bottom-nav {
+  position: relative;  
+  bottom: auto;
+  flex-shrink: 0;
+  margin-top: 12px;
+  margin-bottom: 8px;
+}
+
+.ttrpg-viewer-container--fullscreen {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100dvh;
+  padding: 20px;
+  box-sizing: border-box;
+  justify-content: center;
+}
+
+.ttrpg-viewer-container--fullscreen .ttrpg-zoom-container {
+  width: 100%;
+  flex: 1 1 0;
+  min-height: 0;
 }

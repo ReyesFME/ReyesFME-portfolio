@@ -407,3 +407,178 @@
     font-size: 0.69rem;
   }
 }
+
+@media (max-width: 600px) {
+  .mdg-table { min-width: 600px; }
+  .mdg-choice-box { padding: 24px 18px; }
+  .mdg-tab { padding: 6px 8px; font-size: 9px; }
+}
+
+/* ─── MOBILE RESPONSIVE ─────────────────────────── */
+
+@media (max-width: 520px) {
+
+  /* Choice screen */
+  .mdg-choice-wrap {
+    padding: 20px 14px;
+  }
+
+  .mdg-choice-box {
+    padding: 20px 16px;
+  }
+
+  .mdg-choice-title {
+    font-size: 9px;
+    letter-spacing: 1.5px;
+  }
+
+  .mdg-choice-file {
+    font-size: 0.75rem;
+  }
+
+  .mdg-choice-desc {
+    font-size: 9px;
+    letter-spacing: 0.5px;
+    margin-bottom: 20px;
+  }
+
+  .mdg-btn-run,
+  .mdg-btn-src {
+    font-size: 10px;
+    padding: 10px 14px;
+    letter-spacing: 1px;
+  }
+
+  .mdg-choice-footer-top,
+  .mdg-choice-footer-bot {
+    font-size: 8px;
+    letter-spacing: 0.5px;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  /* Terminal header */
+  .mdg-term-bar {
+    padding: 6px 10px;
+  }
+
+  .mdg-term-bar-title {
+    font-size: 9px;
+    letter-spacing: 1px;
+    /* Prevent long filename from pushing the back button off screen */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-right: 8px;
+  }
+
+  /* Terminal log */
+  .mdg-term-scroll {
+    padding: 12px 12px;
+  }
+
+  .mdg-term-line {
+    font-size: 10.5px;
+    line-height: 1.7;
+  }
+
+  /* Collapsed log height on mobile — shorter since screen is small */
+  .mdg-term-scroll--collapsed {
+    max-height: 140px;
+  }
+
+  /* Tabs — shrink further */
+  .mdg-tab {
+    padding: 6px 7px;
+    font-size: 8px;
+    letter-spacing: 0.5px;
+  }
+
+  /* Table wrapper — on mobile let it take up remaining space naturally */
+  .mdg-table-wrap {
+    padding: 8px 0 8px 0;
+  }
+
+  .mdg-table {
+    min-width: 640px;
+    font-size: 10px;
+  }
+
+  .mdg-th {
+    font-size: 8px;
+    padding: 5px 8px;
+  }
+
+  .mdg-td,
+  .mdg-td--mono {
+    padding: 5px 8px;
+    font-size: 9.5px;
+  }
+
+  /* Footer */
+  .mdg-table-footer {
+    padding: 8px 12px;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .mdg-footer-count {
+    font-size: 8.5px;
+  }
+
+  .mdg-btn-download {
+    font-size: 9px;
+    padding: 4px 10px;
+  }
+
+  /* Source viewer */
+  .mdg-src-header {
+    padding: 6px 10px;
+  }
+
+  .mdg-src-filename {
+    font-size: 9px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-right: 8px;
+  }
+
+  .mdg-src-scroll {
+    /* Allow horizontal scroll for raw source code */
+    overflow-x: auto;
+  }
+
+  .mdg-src-line {
+    min-width: max-content;
+  }
+
+  .mdg-src-num {
+    font-size: 9px;
+    min-width: 32px;
+    padding: 1px 10px 1px 6px;
+  }
+
+  .mdg-src-code {
+    font-size: 9.5px;
+  }
+}
+
+@media (max-width: 360px) {
+  .mdg-choice-file {
+    font-size: 0.65rem;
+  }
+
+  .mdg-term-line {
+    font-size: 9.5px;
+  }
+
+  .mdg-tab {
+    font-size: 7.5px;
+    padding: 5px 6px;
+  }
+
+  .mdg-table {
+    font-size: 9px;
+  }
+}

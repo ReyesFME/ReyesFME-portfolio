@@ -45,7 +45,6 @@ const FOLDER_CATEGORIES = [
   { id: 'game',   label: 'GameDev Assets',         icon: gameIcon,   dataKey: 'Game Development Assets' },
 ];
 
-// onMobileLightboxOpen is threaded in so MultimediaViewer can bubble up image taps
 const resolveViewer = (project, onMobileLightboxOpen) => {
   if (!project.isCustomViewer) return null;
   switch (project.customComponent) {
@@ -86,7 +85,6 @@ const ITMobile = ({ togglePersona }) => {
   const [emailMessage,  setEmailMessage]  = useState('');
   const [cloudLink,     setCloudLink]     = useState('');
 
-  // Mobile lightbox state (lives here so it renders above all overlays)
   const [mobileLightbox, setMobileLightbox] = useState(null);
 
   const handleSendEmail = (e) => {
@@ -120,6 +118,68 @@ const ITMobile = ({ togglePersona }) => {
   const handleBackToExplorer = () => {
     setActiveProject(null);
   };
+
+  // ── TTRPG full-viewport takeover (mobile only, published flipbook only) ──
+  // TTRPGArchiveViewer is the customComponent for the TTRPG Special Project.
+  // When that project is open on mobile we bypass the normal itm-window
+  // and render the TtrpgBookReader in a fixed overlay that covers the full screen.
+  if (activeProject?.customComponent === 'TTRPGArchiveViewer') {
+    return (
+      <div style={{
+        position: 'fixed',
+        inset: 0,
+        zIndex: 99999,
+        background: '#0a0a0c',
+        display: 'flex',
+        flexDirection: 'column',
+        overflow: 'hidden',
+      }}>
+        {/* Thin header bar so the user can escape */}
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+          padding: '6px 10px',
+          background: '#1a1a1a',
+          borderBottom: '1px solid #2e2e2e',
+          flexShrink: 0,
+          zIndex: 100000,
+        }}>
+          <button
+            type="button"
+            onClick={handleBackToExplorer}
+            style={{
+              background: 'transparent',
+              border: '1px solid #4e4e4e',
+              color: '#c0c0c0',
+              fontFamily: 'monospace',
+              fontSize: '0.65rem',
+              fontWeight: 'bold',
+              letterSpacing: '0.05em',
+              padding: '4px 10px',
+              borderRadius: '3px',
+              cursor: 'pointer',
+            }}
+          >
+            ← BACK TO FILES
+          </button>
+          <span style={{
+            fontFamily: 'monospace',
+            fontSize: '0.6rem',
+            color: '#555',
+            letterSpacing: '0.08em',
+          }}>
+            🗁 TTRPG Special Project
+          </span>
+        </div>
+
+        {/* Book reader fills remaining space */}
+        <div style={{ flex: 1, minHeight: 0, overflow: 'hidden' }}>
+          <TtrpgBookReader />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="itm-container">
@@ -272,7 +332,7 @@ const ITMobile = ({ togglePersona }) => {
             </div>
           )}
 
-          {/* STATE B: detail */}
+          {/* STATE B: detail (all projects except TTRPGArchiveViewer, handled above) */}
           {activeProject && (
             <div className="itm-window itm-fullscreen-window">
               <div className="itm-window-header">
@@ -458,7 +518,7 @@ const ITMobile = ({ togglePersona }) => {
         </div>
       )}
 
-      {/* ── MOBILE LIGHTBOX — rendered at root level, above all overlays ── */}
+      {/* ── MOBILE LIGHTBOX ── */}
       {mobileLightbox && (
         <Lightbox
           src={mobileLightbox.src}

@@ -677,3 +677,116 @@
   height: auto;
   margin-right: 8px;
 }
+
+@media (max-width: 480px) {
+  .calcu-shell { width: 100%; max-width: 300px; }
+  .reg-row { flex-direction: column; }
+  .reg-field { flex: unset !important; max-width: 100% !important; }
+  .reg-input, .reg-select { width: 100% !important; }
+  .temp-box { padding: 24px 20px; }
+}
+
+/* ─── MOBILE RESPONSIVE ─────────────────────────── */
+.su-desktop {
+  min-height: 0;          
+  padding: 20px 16px 52px; 
+}
+
+/* Tighten icon gap on short screens */
+@media (max-height: 500px) {
+  .su-desktop-icons { gap: 16px; }
+  .su-desktop-icon-emoji { font-size: 36px; }
+  .su-gem-icon.desktop-icon { width: 36px; height: 36px; }
+}
+
+.su-app-overlay {
+  position: absolute;
+}
+
+.su-app-window {
+  max-height: 85%;
+  width: min(720px, 96%);
+  display: flex;
+  flex-direction: column;
+}
+
+.su-window-titlebar {
+  flex-shrink: 0;
+  min-height: 0;
+  flex-wrap: nowrap;
+  gap: 8px;
+}
+
+.su-window-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+  min-width: 0;
+}
+
+.su-calcu,
+.su-temp-input,
+.su-temp-result,
+.su-reg {
+  min-height: 0;   
+  flex: 1;         
+  overflow-y: auto; 
+}
+
+/* ── Calculator: shrink buttons on narrow windows ── */
+@media (max-width: 480px) {
+  .calcu-shell {
+    width: 100%;
+    padding: 14px;
+  }
+
+  .calcu-btn {
+    padding: 10px 0;
+    font-size: 13px;
+  }
+
+  .calcu-display {
+    font-size: 22px;
+    min-height: 44px;
+  }
+}
+
+/* ── Temperature: tighten on small screens ── */
+@media (max-width: 480px) {
+  .temp-box {
+    padding: 20px 16px;
+    min-width: 0;
+    width: 100%;
+  }
+
+  .temp-heading { font-size: 16px; }
+
+  .temp-num-input {
+    font-size: 22px;
+    width: 90px;
+    padding: 8px;
+  }
+}
+
+/* ── Registration: already has flex-wrap on rows, just tighten padding ── */
+@media (max-width: 520px) {
+  .su-reg { padding: 10px; }
+  .reg-body { padding: 8px 10px; }
+
+  .reg-panel2 {
+    padding: 12px 14px;
+    flex-wrap: wrap;
+  }
+
+  .reg-title-big { font-size: 14px; }
+  .reg-avatar    { width: 52px; height: 52px; }
+
+  .reg-section-hdr { font-size: 10px; padding: 4px 10px; }
+}
+
+/* ── Taskbar label: hide on very narrow screens to save space ── */
+@media (max-width: 400px) {
+  .su-taskbar-label { display: none; }
+  .su-taskbar       { gap: 6px; padding: 0 10px; }
+}

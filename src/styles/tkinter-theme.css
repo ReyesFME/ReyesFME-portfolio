@@ -494,3 +494,137 @@
 .tki-dashboard-screen {
   background: #ece9d8;
 }
+
+@media (max-width: 600px) {
+  .tki-main { flex-direction: column; }
+  .tki-form-frame { width: 100%; flex-shrink: unset; }
+  .tki-table th, .tki-table td { font-size: 10px; padding: 4px 5px; }
+}
+
+
+@media (max-width: 600px) {
+  .cpu-line { white-space: pre-wrap; word-break: break-all; }
+  .cpu-source-code { white-space: pre-wrap; word-break: break-all; }
+  .cpu-choice-card { padding: 24px 18px; }
+}
+
+
+@media (max-width: 700px), (max-height: 600px) {
+
+  /* Let the whole dashboard scroll instead of clipping */
+  .tki-screen {
+    overflow-y: auto;
+    height: auto;
+    min-height: 100%;
+  }
+
+  .tki-dashboard-screen {
+    overflow-y: auto;
+    height: auto;
+  }
+
+  /* Stack table and form vertically */
+  .tki-main {
+    flex-direction: column;
+    overflow: visible;
+    height: auto;
+    flex: none;
+  }
+
+  /* Table panel: limit height so it doesn't eat the whole screen */
+  .tki-table-frame {
+    width: 100%;
+    height: auto;
+    max-height: 280px;     
+    flex: none;
+  }
+
+  .tki-form-frame {
+    width: 100%;
+    flex-shrink: unset;
+    flex: none;
+    height: auto;
+  }
+
+  .tki-controls {
+    gap: 6px 8px;
+  }
+
+  .tki-controls-label {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 700px), (max-height: 600px) {
+
+  .tki-screen {
+    overflow-y: auto;
+    height: auto;
+    min-height: 100%;
+  }
+
+  .tki-dashboard-screen {
+    overflow-y: auto;
+    height: auto;
+  }
+
+  .tki-main {
+    flex-direction: column;
+    overflow: visible;
+    height: auto;
+    flex: none;
+  }
+
+  .tki-table-frame {
+    width: 100%;
+    height: auto;
+    max-height: 280px;
+    flex: none;
+  }
+
+  .tki-form-frame {
+    width: 100%;
+    max-width: 100%;
+    flex-shrink: 0;
+    flex: none;
+    height: auto;
+    overflow: visible;      
+    box-sizing: border-box;
+    padding: 16px 12px 12px;
+  }
+
+  .tki-form-grid {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .tki-input,
+  .tki-select {
+    min-width: 0;         
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .tki-form-btns {
+    width: 100%;
+  }
+
+  .tki-btn--action {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .tki-table th,
+  .tki-table td {
+    font-size: 10px;
+    padding: 4px 5px;
+  }
+
+  .tki-controls {
+    gap: 6px 8px;
+  }
+
+  .tki-controls-label {
+    font-size: 11px;
+  }
+}

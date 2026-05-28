@@ -455,3 +455,110 @@
   color: var(--cpu-text-muted);
   text-shadow: none;
 }
+
+/* ─── MOBILE RESPONSIVE ─────────────────────────── */
+
+@media (max-width: 520px) {
+
+  /* Choice card */
+  .cpu-choice-card {
+    padding: 24px 20px;
+  }
+
+  .cpu-choice-title {
+    font-size: 12px;
+  }
+
+  .cpu-choice-desc {
+    font-size: 10px;
+    margin-bottom: 20px;
+  }
+
+  .cpu-choice-btn {
+    font-size: 11px;
+    padding: 10px 14px;
+  }
+
+  /* Terminal */
+  .cpu-terminal {
+    font-size: 10.5px;
+  }
+
+  .cpu-terminal-scroll {
+    padding: 10px 10px 6px;
+    /* Let long pre lines scroll sideways instead of clipping */
+    overflow-x: auto;
+  }
+
+  /* Allow horizontal scroll on pre-formatted lines */
+  .cpu-line {
+    white-space: pre;
+    min-width: max-content;
+  }
+
+  /* Input row */
+  .cpu-input-row {
+    padding: 5px 10px 4px;
+  }
+
+  .cpu-prompt-sym,
+  .cpu-input {
+    font-size: 10.5px;
+  }
+
+  .cpu-input-err {
+    font-size: 10px;
+    padding: 2px 10px 4px;
+  }
+
+  /* Results action buttons */
+  .cpu-results-actions {
+    padding: 10px 0 6px 10px;
+    gap: 8px;
+  }
+
+  .cpu-action-btn {
+    font-size: 10px;
+    padding: 4px 10px;
+  }
+
+  /* Source viewer */
+  .cpu-source-viewer {
+    font-size: 10.5px;
+  }
+
+  .cpu-source-scroll {
+    overflow-x: auto;
+  }
+
+  .cpu-source-line {
+    min-width: max-content;
+    padding: 0 8px;
+  }
+
+  .cpu-source-filename {
+    font-size: 10.5px;
+  }
+
+  .cpu-source-linenum {
+    font-size: 9px;
+    min-width: 26px;
+    margin-right: 10px;
+  }
+
+  .cpu-source-code {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 360px) {
+  .cpu-terminal,
+  .cpu-source-viewer {
+    font-size: 9.5px;
+  }
+
+  .cpu-prompt-sym,
+  .cpu-input {
+    font-size: 9.5px;
+  }
+}
