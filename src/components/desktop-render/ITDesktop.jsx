@@ -6,7 +6,7 @@ import ProfessionalSidebar from '../shared/ProfessionalSidebar.jsx';
 import '../../styles/it-desktop.css';
 import '../../styles/professional-sidebar.css';
 
-import professionalFirstName from '../../assets/shared/Fiona-tag.png';
+import professionalFirstName from '../../assets/shared/fiona-tag.png';
 import professionalLastName  from '../../assets/shared/Reyes-tag.png';
 import reactIcon   from '../../assets/shared/react.png';
 import pythonIcon  from '../../assets/shared/python.png';
