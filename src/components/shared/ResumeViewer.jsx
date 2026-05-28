@@ -72,8 +72,10 @@ const ResumeViewer = ({ bare = false }) => {
       <div className="rv-header">
         <h1 className="rv-name">REYES, FIONA MAE E.</h1>
         <p className="rv-tagline">
-          Seeking an OJT opportunity to leverage strong project management communication, and UI/UX design skills in a fast-paced environment. Creative and detail-oriented 3rd-year IT student bridging the gap between technical system design and multimedia art. Experienced in managing project pipelines, from initial data flow diagrams and concept art to final asset creation.
-        </p>
+            An intern. Seeking an OJT opportunity to improve and leverage my current technical skills, such as project management and UI/UX design skills, in a fast-paced environment. 
+            Creative and detail-oriented 3rd-year IT student bridging the gap between technical system design and multimedia art. 
+            Experienced in creating and managing project pipelines, from initial data flow diagrams and 
+            concept art to final asset creation.         </p>
         <div className="rv-contact-row">
           {CONTACT.map((item, i) => (
             <div key={i} className="rv-contact-item">
