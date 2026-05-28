@@ -5,7 +5,8 @@ const CONTACT = [
   { icon: '>>', label: '#430 Dela Cruz St., Arkong Bato, Valenzuela City' },
   { icon: '>>', label: '09551087286' },
   { icon: '>>', label: 'technofiona607@gmail.com' },
-  { icon: '>>', label: 'websitelink-pagnaka-up-na.site' },
+  { icon: '>>', label: 'LinkedIn', href: 'https://www.linkedin.com/in/reyesfme7/' },
+  { icon: '>>', label: 'ReyesFME Portfolio', href: 'https://reyes-fme-portfolio.vercel.app' }
 ];
 
 const EXPERIENCE = [
@@ -77,7 +78,13 @@ const ResumeViewer = ({ bare = false }) => {
           {CONTACT.map((item, i) => (
             <div key={i} className="rv-contact-item">
               <span className="rv-contact-icon">{item.icon}</span>
-              <span className="rv-contact-label">{item.label}</span>
+              {item.href ? (
+                <a href={item.href} target="_blank" rel="noopener noreferrer" className="rv-contact-label rv-contact-link">
+                  {item.label}
+                </a>
+              ) : (
+                <span className="rv-contact-label">{item.label}</span>
+              )}
             </div>
           ))}
         </div>

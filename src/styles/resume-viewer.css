@@ -26,6 +26,17 @@
   letter-spacing: 0.3px;
 }
 
+.rv-contact-link{
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.rv-contact-link:hover a {
+  color: #555555;
+}
+
 .rv-name {
   font-family: 'VT323', monospace;
   font-size: clamp(1.8rem, 4vw + 0.8rem, 3.2rem);
