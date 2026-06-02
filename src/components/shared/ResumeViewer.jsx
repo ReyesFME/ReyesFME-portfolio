@@ -2,7 +2,7 @@ import React from 'react';
 import '../../styles/resume-viewer.css';
 
 const CONTACT = [
-  { icon: '>>', label: '#430 Dela Cruz St., Arkong Bato, Valenzuela City' },
+  { icon: '>>', label: 'rgb(68, 19, 0) Dela Cruz St., Arkong Bato, Valenzuela City' },
   { icon: '>>', label: '09551087286' },
   { icon: '>>', label: 'technofiona607@gmail.com' },
   { icon: '>>', label: 'LinkedIn', href: 'https://www.linkedin.com/in/reyesfme7/' },
@@ -16,9 +16,9 @@ const EXPERIENCE = [
     desc: "Orchestrated the system's overall aesthetic, providing moodboard, Figma mockups and custom assets—followed by subsequent coding of the frontend using React and JS, ensuring responsiveness from desktop to mobile. Major contributor of system architecture namely: DFDs, Functional and Non-Functional Requirements, and consulted with other needed diagrams.",
   },
   {
-    role: 'Project Manager, Game Designer, Artist — Project W.A.V.E.',
-    date: 'JANUARY 2026 - MAY 2026',
-    desc: "Initiated the group to form a cohesive Game Design Document (GDD), created and managed the 5-month project pipeline. Guided a cross-functional 6-man team, pioneering collaboration and communication while also contributing major assets such as narrative scripts, custom-edited sound effects, backgrounds and miscellaneous assets.",
+    role: 'Frontend Developer - Travel Agency Website',
+    date: 'JANUARY 2025 - MAY 2025',
+    desc: "Designed and developed the frontend layout of the Gidel Travel and Tours Website, mainly with HTML/CSS and JS for interactivity and dynamicness. Collaborated with a backend developer to integrate APIs and functionalities.",
   },
   {
     role: 'Project Manager, Game Designer, Artist — Tabletop Role Playing Game (TTRPG): Approaching Dusk',
@@ -72,10 +72,10 @@ const ResumeViewer = ({ bare = false }) => {
       <div className="rv-header">
         <h1 className="rv-name">REYES, FIONA MAE E.</h1>
         <p className="rv-tagline">
-            An intern. Seeking an OJT opportunity to improve and leverage my current technical skills, such as project management and UI/UX design skills, in a fast-paced environment. 
+            An intern. Seeking an OJT opportunity to improve and leverage my current technical skills, such as project management, multimedia, UI/UX, and system design skills, in a fast-paced environment. 
             Creative and detail-oriented 3rd-year IT student bridging the gap between technical system design and multimedia art. 
-            Experienced in creating and managing project pipelines, from initial data flow diagrams and 
-            concept art to final asset creation.         </p>
+            Experienced in managing project pipelines, initial data flow diagrams, and concept art to final asset creation.         
+        </p>
         <div className="rv-contact-row">
           {CONTACT.map((item, i) => (
             <div key={i} className="rv-contact-item">
