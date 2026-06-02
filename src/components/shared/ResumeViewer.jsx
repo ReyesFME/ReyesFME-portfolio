@@ -2,7 +2,7 @@ import React from 'react';
 import '../../styles/resume-viewer.css';
 
 const CONTACT = [
-  { icon: '>>', label: 'rgb(68, 19, 0) Dela Cruz St., Arkong Bato, Valenzuela City' },
+  { icon: '>>', label: 'Valenzuela City' },
   { icon: '>>', label: '09551087286' },
   { icon: '>>', label: 'technofiona607@gmail.com' },
   { icon: '>>', label: 'LinkedIn', href: 'https://www.linkedin.com/in/reyesfme7/' },
