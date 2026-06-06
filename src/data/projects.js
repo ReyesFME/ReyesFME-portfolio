@@ -88,6 +88,18 @@ export const itProjects = [
     customComponent: "DfdImageViewerApp"
   },
   {
+    id: "it-9",
+    title: "Capstone Executive Summary",
+    category: "System Documentation",
+    description: "Executive summary of MyHakbang: an AI-assisted, mobile-compliant appointment and records management system for Hakbang Center for Child Development. Covers project overview, functional scope, QA validation, and UI/UX design.",
+    techStack: ["React", "UI/UX Design", "System Documentation"],
+    githubLink: "",
+    demoLink: "",
+    previewImage: "",
+    isCustomViewer: true,
+    customComponent: "CapstoneViewerApp"
+  },
+  {
     id: "mm-1",
     title: "Multimedia Film Fest Script",
     category: "Multimedia Works",

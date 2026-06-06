@@ -28,6 +28,7 @@ import WaveDocViewer          from '../shared/WaveDocViewer.jsx';
 import DfdViewer              from '../shared/DfdViewer.jsx';
 import MultimediaViewer       from '../shared/MultimediaViewer.jsx';
 import CardDeckViewer         from '../shared/GameDevCards/CardDeckViewer.jsx';
+import CapstoneViewer         from '../shared/CapstoneViewer.jsx';
 
 
 
@@ -195,6 +196,7 @@ const ITDesktop = ({ togglePersona }) => {
                         activeProject.customComponent === "DfdImageViewerApp" ? <DfdViewer />:
                         activeProject.customComponent === "MultimediaViewerApp" ? <MultimediaViewer project={activeProject} /> :
                         activeProject.customComponent === "CardDeckViewerApp" ? <CardDeckViewer project={activeProject} /> :
+                        activeProject.customComponent === "CapstoneViewerApp" ? <CapstoneViewer /> :
                         <TtrpgBookReader />
                       ) : (
                         <>

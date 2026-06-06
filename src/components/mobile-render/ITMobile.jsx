@@ -30,6 +30,7 @@ import DfdViewer              from '../shared/DfdViewer.jsx';
 import MultimediaViewer, { Lightbox } from '../shared/MultimediaViewer.jsx';
 import CardDeckViewer         from '../shared/GameDevCards/CardDeckViewer.jsx';
 import ResumeViewer           from '../shared/ResumeViewer.jsx';
+import CapstoneViewer         from '../shared/CapstoneViewer.jsx';
 
 const TECH_SKILLS = [
   { id: 'react',   label: 'React',      icon: reactIcon   },
@@ -62,6 +63,7 @@ const resolveViewer = (project, onMobileLightboxOpen) => {
         />
       );
     case 'CardDeckViewerApp':      return <CardDeckViewer project={project} />;
+    case 'CapstoneViewerApp':      return <CapstoneViewer />;
     default:                       return <TtrpgBookReader />;
   }
 };
@@ -120,9 +122,6 @@ const ITMobile = ({ togglePersona }) => {
   };
 
   // ── TTRPG full-viewport takeover (mobile only, published flipbook only) ──
-  // TTRPGArchiveViewer is the customComponent for the TTRPG Special Project.
-  // When that project is open on mobile we bypass the normal itm-window
-  // and render the TtrpgBookReader in a fixed overlay that covers the full screen.
   if (activeProject?.customComponent === 'TTRPGArchiveViewer') {
     return (
       <div style={{
@@ -176,6 +175,65 @@ const ITMobile = ({ togglePersona }) => {
         {/* Book reader fills remaining space */}
         <div style={{ flex: 1, minHeight: 0, overflow: 'hidden' }}>
           <TtrpgBookReader />
+        </div>
+      </div>
+    );
+  }
+
+  // ── CapstoneViewer full-viewport takeover on mobile ──
+  // Mirrors the TTRPG pattern so the viewer gets maximum real-estate
+  // without fighting the itm-window chrome.
+  if (activeProject?.customComponent === 'CapstoneViewerApp') {
+    return (
+      <div style={{
+        position: 'fixed',
+        inset: 0,
+        zIndex: 99999,
+        background: '#0a0a0a',
+        display: 'flex',
+        flexDirection: 'column',
+        overflow: 'hidden',
+      }}>
+        {/* Escape bar */}
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+          padding: '6px 10px',
+          background: '#0f0f0f',
+          borderBottom: '1px solid #2a2a2a',
+          flexShrink: 0,
+          zIndex: 100000,
+        }}>
+          <button
+            type="button"
+            onClick={handleBackToExplorer}
+            style={{
+              background: 'transparent',
+              border: '1px solid #3d3d3d',
+              color: '#d4d4d4',
+              fontFamily: "'Share Tech Mono', monospace",
+              fontSize: '0.65rem',
+              letterSpacing: '0.08em',
+              padding: '4px 10px',
+              cursor: 'pointer',
+            }}
+          >
+            ← BACK TO FILES
+          </button>
+          <span style={{
+            fontFamily: "'Share Tech Mono', monospace",
+            fontSize: '0.6rem',
+            color: '#555',
+            letterSpacing: '0.08em',
+          }}>
+            🗁 {activeProject.title}
+          </span>
+        </div>
+
+        {/* CapstoneViewer fills the rest; it scrolls internally */}
+        <div style={{ flex: 1, minHeight: 0, overflowY: 'auto', overflowX: 'hidden' }}>
+          <CapstoneViewer />
         </div>
       </div>
     );
@@ -332,8 +390,10 @@ const ITMobile = ({ togglePersona }) => {
             </div>
           )}
 
-          {/* STATE B: detail (all projects except TTRPGArchiveViewer, handled above) */}
-          {activeProject && (
+          {/* STATE B: detail
+              CapstoneViewerApp is handled by the full-screen takeover above,
+              so it will never reach this branch — but we keep the guard for clarity. */}
+          {activeProject && activeProject.customComponent !== 'CapstoneViewerApp' && (
             <div className="itm-window itm-fullscreen-window">
               <div className="itm-window-header">
                 <span className="itm-window-title">🗁 {activeProject.title}</span>
