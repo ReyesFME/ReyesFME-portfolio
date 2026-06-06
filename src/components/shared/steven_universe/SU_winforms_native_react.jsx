@@ -413,6 +413,15 @@ export default function StevenUniverseWinforms() {
                   <img src={folder} className="foldericon"/>
                   Original C# WinForms Repository
                 </a>
+                <a 
+                  href="https://res.cloudinary.com/dwqatvm5x/video/upload/q_auto/f_auto/v1780765010/Winforms_Video_Demo-silent.mp4" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="su-start-link"
+                >
+                  <img src={folder} className="foldericon"/>
+                  Video Demo
+                </a>
               </div>
             </div>
           )}

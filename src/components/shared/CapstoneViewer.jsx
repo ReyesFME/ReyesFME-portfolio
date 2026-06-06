@@ -486,10 +486,10 @@ function ScreenshotSection() {
 
 const SECTIONS = ['overview', 'scope', 'qa', 'ui'];
 const SECTION_LABELS = {
-  overview: '01. PROJECT OVERVIEW',
-  scope: '02. FUNCTIONAL SCOPE',
-  qa: '03. QA & SYSTEM VALIDATION',
-  ui: '04. UI/UX DESIGN LAYOUT',
+  overview: 'Overview',
+  scope: 'Scope',
+  qa: 'QA',
+  ui: 'UI Screenshots',
 };
 
 const CapstoneViewer = () => {
@@ -636,7 +636,7 @@ const CapstoneViewer = () => {
       </main>
 
       <footer className="cv-footer">
-        <span>Status: In-Development Prototype</span>
+        <span>Disclaimer: This is only an In-Development Prototype</span>
         <span className="cv-footer-sep">|</span>
         <span>Current Status: Defended Capstone 1, pending Capstone 2</span>
       </footer>

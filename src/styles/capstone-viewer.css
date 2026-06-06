@@ -49,8 +49,8 @@
 /* ── HEADER ── */
 .cv-header {
   padding: 24px 28px 16px;
-  border-bottom: 1px solid var(--cv-border);
   background: var(--cv-bg-panel);
+  padding-bottom: 40px;
 }
 
 .cv-header-tag {
@@ -806,8 +806,7 @@
   align-items: center;
   padding: 12px 28px;
   border-top: 1px solid var(--cv-border);
-  font-size: 9px;
-  letter-spacing: 0.15em;
+  font-size: 12px;
   color: var(--cv-border-bright);
   text-transform: uppercase;
 }
