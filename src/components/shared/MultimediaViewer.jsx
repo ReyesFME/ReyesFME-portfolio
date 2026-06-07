@@ -153,13 +153,23 @@ export function Lightbox({ src, alt, onClose, mobileMode = false }) {
     zoom(delta, frame.offsetWidth / 2, frame.offsetHeight / 2);
   };
 
-  // ── MOBILE: fullscreen, no toolbar, tap-outside closes ──
+  // ── MOBILE: fullscreen, close button + tap-outside closes ──
   if (mobileMode) {
     return (
       <div
         className="lb-overlay lb-overlay--mobile"
         onClick={onClose}
       >
+        {/* Always-visible close button */}
+        <button
+          className="lb-mobile-close-btn"
+          onClick={onClose}
+          type="button"
+          aria-label="Close image viewer"
+        >
+          ✕
+        </button>
+
         <div
           className="lb-frame lb-frame--mobile"
           ref={frameRef}
@@ -274,7 +284,6 @@ export default function MultimediaViewer({ project, onMobileLightboxOpen }) {
                 title="Click to enlarge"
               >
                 <img src={src} alt={`${project.title} ${i + 1}`} draggable="false" />
-                <div className="mm-grid-hover">🔍</div>
               </div>
             ))}
           </div>
@@ -287,7 +296,6 @@ export default function MultimediaViewer({ project, onMobileLightboxOpen }) {
             title="Click to enlarge"
           >
             <img src={project.image} alt={project.title} draggable="false" />
-            <div className="mm-grid-hover">🔎︎</div>
           </div>
 
         /* Text file */

@@ -489,10 +489,16 @@ export default function SystemLogViewer() {
   return (
     <div className={`slv-root ${themeClass} ${glitch ? 'slv-glitch' : ''}`}>
       <div className="slv-header">
-        <span className="slv-header-prefix">ARCHIVE</span>
-        <span className="slv-header-title">{page.title.toUpperCase()}</span>
-        <span className="slv-header-page">PAGE {currentIndex + 1}/{total}</span>
+        <div className="slv-header-pre-text">
+          <span className="slv-header-prefix">ARCHIVE</span>
+          <span className="slv-header-page">PAGE {currentIndex + 1}/{total}</span>
+        </div>
+        <div className="slv-header-title-container">
+          <span className="slv-header-title">{page.title.toUpperCase()}</span>
+        </div>
       </div>
+
+
 
       {faction !== 'neutral' && (
         <div className={`slv-faction-badge slv-faction-${faction}`}>

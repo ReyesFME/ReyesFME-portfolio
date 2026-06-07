@@ -500,11 +500,11 @@ const CapstoneViewer = () => {
       <div className="cv-scanline" aria-hidden="true" />
 
       <header className="cv-header">
-        <div className="cv-header-tag">SYS-DOC // CAPSTONE</div>
+        <div className="cv-header-tag">SYSTEM-DOCUMENTATION // CAPSTONE</div>
         <h1 className="cv-header-title">
           MyHakbang
           <span className="cv-header-subtitle">
-            &nbsp;— AI-Assisted Mobile-Compliant Web-Based Appointment &amp; Records Management System
+            &nbsp;— An AI-Assisted Mobile-Compliant Web-Based Appointment &amp; Records Management System
           </span>
         </h1>
         <div className="cv-header-client">CLIENT: Hakbang Center for Child Development</div>
@@ -539,6 +539,9 @@ const CapstoneViewer = () => {
                 <div className="cv-overview-roles">
                   <div className="cv-role-row">
                     <span className="cv-role-tag">PROJECT MANAGER</span>
+                  </div>
+                  <div className="cv-role-row">
+                    <span className="cv-role-tag cv-role-tag--mine">DESIGN LEAD</span>
                   </div>
                   <div className="cv-role-row">
                     <span className="cv-role-tag">DOCUMENTATION &amp; COMMUNICATIONS LEAD</span>

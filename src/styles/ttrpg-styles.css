@@ -188,6 +188,7 @@
   border-bottom: 1px solid var(--slv-border);
   padding: 8px 16px;
   display: flex;
+  flex-direction: column;
   align-items: baseline;
   gap: 12px;
   flex-shrink: 0;
@@ -200,10 +201,11 @@
 }
 .slv-header-title {
   font-family: var(--slv-font-display);
-  font-size: 19px;
+  font-size: clamp(15px, 3vw, 25px);
   color: var(--slv-accent);
   letter-spacing: 0.07em;
   flex: 1;
+  text-align: center;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -214,6 +216,21 @@
   color: var(--slv-text-dim);
   letter-spacing: 0.12em;
   white-space: nowrap;
+}
+
+/*HEADER FIX KASI PANGET NYA SA MOBILE*/
+.slv-header-pre-text {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.slv-header-title-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;  
 }
 
 /* ─── Faction badge ──────────────────────────────────────────────────────── */
@@ -562,12 +579,11 @@
 .ttrpg-back-btn {
   background: #0d0d0d;
   color: #666;
-  border: 1px solid #252525;
   border-bottom: none;
   font-family: 'Share Tech Mono', monospace;
   font-size: 11px;
   letter-spacing: 0.12em;
-  padding: 6px 14px;
+  padding: 10px 14px;
   cursor: pointer;
   align-self: flex-start;
   transition: color 0.15s, border-color 0.15s;
@@ -937,4 +953,171 @@
   80%  { transform: translate(-2px,0);  clip-path: none; }
   90%  { transform: translate(1px,0);   clip-path: none; }
   100% { transform: translate(0,0);     clip-path: none; }
+}
+
+
+@media (max-width: 768px) {
+  .slv-header {
+    flex-wrap: wrap;
+    gap: 4px 10px;
+    padding: 6px 12px;
+  }
+
+  .slv-header-title {
+    white-space: normal;
+    font-size: clamp(15px, 5vw, 25px);
+    width: 100%;
+    order: 2;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 10px;
+  }
+
+  .slv-header-prefix {
+    order: 1;
+  }
+
+  .slv-header-page {
+    order: 3;
+    margin-left: auto;
+  }
+
+  .slv-footer-left,
+  .slv-footer-right { 
+    display: flex; 
+    align-items: center;
+    gap: 8px; 
+  }
+}
+
+
+/*additional asset for ttrpg choice screen, stylized using the original assets*/ 
+/* ─── Immersive splash / choice screen ──────────────────────────────────── */
+.ttrpg-splash-root {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 480px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  font-family: 'Share Tech Mono', monospace;
+}
+
+/* Background illustration */
+.ttrpg-splash-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  z-index: 0;
+}
+
+/* Dark gradient so text + cards are always legible */
+.ttrpg-splash-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(to bottom,
+      rgba(5, 2, 10, 0.45) 0%,
+      rgba(5, 2, 10, 0.55) 40%,
+      rgba(5, 2, 10, 0.80) 70%,
+      rgba(5, 2, 10, 0.95) 100%
+    ),
+    linear-gradient(to right,
+      rgba(5, 2, 10, 0.55) 0%,
+      transparent 30%,
+      transparent 70%,
+      rgba(5, 2, 10, 0.55) 100%
+    );
+}
+
+/* Scrollable content column */
+.ttrpg-splash-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding: 32px 24px 40px;
+  width: 100%;
+  max-width: 680px;
+}
+
+/* Logo */
+.ttrpg-splash-logo-wrap {
+  display: flex;
+  justify-content: center;
+}
+.ttrpg-splash-logo {
+  max-width: min(450px, 72vw);
+  height: auto;
+  filter: drop-shadow(0 0 24px rgba(120, 60, 200, 0.5));
+  user-select: none;
+}
+
+/* Heading block */
+.ttrpg-splash-heading {
+  text-align: center;
+}
+.ttrpg-splash-label {
+  display: block;
+  font-family: 'VT323', monospace;
+  font-size: clamp(18px, 4vw, 26px);
+  letter-spacing: 0.14em;
+  color: #c8b0e0;
+}
+.ttrpg-splash-sub {
+  font-size: 11px;
+  color: #b493e2;
+  margin: 4px 0 0;
+  letter-spacing: 0.06em;
+}
+
+/* Card grid */
+.ttrpg-splash-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px;
+  width: 100%;
+}
+
+/* Override card background for splash — semi-transparent so bg art shows */
+.ttrpg-splash-grid .ttrpg-choice-card {
+  background: rgba(10, 5, 15, 0.72);
+  border-color: #2a1a3a;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.ttrpg-splash-grid .ttrpg-choice-card:hover:not(.ttrpg-choice-card--disabled) {
+  background: rgba(20, 10, 30, 0.85);
+  border-color: #5a3a7a;
+}
+
+/* ─── Mobile tweaks ──────────────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .ttrpg-splash-content {
+    gap: 18px;
+    padding: 24px 16px 32px;
+  }
+  .ttrpg-splash-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ttrpg-reader-root {
+  height: 100%;
+  min-height: 0;
+  flex: 1;
+}
+
+.ttrpg-reader-root .slv-root {
+  min-height: 0;
+  max-height: 100%;
+  flex: 1;
+  height: 100%;
 }
