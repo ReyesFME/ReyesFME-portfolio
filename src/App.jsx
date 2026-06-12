@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useWindowSize } from './hooks/useWindowSize';
 import './index.css';
 
@@ -13,6 +13,15 @@ function App() {
   const [activePersona, setActivePersona] = useState('it');
   const [glitchActive,  setGlitchActive]  = useState(false);
   const { isMobile } = useWindowSize();
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const viewParam = params.get('view');
+
+    if (viewParam === 'artist' || viewParam === 'reystarrie') {
+      setActivePersona('artist');
+    }
+  }, []);
 
   const triggerHorrorTransition = () => {
     if (glitchActive) return;
@@ -56,7 +65,6 @@ function App() {
     }
   };
 
-  // Build the PersonaToggle node once so it can be passed into mobile/desktop
   const personaToggleNode = activePersona === 'artist' ? (
     <PersonaToggle currentPersona={activePersona} togglePersona={togglePersona} isInline={true} />
   ) : null;
@@ -80,7 +88,6 @@ function App() {
         activePersona === 'it' ? (
           <ITMobile togglePersona={togglePersona} />
         ) : (
-          // Pass toggle as prop so ArtistMobile can render it centered in-flow
           <ArtistMobile personaToggle={personaToggleNode} />
         )
       ) : (
