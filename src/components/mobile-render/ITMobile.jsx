@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { itProjects } from '../../data/projects';
 import SocialBar from '../shared/SocialBar.jsx';
 import PersonaToggle from '../shared/PersonaToggle.jsx';
@@ -19,7 +19,6 @@ import gameIcon    from '../../assets/shared/game.png';
 import linkedinIcon from '../../assets/shared/linkedin-icon.png';
 import gmailIcon    from '../../assets/shared/gmail-icon.png';
 
-// --- CUSTOM INTERACTIVE VIEWERS ---
 import CPUSchedulerApp        from '../shared/CPU_Scheduling/CPUScheduler.jsx';
 import TtrpgBookReader        from '../TTRPG/TtrpgBookReader.jsx';
 import StevenUniverseApp      from '../shared/steven_universe/SU_winforms_native_react.jsx';
@@ -89,6 +88,28 @@ const ITMobile = ({ togglePersona }) => {
 
   const [mobileLightbox, setMobileLightbox] = useState(null);
 
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const folderParam = params.get('folder');
+    const fileParam = params.get('file');
+
+    if (folderParam) {
+      const foundFolder = FOLDER_CATEGORIES.find(f => f.id === folderParam);
+      
+      if (foundFolder) {
+        setActiveFolder(foundFolder); 
+
+        if (fileParam) {
+          const foundProject = itProjects.find(p => p.id === fileParam);
+          
+          if (foundProject && foundProject.category === foundFolder.dataKey) {
+            setActiveProject(foundProject); 
+          }
+        }
+      }
+    }
+  }, []);
+
   const handleSendEmail = (e) => {
     e.preventDefault();
     emailjs
@@ -121,7 +142,6 @@ const ITMobile = ({ togglePersona }) => {
     setActiveProject(null);
   };
 
-  // ── TTRPG full-viewport takeover (mobile only, published flipbook only) ──
   if (activeProject?.customComponent === 'TTRPGArchiveViewer') {
     return (
       <div style={{
@@ -133,7 +153,6 @@ const ITMobile = ({ togglePersona }) => {
         flexDirection: 'column',
         overflow: 'hidden',
       }}>
-        {/* Thin header bar so the user can escape */}
         <div style={{
           display: 'flex',
           alignItems: 'center',
@@ -172,7 +191,6 @@ const ITMobile = ({ togglePersona }) => {
           </span>
         </div>
 
-        {/* Book reader fills remaining space */}
         <div style={{ flex: 1, minHeight: 0, overflow: 'hidden' }}>
           <TtrpgBookReader />
         </div>
@@ -180,9 +198,6 @@ const ITMobile = ({ togglePersona }) => {
     );
   }
 
-  // ── CapstoneViewer full-viewport takeover on mobile ──
-  // Mirrors the TTRPG pattern so the viewer gets maximum real-estate
-  // without fighting the itm-window chrome.
   if (activeProject?.customComponent === 'CapstoneViewerApp') {
     return (
       <div style={{
@@ -194,7 +209,6 @@ const ITMobile = ({ togglePersona }) => {
         flexDirection: 'column',
         overflow: 'hidden',
       }}>
-        {/* Escape bar */}
         <div style={{
           display: 'flex',
           alignItems: 'center',
@@ -231,7 +245,6 @@ const ITMobile = ({ togglePersona }) => {
           </span>
         </div>
 
-        {/* CapstoneViewer fills the rest; it scrolls internally */}
         <div style={{ flex: 1, minHeight: 0, overflowY: 'auto', overflowX: 'hidden' }}>
           <CapstoneViewer />
         </div>
@@ -242,7 +255,6 @@ const ITMobile = ({ togglePersona }) => {
   return (
     <div className="itm-container">
 
-      {/* ── HEADER ───────────────────────────────────────── */}
       <header className="itm-header">
         <div className="itm-name-block">
           <img src={professionalFirstName} alt="Fiona" className="itm-name-img" draggable="false" />
@@ -292,7 +304,6 @@ const ITMobile = ({ togglePersona }) => {
         )}
       </header>
 
-      {/* ── MAIN ─────────────────────────────────────────── */}
       <main className="itm-main">
         <h2 className="itm-section-heading">Professional / School Works</h2>
 
@@ -342,16 +353,13 @@ const ITMobile = ({ togglePersona }) => {
         </div>
       </main>
 
-      {/* ── FOOTER ───────────────────────────────────────── */}
       <footer className="itm-footer">
         <SocialBar />
       </footer>
 
-      {/* ── PROJECT FOLDER OVERLAY ───────────────────────── */}
       {activeFolder && (
         <div className="itm-overlay">
 
-          {/* STATE A: explorer */}
           {!activeProject && (
             <div className="itm-window itm-fullscreen-window">
               <div className="itm-window-header">
@@ -390,9 +398,6 @@ const ITMobile = ({ togglePersona }) => {
             </div>
           )}
 
-          {/* STATE B: detail
-              CapstoneViewerApp is handled by the full-screen takeover above,
-              so it will never reach this branch — but we keep the guard for clarity. */}
           {activeProject && activeProject.customComponent !== 'CapstoneViewerApp' && (
             <div className="itm-window itm-fullscreen-window">
               <div className="itm-window-header">
@@ -449,7 +454,6 @@ const ITMobile = ({ togglePersona }) => {
         </div>
       )}
 
-      {/* ── RESUME OVERLAY ───────────────────────────────── */}
       {isResumeOpen && (
         <div className="itm-overlay">
           <div className="itm-window itm-fullscreen-window">
@@ -488,7 +492,6 @@ const ITMobile = ({ togglePersona }) => {
         </div>
       )}
 
-      {/* ── GMAIL OVERLAY ────────────────────────────────── */}
       {isEmailOpen && (
         <div className="itm-overlay">
           <form
@@ -578,7 +581,6 @@ const ITMobile = ({ togglePersona }) => {
         </div>
       )}
 
-      {/* ── MOBILE LIGHTBOX ── */}
       {mobileLightbox && (
         <Lightbox
           src={mobileLightbox.src}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { artProjects } from '../../data/projects';
 import FilmStrip from '../../components/FilmStrip.jsx';
 import SocialBar from '../shared/SocialBar.jsx';
@@ -15,8 +15,6 @@ import ResumeViewer    from '../shared/ResumeViewer.jsx';
 import linkedinIcon    from '../../assets/shared/linkedin-icon.png';
 import gmailIcon       from '../../assets/shared/gmail-icon.png';
 
-
-
 const ART_FOLDER_CATEGORIES = [
   { id: 'digital',     label: 'Digital',     icon: digitalIcon,     dataKey: 'digital'     },
   { id: 'traditional', label: 'Traditional', icon: traditionalIcon, dataKey: 'traditional' },
@@ -31,6 +29,40 @@ const ArtistMobile = ({ personaToggle }) => {
     publicKey:  'i3eNdHriCFdmyPQbS',
   };
   emailjs.init(EMAILJS_CONFIG.publicKey);
+
+  const [showMoreInfo,  setShowMoreInfo]  = useState(false);
+  const [activeFolder,  setActiveFolder]  = useState(null);
+  const [activeProject, setActiveProject] = useState(null);
+  const [isResumeOpen, setIsResumeOpen]   = useState(false);
+
+  const [isEmailOpen,   setIsEmailOpen]   = useState(false);
+  const [emailSubject,  setEmailSubject]  = useState('');
+  const [emailMessage,  setEmailMessage]  = useState('');
+  const [cloudLink,     setCloudLink]     = useState('');
+
+  const [mobileLightbox, setMobileLightbox] = useState(null);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const folderParam = params.get('folder');
+    const fileParam = params.get('file');
+
+    if (folderParam) {
+      const foundFolder = ART_FOLDER_CATEGORIES.find(f => f.id === folderParam);
+      
+      if (foundFolder) {
+        setActiveFolder(foundFolder);
+
+        if (fileParam) {
+          const foundProject = artProjects.find(p => p.id === fileParam);
+          
+          if (foundProject && foundProject.category === foundFolder.dataKey) {
+            setActiveProject(foundProject);
+          }
+        }
+      }
+    }
+  }, []);
 
   const handleSendEmail = (e) => {
     e.preventDefault();
@@ -51,19 +83,6 @@ const ArtistMobile = ({ personaToggle }) => {
       .catch(() => alert('ERROR: Terminal link delivery failed. Verify dashboard API credentials.'));
   };
 
-  const [showMoreInfo,  setShowMoreInfo]  = useState(false);
-  const [activeFolder,  setActiveFolder]  = useState(null);
-  const [activeProject, setActiveProject] = useState(null);
-  const [isResumeOpen, setIsResumeOpen]   = useState(false);
-
-  const [isEmailOpen,   setIsEmailOpen]   = useState(false);
-  const [emailSubject,  setEmailSubject]  = useState('');
-  const [emailMessage,  setEmailMessage]  = useState('');
-  const [cloudLink,     setCloudLink]     = useState('');
-
-  // ── Mobile lightbox state (lives here so it renders above all overlays) ──
-  const [mobileLightbox, setMobileLightbox] = useState(null); // { src, alt } | null
-
   const filteredProjects = activeFolder
     ? artProjects.filter(p => p.category === activeFolder.dataKey)
     : [];
@@ -74,7 +93,6 @@ const ArtistMobile = ({ personaToggle }) => {
   return (
     <div className="am-container">
 
-      {/* ── HEADER ────────────────────────────────────────────── */}
       <header className="am-header">
         <div className="am-name-block">
           <img src={artistName} alt="Reystarrie" className="am-name-img" draggable="false" />
@@ -127,7 +145,6 @@ const ArtistMobile = ({ personaToggle }) => {
         )}
       </header>
 
-      {/* ── MAIN — folders only ───────────────────────────────── */}
       <main className="am-main">
         <h2 className="am-section-heading">Personal Projects</h2>
 
@@ -166,7 +183,6 @@ const ArtistMobile = ({ personaToggle }) => {
         </div>
       </main>
 
-      {/* ── FOOTER ────────────────────────────────────────────── */}
       <footer className="am-footer">
         <div className="am-reel-stage">
           <div className="am-character-overlay">
@@ -186,7 +202,6 @@ const ArtistMobile = ({ personaToggle }) => {
         <SocialBar />
       </footer>
 
-      {/* ── OVERLAY ───────────────────────────────────────────── */}
       {activeFolder && (
         <div className="am-overlay">
           {!activeProject && (
@@ -226,7 +241,6 @@ const ArtistMobile = ({ personaToggle }) => {
                 <button type="button" className="am-window-close-btn" onClick={handleCloseFolder}>✕</button>
               </div>
               <div className="am-detail-body">
-                {/* Pass onMobileLightboxOpen so tapping an image bubbles up here */}
                 <MultimediaViewer
                   project={activeProject}
                   onMobileLightboxOpen={(src, alt) => setMobileLightbox({ src, alt })}
@@ -279,7 +293,6 @@ const ArtistMobile = ({ personaToggle }) => {
         </div>
       )}
 
-      {/* ── GMAIL OVERLAY ──────────────────────────────────────── */}
       {isEmailOpen && (
         <div className="itm-overlay">
           <form className="itm-window itm-fullscreen-window" onSubmit={handleSendEmail}>
@@ -333,7 +346,6 @@ const ArtistMobile = ({ personaToggle }) => {
         </div>
       )}
 
-      {/* ── MOBILE LIGHTBOX — rendered at root level, above all overlays ── */}
       {mobileLightbox && (
         <Lightbox
           src={mobileLightbox.src}

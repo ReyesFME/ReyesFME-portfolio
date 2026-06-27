@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { itProjects } from '../../data/projects';
 import SocialBar from '../shared/SocialBar.jsx';
 import PersonaToggle from '../shared/PersonaToggle.jsx';
@@ -30,10 +30,6 @@ import MultimediaViewer       from '../shared/MultimediaViewer.jsx';
 import CardDeckViewer         from '../shared/GameDevCards/CardDeckViewer.jsx';
 import CapstoneViewer         from '../shared/CapstoneViewer.jsx';
 
-
-
-
-
 const TECH_SKILLS = [
   { id: 'react',   label: 'React',               icon: reactIcon   },
   { id: 'python',  label: 'Python',              icon: pythonIcon  },
@@ -53,6 +49,32 @@ const ITDesktop = ({ togglePersona }) => {
   const [activeProject, setActiveProject] = useState(null);
   const [showMoreInfo,  setShowMoreInfo]  = useState(false);
   const [activeView, setActiveView] = useState('menu');
+
+  // --- NEW ADDITION: Check URL for a specific folder and file to open ---
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const folderParam = params.get('folder');
+    const fileParam = params.get('file');
+
+    // Check if a folder parameter exists
+    if (folderParam) {
+      const foundFolder = FOLDER_CATEGORIES.find(f => f.id === folderParam);
+      
+      if (foundFolder) {
+        setActiveFolder(foundFolder); // Open the left panel (Explorer)
+
+        // Check if a specific file parameter exists inside that folder
+        if (fileParam) {
+          const foundProject = itProjects.find(p => p.id === fileParam);
+          
+          // Ensure the project actually belongs to this folder category before opening
+          if (foundProject && foundProject.category === foundFolder.dataKey) {
+            setActiveProject(foundProject); // Open the right panel (Viewer)
+          }
+        }
+      }
+    }
+  }, []);
 
   const filteredProjects = activeFolder
     ? itProjects.filter(p => p.category === activeFolder.dataKey)
