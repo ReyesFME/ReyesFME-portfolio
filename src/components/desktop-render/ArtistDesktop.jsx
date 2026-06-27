@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { artProjects } from '../../data/projects';
 import FilmStrip from '../../components/FilmStrip.jsx';
 import SocialBar from '../shared/SocialBar.jsx';
@@ -16,6 +16,15 @@ import artistCharacter from '../../assets/shared/ArtistModel.png';
 const ArtistDesktop = ({ personaToggle }) => {
   const [activeFolder, setActiveFolder]   = useState(null);
   const [activeProject, setActiveProject] = useState(null);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const folderParam = params.get('folder');
+
+    if (folderParam === 'written' || folderParam === 'digital' || folderParam === 'traditional') {
+      setActiveFolder(folderParam);
+    }
+  }, []);
 
   const filteredProjects = artProjects.filter(p => p.category === activeFolder);
 
@@ -85,12 +94,10 @@ const ArtistDesktop = ({ personaToggle }) => {
 
       <ProfessionalSidebar variant="artist" />
 
-      {/* ── File Explorer Modal — XP chrome ── */}
       {activeFolder && (
         <div className="psb-overlay">
           <div className={`itd-split-panel${activeProject ? ' itd-split-panel--detail-open' : ''}`}>
 
-            {/* ── Left pane: file list ── */}
             <div className="psb-window itd-split-explorer">
               <div className="psb-header">
                 <span className="psb-title">🗁 file_explorer.exe — C:\Projects\{activeFolder}</span>
@@ -121,7 +128,6 @@ const ArtistDesktop = ({ personaToggle }) => {
               </div>
             </div>
 
-            {/* ── Right pane: project detail / viewer ── */}
             <div className={`itd-split-detail${activeProject ? ' itd-split-detail--open' : ''}`}>
               <div className="psb-window" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
                 {activeProject && (
