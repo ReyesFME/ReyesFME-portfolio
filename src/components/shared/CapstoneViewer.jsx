@@ -373,12 +373,24 @@ function TestCaseCarousel() {
 
 function ScreenshotSection() {
   const [activeView, setActiveView] = useState('desktop');
-  const [openCategory, setOpenCategory] = useState(null);
+  // Start with ALL categories expanded; each can still be toggled independently
+  const [openCategories, setOpenCategories] = useState(
+    () => new Set(SCREENSHOT_CATEGORIES.map(c => c.id))
+  );
   const [lightbox, setLightbox] = useState(null);
 
   const toggleCategory = (id) => {
-    setOpenCategory(prev => prev === id ? null : id);
+    setOpenCategories(prev => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
   };
+
+  const expandAll = () =>
+    setOpenCategories(new Set(SCREENSHOT_CATEGORIES.map(c => c.id)));
+  const collapseAll = () => setOpenCategories(new Set());
 
   return (
     <div className="cv-ss-section">
@@ -398,12 +410,21 @@ function ScreenshotSection() {
         >
           [MOBILE]
         </button>
+
+        <div className="cv-ss-actions">
+          <button type="button" className="cv-ss-toggle-btn" onClick={expandAll}>
+            [EXPAND ALL]
+          </button>
+          <button type="button" className="cv-ss-toggle-btn" onClick={collapseAll}>
+            [COLLAPSE ALL]
+          </button>
+        </div>
       </div>
 
       <div className="cv-ss-categories">
         {SCREENSHOT_CATEGORIES.map(cat => {
           const images = cat[activeView] || [];
-          const isOpen = openCategory === cat.id;
+          const isOpen = openCategories.has(cat.id);
           return (
             <div key={cat.id} className="cv-ss-cat">
               <button
@@ -453,11 +474,11 @@ function ScreenshotSection() {
       {lightbox && (
         <div className="cv-lightbox" onClick={() => setLightbox(null)}>
           <div className="cv-lightbox-inner" onClick={e => e.stopPropagation()}>
-            <div className='tv-box-header'>
-                <p className="cv-lightbox-caption">{lightbox.alt}</p>
-                <button type="button" className="cv-lightbox-close" onClick={() => setLightbox(null)}>&#10005; CLOSE</button>
+            <div className="tv-box-header">
+              <p className="cv-lightbox-caption">{lightbox.alt}</p>
+              <button type="button" className="cv-lightbox-close" onClick={() => setLightbox(null)}>&#10005; CLOSE</button>
             </div>
-            
+
             <div className="cv-lightbox-tv">
               <div className="cv-lightbox-screen">
                 {lightbox.url.startsWith('CLOUDINARY') ? (
@@ -518,7 +539,7 @@ const CapstoneViewer = () => {
             className={`cv-nav-btn${activeSection === sec ? ' cv-nav-btn--active' : ''}`}
             onClick={() => setActiveSection(sec)}
           >
-            {activeSection === sec ? '' : ''}{SECTION_LABELS[sec]}
+            {SECTION_LABELS[sec]}
           </button>
         ))}
       </nav>
@@ -628,10 +649,6 @@ const CapstoneViewer = () => {
               <span className="cv-section-num">04</span>
               <span className="cv-section-title">UI/UX DESIGN LAYOUT</span>
             </div>
-            <p className="cv-body-text">
-              Select a category below to expand its screenshots. Toggle between Desktop and Mobile views
-              using the switcher above the categories.
-            </p>
             <ScreenshotSection />
           </section>
         )}

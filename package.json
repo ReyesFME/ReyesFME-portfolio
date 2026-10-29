@@ -11,10 +11,13 @@
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
+    "docx-preview": "^0.4.1",
     "pyodide": "^0.29.4",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
-    "react-pageflip": "^2.0.3"
+    "react-markdown": "^10.1.0",
+    "react-pageflip": "^2.0.3",
+    "remark-gfm": "^4.0.1"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

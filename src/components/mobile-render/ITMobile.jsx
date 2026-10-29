@@ -45,6 +45,19 @@ const FOLDER_CATEGORIES = [
   { id: 'game',   label: 'GameDev Assets',         icon: gameIcon,   dataKey: 'Game Development Assets' },
 ];
 
+const getProjectThumbnail = project =>
+  project.previewImage ||
+  project.image ||
+  project.images?.[0] ||
+  project.cardData?.[0]?.front ||
+  null;
+
+const getProjectFallback = project => {
+  if (project.fileUrl) return 'TXT';
+  if (project.category === 'Coding Projects') return '</>';
+  return 'DOC';
+};
+
 const resolveViewer = (project, onMobileLightboxOpen) => {
   if (!project.isCustomViewer) return null;
   switch (project.customComponent) {
@@ -378,8 +391,34 @@ const ITMobile = ({ togglePersona }) => {
                       type="button"
                       onClick={() => setActiveProject(project)}
                     >
-                      <div className="itm-file-icon">🗎</div>
-                      <span className="itm-file-name">{project.title}</span>
+                      <div className="itm-project-thumbnail">
+                        {getProjectThumbnail(project) ? (
+                          <img
+                            src={getProjectThumbnail(project)}
+                            alt=""
+                            loading="lazy"
+                            draggable="false"
+                          />
+                        ) : (
+                          <span className="itm-project-fallback">
+                            <span className="itm-project-glyph">{getProjectFallback(project)}</span>
+                            <span className="itm-project-hint">Open to preview</span>
+                          </span>
+                        )}
+                      </div>
+                      <div className="itm-project-card-info">
+                        <span className="itm-file-name">{project.title}</span>
+                        {project.description && (
+                          <span className="itm-project-desc">{project.description}</span>
+                        )}
+                        {project.techStack?.length > 0 && (
+                          <span className="itm-project-tags">
+                            {project.techStack.map(tech => (
+                              <span key={tech} className="itm-project-tag">{tech}</span>
+                            ))}
+                          </span>
+                        )}
+                      </div>
                     </button>
                   ))
                 ) : (

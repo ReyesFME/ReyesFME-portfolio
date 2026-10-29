@@ -439,6 +439,12 @@
   margin-top: auto;
 }
 
+.cv-ss-actions {
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+}
+
 .cv-tc-field p {
   margin: 0;
   font-size: 11px;

@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import '../../styles/mm-viewer.css';
 
 // ── detect mobile ──────────────────────────────────────────
@@ -242,15 +244,23 @@ export default function MultimediaViewer({ project, onMobileLightboxOpen }) {
   const [textContent, setTextContent] = useState("Loading document...");
   const [lightbox, setLightbox]       = useState(null);
 
+  // A project is a markdown document if it has markdownUrl,
+  // OR if its fileUrl points to a .md file (query strings ignored).
+  const mdUrl =
+    project?.markdownUrl ||
+    (project?.fileUrl && /\.md(\?.*)?$/i.test(project.fileUrl) ? project.fileUrl : null);
+
+  // Loads either a plain .txt (fileUrl) or a .md document
   useEffect(() => {
-    if (project?.fileUrl) {
+    const url = mdUrl || project?.fileUrl;
+    if (url) {
       setTextContent("Loading document...");
-      fetch(project.fileUrl)
+      fetch(url)
         .then(r => { if (!r.ok) throw new Error(); return r.text(); })
         .then(t => setTextContent(t))
         .catch(() => setTextContent("[ ERROR: Unable to load text file. Verify path. ]"));
     }
-  }, [project]);
+  }, [project, mdUrl]);
 
   if (!project) return null;
 
@@ -262,6 +272,20 @@ export default function MultimediaViewer({ project, onMobileLightboxOpen }) {
       // desktop: open inline lightbox as before
       setLightbox({ src, alt });
     }
+  };
+
+  // Custom renderers so images inside markdown open the lightbox
+  const mdComponents = {
+    img: ({ src, alt }) => (
+      <img
+        src={src}
+        alt={alt || ''}
+        className="mm-doc-img"
+        draggable="false"
+        title="Click to enlarge"
+        onClick={() => handleImageClick(src, alt || project.title)}
+      />
+    ),
   };
 
   return (
@@ -298,7 +322,15 @@ export default function MultimediaViewer({ project, onMobileLightboxOpen }) {
             <img src={project.image} alt={project.title} draggable="false" />
           </div>
 
-        /* Text file */
+        /* Markdown document (text + inline images) */
+        ) : mdUrl ? (
+          <div className="mm-text-reader mm-doc">
+            <ReactMarkdown remarkPlugins={[remarkGfm]} components={mdComponents}>
+              {textContent}
+            </ReactMarkdown>
+          </div>
+
+        /* Plain text file */
         ) : project.fileUrl ? (
           <div className="mm-text-reader">{textContent}</div>
 

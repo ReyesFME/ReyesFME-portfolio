@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import emailjs from '@emailjs/browser';
 import '../../styles/professional-sidebar.css';
 
@@ -15,6 +15,10 @@ const EMAILJS_CONFIG = {
   templateId: 'template_lm65jib',
   publicKey:  'i3eNdHriCFdmyPQbS',
 };
+
+// Drawer resume: the width (px) the resume is laid out at before it is scaled to fit the drawer.
+// 816 = US Letter at 96dpi. Smaller = bigger text in the drawer, larger = smaller text.
+const RESUME_PAGE_W = 816;
 
 // ── Sidebar icon class maps ───────────────────────────
 const STYLES = {
@@ -42,17 +46,69 @@ const STYLES = {
     linkedinFallback: null,
     gmailFallback:    null,
   },
+  // IT desktop top navbar (buttons in a row)
+  itnav: {
+    sidebar:          'itd-nav-actions',
+    iconBtn:          'itd-nav-btn',
+    iconFrame:        'itd-nav-icon-frame',
+    iconImg:          'itd-nav-icon-img',
+    iconLabel:        'itd-nav-label',
+    qrFrame:          'itd-nav-icon-frame',
+    qrImg:            'itd-nav-icon-img',
+    qrFallback:       'itd-nav-qr',
+    linkedinFallback: null,
+    gmailFallback:    null,
+  },
 };
 
 const ProfessionalSidebar = ({ variant = 'artist' }) => {
   const s = STYLES[variant];
+  const useDrawer = variant === 'itnav';   // desktop IT page: resume opens as a side drawer
 
   const [isResumeOpen, setIsResumeOpen] = useState(false);
   const [isEmailOpen,  setIsEmailOpen]  = useState(false);
-  
+
   // Zoom state for the resume viewer
   const [resumeZoom, setResumeZoom] = useState(1);
-  
+
+  // Drawer only: keep the resume mounted after first open, and fit it to the drawer width
+  const [resumeLoaded, setResumeLoaded] = useState(false);
+  const [fitScale, setFitScale] = useState(1);
+  const [natural, setNatural] = useState({ w: RESUME_PAGE_W, h: 0 });
+  const drawerBodyRef = useRef(null);
+  const resumeInnerRef = useRef(null);
+
+  useEffect(() => {
+    if (!useDrawer || !isResumeOpen) return undefined;
+    const body = drawerBodyRef.current;
+    const inner = resumeInnerRef.current;
+    if (!body || !inner || typeof ResizeObserver === 'undefined') return undefined;
+
+    const measure = () => {
+      // scrollWidth/scrollHeight also count content that spills past the fixed page width,
+      // so the scale always fits whatever the resume actually draws.
+      const w = Math.max(inner.offsetWidth,  inner.scrollWidth);
+      const h = Math.max(inner.offsetHeight, inner.scrollHeight);
+      if (w > 0) {
+        setNatural({ w, h });
+        setFitScale(Math.min(1, (body.clientWidth - 24) / w));
+      }
+    };
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(body);
+    ro.observe(inner);
+    return () => ro.disconnect();
+  }, [useDrawer, isResumeOpen]);
+
+  // Esc closes the drawer
+  useEffect(() => {
+    if (!useDrawer || !isResumeOpen) return undefined;
+    const onKey = (e) => { if (e.key === 'Escape') setIsResumeOpen(false); };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [useDrawer, isResumeOpen]);
+
   const [emailSubject, setEmailSubject] = useState('');
   const [emailMessage, setEmailMessage] = useState('');
   const [cloudLink,    setCloudLink]    = useState('');
@@ -99,8 +155,13 @@ const ProfessionalSidebar = ({ variant = 'artist' }) => {
         </button>
 
         <button className={`${s.iconBtn} resume-btn-cell`} type="button" onClick={() => {
+          setResumeZoom(1); // Reset zoom to 100% every time it is opened
+          if (useDrawer) {
+            setResumeLoaded(true);
+            setIsResumeOpen(open => !open);   // the nav button toggles the drawer
+            return;
+          }
           setIsResumeOpen(true);
-          setResumeZoom(1); // Reset zoom to 100% every time window is opened
         }}>
           <div className={s.qrFrame}>
             {typeof resumeQR !== 'undefined'
@@ -111,8 +172,8 @@ const ProfessionalSidebar = ({ variant = 'artist' }) => {
         </button>
       </aside>
 
-      {/* ── Resume Modal ── */}
-      {isResumeOpen && (
+      {/* ── Resume Modal (all variants except the IT navbar) ── */}
+      {isResumeOpen && !useDrawer && (
         <div className="psb-overlay" onClick={() => setIsResumeOpen(false)}>
           <div className="psb-window psb-window--resume" onClick={e => e.stopPropagation()}>
 
@@ -130,13 +191,13 @@ const ProfessionalSidebar = ({ variant = 'artist' }) => {
 
             <div className="psb-footer">
               <span className="psb-file-count">1 file(s) ready for download.</span>
-              
+
               {/* Zoom Controls */}
               <div style={{ display: 'flex', alignItems: 'center', gap: '4px', marginRight: '16px' }}>
-                <button 
-                  type="button" 
-                  className="psb-btn" 
-                  style={{ minWidth: '30px', padding: '3px 8px' }} 
+                <button
+                  type="button"
+                  className="psb-btn"
+                  style={{ minWidth: '30px', padding: '3px 8px' }}
                   onClick={() => setResumeZoom(z => Math.max(0.5, z - 0.2))}
                 >
                   -
@@ -144,10 +205,10 @@ const ProfessionalSidebar = ({ variant = 'artist' }) => {
                 <span style={{ color: '#000', fontFamily: 'Courier New', fontSize: '12px', fontWeight: 'bold', minWidth: '45px', textAlign: 'center' }}>
                   {Math.round(resumeZoom * 100)}%
                 </span>
-                <button 
-                  type="button" 
-                  className="psb-btn" 
-                  style={{ minWidth: '30px', padding: '3px 8px' }} 
+                <button
+                  type="button"
+                  className="psb-btn"
+                  style={{ minWidth: '30px', padding: '3px 8px' }}
                   onClick={() => setResumeZoom(z => Math.min(2.5, z + 0.2))}
                 >
                   +
@@ -160,6 +221,40 @@ const ProfessionalSidebar = ({ variant = 'artist' }) => {
 
           </div>
         </div>
+      )}
+
+      {/* ── Resume side drawer (IT navbar variant) ── */}
+      {useDrawer && (
+        <aside
+          className={`itd-drawer${isResumeOpen ? ' itd-drawer--open' : ''}`}
+          aria-hidden={!isResumeOpen}
+          aria-label="Resume"
+        >
+          <div className="itd-drawer-header">
+            <span className="itd-drawer-title">Resume</span>
+            <div className="itd-drawer-actions">
+              <button type="button" className="itd-drawer-btn" aria-label="Zoom out" onClick={() => setResumeZoom(z => Math.max(0.5, +(z - 0.2).toFixed(2)))}>-</button>
+              <span className="itd-drawer-zoom">{Math.round(resumeZoom * 100)}%</span>
+              <button type="button" className="itd-drawer-btn" aria-label="Zoom in" onClick={() => setResumeZoom(z => Math.min(2.5, +(z + 0.2).toFixed(2)))}>+</button>
+              <a href="/Reyes-Resume.pdf" download="Reyes-Resume.pdf" className="itd-drawer-btn itd-drawer-download">Download</a>
+              <button type="button" className="itd-drawer-btn itd-drawer-close" aria-label="Close resume" onClick={() => setIsResumeOpen(false)}>✕</button>
+            </div>
+          </div>
+
+          <div className="itd-drawer-body" ref={drawerBodyRef}>
+            {resumeLoaded && (
+              <div className="itd-drawer-sheet" style={{ width: natural.w * fitScale * resumeZoom, height: natural.h * fitScale * resumeZoom }}>
+                <div
+                  ref={resumeInnerRef}
+                  className="itd-drawer-sheet-inner"
+                  style={{ width: RESUME_PAGE_W, transform: `scale(${fitScale * resumeZoom})` }}
+                >
+                  <ResumeViewer bare={true} />
+                </div>
+              </div>
+            )}
+          </div>
+        </aside>
       )}
 
       {/* ── Gmail Modal ── */}

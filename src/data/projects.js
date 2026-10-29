@@ -287,6 +287,18 @@ export const itProjects = [
     isCustomViewer: true,
     customComponent: "MultimediaViewerApp"
   },
+
+   {
+    id: "mm-18",
+    title: "TTRPG Lore / Worldbuilding Perspective",
+    category: "Multimedia Works",
+    description: "",
+    medium: "Written",
+    fileUrl: "/IT_writings/ttrpg-lore.md",
+    isCustomViewer: true,
+    customComponent: "MultimediaViewerApp"
+  },
+
   {
     id: "gd-4", 
     title: "Game 1: Card Deck",
@@ -674,7 +686,7 @@ export const artProjects = [
     category: "written",
     description: "A comprehensive combat and system design spec sheet detailing specific entity status layers, ability profiles, and host splits.",
     medium: "Written - Gamedev Design Blueprint",
-    fileUrl: "/creative_writings/TTRPG_Lore_Perspective.txt"
+    fileUrl: "/IT_writings/ttrpg-lore.md"
   }
 ];
 
