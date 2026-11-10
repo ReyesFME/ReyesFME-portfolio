@@ -7,6 +7,7 @@ import ProfessionalSidebar from '../shared/ProfessionalSidebar.jsx';
 import '../../styles/it-desktop.css';
 import '../../styles/professional-sidebar.css';
 
+import professionalLogo from '../../assets/shared/MainLogoInverted.png';
 import professionalFirstName from '../../assets/shared/fiona-tag.png';
 import professionalLastName  from '../../assets/shared/Reyes-tag.png';
 import reactIcon   from '../../assets/shared/react.png';
@@ -491,7 +492,7 @@ const ITDesktop = ({ togglePersona }) => {
       <CursorTrail />
       {/* ── TOP NAVBAR ── (no backdrop-filter here: it would trap the sidebar's fixed modals) */}
       <header className="itd-nav">
-        {/* Brand: full name on desktop, "FR" on tablet (swapped in CSS) */}
+        {/* Static brand logo; the button retains its back-to-top behavior. */}
         <button
           type="button"
           className="itd-nav-brand"
@@ -499,8 +500,7 @@ const ITDesktop = ({ togglePersona }) => {
           aria-label="Fiona Reyes, back to top"
           title="Fiona Reyes"
         >
-          <span className="itd-nav-brand-full">Fiona Reyes</span>
-          <span className="itd-nav-brand-short" aria-hidden="true">FR</span>
+          <img src={professionalLogo} alt="" className="persona-toggle-logo" draggable="false" />
         </button>
 
         {/* Category links: text on desktop, icon only on tablet (swapped in CSS) */}
