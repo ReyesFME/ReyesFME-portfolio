@@ -1,13 +1,16 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { itProjects } from '../../data/projects';
 import DocxViewer from '../shared/DocxViewer.jsx';
 import SocialBar from '../shared/SocialBar.jsx';
 import PersonaToggle from '../shared/PersonaToggle.jsx';
 import ProfessionalSidebar from '../shared/ProfessionalSidebar.jsx';
+import CursorTrail from '../shared/CursorTrail.jsx';
+import NavBrandToggle from '../shared/NavBrandToggle.jsx';
 import '../../styles/it-desktop.css';
 import '../../styles/professional-sidebar.css';
 
 import professionalLogo from '../../assets/shared/MainLogoInverted.png';
+import professionalLogoLight from '../../assets/shared/MainLogo.png';
 import professionalFirstName from '../../assets/shared/fiona-tag.png';
 import professionalLastName  from '../../assets/shared/Reyes-tag.png';
 import reactIcon   from '../../assets/shared/react.png';
@@ -75,6 +78,60 @@ const getFallbackGlyph = (p) => {
   return 'DOC';
 };
 
+const getGhostPreviewType = (project) => {
+  switch (project.customComponent) {
+    case 'TkinterInventoryApp': return 'inventory';
+    case 'DfdImageViewerApp': return 'dfd';
+    case 'TTRPGArchiveViewer': return 'ttrpg';
+    case 'WaveDocViewerApp': return 'wave';
+    default: return null;
+  }
+};
+
+const PreviewGhost = ({ type }) => (
+  <span className={`itd-mini-fallback itd-mini-fallback--${type}`} aria-hidden="true">
+    {type === 'inventory' && (
+      <span className="itd-ghost-inventory">
+        <span className="itd-ghost-toolbar" />
+        <span className="itd-ghost-inventory-layout">
+          <span className="itd-ghost-sidebar"><i /><i /><i /></span>
+          <span className="itd-ghost-table">
+            <i /><i /><i /><i /><i /><i />
+          </span>
+        </span>
+      </span>
+    )}
+    {type === 'dfd' && (
+      <span className="itd-ghost-dfd">
+        <span className="itd-ghost-node itd-ghost-node--top">USER</span>
+        <span className="itd-ghost-flow itd-ghost-flow--down">↓</span>
+        <span className="itd-ghost-node itd-ghost-node--center">SYSTEM</span>
+        <span className="itd-ghost-flow itd-ghost-flow--left">←</span>
+        <span className="itd-ghost-node itd-ghost-node--left">DATA</span>
+        <span className="itd-ghost-flow itd-ghost-flow--right">→</span>
+        <span className="itd-ghost-node itd-ghost-node--right">REPORT</span>
+      </span>
+    )}
+    {type === 'ttrpg' && (
+      <span className="itd-ghost-book">
+        <span className="itd-ghost-book-mark">✦</span>
+        <span className="itd-ghost-book-title">TTRPG ARCHIVE</span>
+        <span className="itd-ghost-book-rule" />
+        <span className="itd-ghost-book-lines"><i /><i /><i /><i /></span>
+      </span>
+    )}
+    {type === 'wave' && (
+      <span className="itd-ghost-document">
+        <span className="itd-ghost-document-title">W.A.V.E.</span>
+        <span className="itd-ghost-document-subtitle">PROJECT DOCUMENTATION</span>
+        <span className="itd-ghost-document-rule" />
+        <span className="itd-ghost-document-lines"><i /><i /><i /><i /><i /></span>
+      </span>
+    )}
+    <span className="itd-mini-hint">Open to preview</span>
+  </span>
+);
+
 const renderViewer = (project) => {
   switch (project.customComponent) {
     case 'CPUSchedulerApp':        return <CPUSchedulerApp />;
@@ -94,6 +151,7 @@ const renderViewer = (project) => {
 // ── mini preview window ──────────────────────────────────────
 const MiniWindow = ({ project, onOpen }) => {
   const thumb = getThumb(project);
+  const ghostType = getGhostPreviewType(project);
   const tags = project.techStack && project.techStack.length
     ? project.techStack
     : (project.medium ? [project.medium] : []);
@@ -110,7 +168,9 @@ const MiniWindow = ({ project, onOpen }) => {
       </span>
 
       <span className="itd-mini-thumb">
-        {thumb ? (
+        {ghostType ? (
+          <PreviewGhost type={ghostType} />
+        ) : thumb ? (
           <img src={thumb} alt={project.title} loading="lazy" draggable="false" />
         ) : (
           <span className="itd-mini-fallback">
@@ -132,315 +192,8 @@ const MiniWindow = ({ project, onOpen }) => {
   );
 };
 
-// ── comet cursor + constellation trail (desktop pointers only) ─
-// ── trail settings: edit these numbers ──────────────────────
-const HEAD_DELAY_MS         = 0;      // 0 = the comet sits exactly on your real cursor. Raise it (e.g. 60) for a soft lag
-const STAR_SPACING          = 18;     // px the comet travels before it leaves a star. Lower = fuller trail
-const STAR_MIN_INTERVAL     = 35;     // ms between stars at most
-const STAR_JITTER           = 3;      // px of random scatter around the cursor path
-const STARS_PER_CONSTELLATION = 12;   // the trail is built in chunks of this many stars; each chunk fades together
-const CONSTELLATION_PAUSE_MS  = 250;  // pause in movement that finishes the current chunk
-const HOLD_MS               = 500;    // how long a finished chunk stays fully visible before fading (shorter = shorter trail)
-const FADE_OUT_MS           = 700;    // the fade-out animation
-const BURST_HOLD_MS         = 1500;   // the click constellation on previews lingers a bit longer than the hover trail
-const STAR_FADE_IN_MS       = 250;    // each new star eases in over this long
-const TWINKLE               = 0.3;    // how deep the twinkle goes. 0 = steady, 0.5 = strong
-const TWINKLE_PERIOD_MS     = 2200;   // one full twinkle cycle (slower = calmer)
-const MAX_GROUPS            = 14;
-const MAX_LINK_DIST         = 170;    // longer lines are skipped so fast flicks don't draw long streaks
-const LINE_ALPHA            = 0.6;    // brightness of lines between neighbouring stars
-const LINE2_ALPHA           = 0.15;   // extra "triangle" lines. 0 = cleaner chain, higher = fuller web
-const LINE_WIDTH            = 1;      // thickness of the bright core of each line (px)
-const LINE_GLOW_WIDTH       = 5;      // extra width of the soft glow around each line (px). 0 = no line glow
-const LINE_GLOW_ALPHA       = 0.2;    // brightness of that glow
-const STAR_ALPHA            = 1;      // brightness of the star dots
-const STAR_SIZE_MIN         = 1.2;    // star radius range (px)
-const STAR_SIZE_MAX         = 2.6;
-const STAR_GLOW             = 9;      // soft halo around each star. 0 = no halo
-const HEAD_GLOW             = 0.22;   // brightness of the soft glow around the comet head
-const HEAD_CORE             = 0.6;    // brightness of the comet head's centre dot
-
-const POPUP_SELECTOR = '.psb-overlay, .itd-drawer--open';
-
-const rand = (min, max) => min + Math.random() * (max - min);
-const ease = (t) => t * t * (3 - 2 * t);   // smooth ease in and out, t from 0 to 1
-
-const CursorTrail = () => {
-  const canvasRef = useRef(null);
-
-  useEffect(() => {
-    const fine   = window.matchMedia('(pointer: fine)').matches;
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (!fine || reduce) return undefined;
-
-    console.info('[CursorTrail] loaded. hold(ms):', HOLD_MS, 'spacing(px):', STAR_SPACING);
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext('2d');
-    const groups = [];            // each group is one constellation
-    let current = null;           // the constellation the comet is drawing right now
-    const mouse = { x: 0, y: 0, seen: false, inside: true };
-    const head  = { x: 0, y: 0, a: 0 };
-    let lastDrop = { x: 0, y: 0, t: 0 };
-    let raf = 0;
-    let prevNow = 0;
-    let popupOpen = false;
-    let calm = 1;                 // 1 = trail visible, fades to 0 while a window is open
-
-    const resize = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      canvas.width  = window.innerWidth  * dpr;
-      canvas.height = window.innerHeight * dpr;
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    };
-    resize();
-
-    const newGroup = (now, closedLoop, hold) => {
-      const g = { stars: [], closedAt: 0, lastAdd: now, loop: !!closedLoop, hold: hold || HOLD_MS };
-      groups.push(g);
-      if (groups.length > MAX_GROUPS) groups.shift();
-      return g;
-    };
-
-    const addStar = (g, x, y, r, fadeIn, now) => {
-      g.stars.push({ x, y, r, fadeIn, born: now, seed: Math.random() * Math.PI * 2 });
-      g.lastAdd = now;
-    };
-
-    const closeGroup = (g, now) => {
-      if (!g.closedAt) g.closedAt = now;
-      if (current === g) current = null;
-    };
-
-    // whole-constellation brightness: full while it's being drawn and during the hold, then one smooth fade
-    const groupAlpha = (g, now) => {
-      if (!g.closedAt) return 1;
-      const age = now - g.closedAt;
-      if (age <= g.hold) return 1;
-      const t = (age - g.hold) / FADE_OUT_MS;
-      return t >= 1 ? 0 : 1 - ease(t);
-    };
-
-    const starIn = (st, now) => ease(Math.min(1, (now - st.born) / st.fadeIn));
-
-    const twinkle = (st, now) =>
-      1 - TWINKLE + TWINKLE * (0.5 + 0.5 * Math.sin((now / TWINKLE_PERIOD_MS) * Math.PI * 2 + st.seed));
-
-    const drawLink = (A, B, ga, now, strength) => {
-      if (!A || !B) return;
-      if (Math.hypot(A.x - B.x, A.y - B.y) > MAX_LINK_DIST) return;
-      const a = ga * Math.min(starIn(A, now), starIn(B, now)) * strength;
-      if (a < 0.01) return;
-      ctx.beginPath();
-      ctx.moveTo(A.x, A.y);
-      ctx.lineTo(B.x, B.y);
-      if (LINE_GLOW_WIDTH > 0) {            // soft wide pass first, then the bright core on top
-        ctx.lineWidth = LINE_WIDTH + LINE_GLOW_WIDTH;
-        ctx.strokeStyle = `rgba(255,255,255,${a * LINE_GLOW_ALPHA})`;
-        ctx.stroke();
-      }
-      ctx.lineWidth = LINE_WIDTH;
-      ctx.strokeStyle = `rgba(255,255,255,${a})`;
-      ctx.stroke();
-    };
-
-    const loop = (now) => {
-      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-
-      // comet head follows the real cursor (exactly, when HEAD_DELAY_MS is 0)
-      const dt = prevNow ? Math.min(now - prevNow, 50) : 16;
-      prevNow = now;
-      popupOpen = !!document.querySelector(POPUP_SELECTOR);
-      calm += ((popupOpen ? 0 : 1) - calm) * 0.2;
-      if (mouse.seen) {
-        const follow = HEAD_DELAY_MS > 0 ? 1 - Math.exp(-dt / HEAD_DELAY_MS) : 1;
-        head.x += (mouse.x - head.x) * follow;
-        head.y += (mouse.y - head.y) * follow;
-      }
-      const headTarget = mouse.seen && mouse.inside && !popupOpen ? 1 : 0;
-      head.a += (headTarget - head.a) * 0.1;
-
-      // leave a star each time the comet has travelled far enough
-      if (
-        !popupOpen &&
-        head.a > 0.3 &&
-        Math.hypot(head.x - lastDrop.x, head.y - lastDrop.y) > STAR_SPACING &&
-        now - lastDrop.t > STAR_MIN_INTERVAL
-      ) {
-        if (current && current.stars.length >= STARS_PER_CONSTELLATION) {
-          // start the next chunk from the same spot (an invisible copy of the last star) so the line stays continuous
-          const tail = current.stars[current.stars.length - 1];
-          closeGroup(current, now);
-          current = newGroup(now, false);
-          current.stars.push({ ...tail, dup: true });
-        }
-        if (!current) current = newGroup(now, false);
-        addStar(
-          current,
-          head.x + rand(-STAR_JITTER, STAR_JITTER),
-          head.y + rand(-STAR_JITTER, STAR_JITTER),
-          rand(STAR_SIZE_MIN, STAR_SIZE_MAX),
-          STAR_FADE_IN_MS,
-          now,
-        );
-        lastDrop = { x: head.x, y: head.y, t: now };
-      }
-
-      if (popupOpen && current) closeGroup(current, now);
-
-      // a pause in movement finishes the constellation being drawn
-      if (current && now - current.lastAdd > CONSTELLATION_PAUSE_MS) closeGroup(current, now);
-
-      // forget constellations that have fully faded out
-      for (let i = groups.length - 1; i >= 0; i--) {
-        const g = groups[i];
-        if (g.closedAt && now - g.closedAt > g.hold + FADE_OUT_MS) groups.splice(i, 1);
-      }
-
-      // lines first, then stars on top
-      ctx.lineCap = 'round';
-      for (const g of groups) {
-        const ga = groupAlpha(g, now) * calm;
-        const st = g.stars;
-        for (let i = 1; i < st.length; i++) {
-          drawLink(st[i], st[i - 1], ga, now, LINE_ALPHA);
-          if (i > 1) drawLink(st[i], st[i - 2], ga, now, LINE2_ALPHA);
-        }
-        if (g.loop && st.length > 2) drawLink(st[st.length - 1], st[0], ga, now, LINE_ALPHA);
-      }
-
-      // faint line from the comet head to the newest star
-      if (current && current.stars.length && head.a > 0.05) {
-        const last = current.stars[current.stars.length - 1];
-        const a = starIn(last, now) * 0.08 * head.a;
-        if (a > 0.01) {
-          ctx.strokeStyle = `rgba(255,255,255,${a})`;
-          ctx.lineWidth = LINE_WIDTH;
-          ctx.beginPath();
-          ctx.moveTo(last.x, last.y);
-          ctx.lineTo(head.x, head.y);
-          ctx.stroke();
-        }
-      }
-
-      // stars: bright dot with a soft halo; larger ones also get a sparkle. They twinkle, the lines stay steady.
-      const bigStar = STAR_SIZE_MIN + 0.7 * (STAR_SIZE_MAX - STAR_SIZE_MIN);
-      ctx.shadowColor = 'rgba(255,255,255,0.9)';
-      for (const g of groups) {
-        const ga = groupAlpha(g, now) * calm;
-        for (const st of g.stars) {
-          if (st.dup) continue;
-          const a = ga * starIn(st, now) * twinkle(st, now);
-          if (a < 0.01) continue;
-          ctx.shadowBlur = STAR_GLOW * a;
-          ctx.fillStyle = `rgba(255,255,255,${Math.min(1, a * STAR_ALPHA)})`;
-          ctx.beginPath();
-          ctx.arc(st.x, st.y, st.r, 0, Math.PI * 2);
-          ctx.fill();
-          if (st.r > bigStar) {
-            const len = st.r * 2.4;
-            ctx.shadowBlur = 0;
-            ctx.strokeStyle = `rgba(255,255,255,${a * 0.6})`;
-            ctx.beginPath();
-            ctx.moveTo(st.x - len, st.y); ctx.lineTo(st.x + len, st.y);
-            ctx.moveTo(st.x, st.y - len); ctx.lineTo(st.x, st.y + len);
-            ctx.stroke();
-          }
-        }
-      }
-      ctx.shadowBlur = 0;
-
-      // comet head: soft glow + small core
-      if (head.a > 0.02) {
-        const gr = ctx.createRadialGradient(head.x, head.y, 0, head.x, head.y, 14);
-        gr.addColorStop(0, `rgba(255,255,255,${HEAD_GLOW * head.a})`);
-        gr.addColorStop(1, 'rgba(255,255,255,0)');
-        ctx.fillStyle = gr;
-        ctx.beginPath();
-        ctx.arc(head.x, head.y, 14, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.fillStyle = `rgba(255,255,255,${HEAD_CORE * head.a})`;
-        ctx.beginPath();
-        ctx.arc(head.x, head.y, 1.6, 0, Math.PI * 2);
-        ctx.fill();
-      }
-
-      const settling =
-        (mouse.seen && Math.hypot(mouse.x - head.x, mouse.y - head.y) > 0.5) ||
-        Math.abs(headTarget - head.a) > 0.02 ||
-        Math.abs((popupOpen ? 0 : 1) - calm) > 0.02;
-      if (groups.length || settling) {
-        raf = requestAnimationFrame(loop);
-      } else {
-        raf = 0; // idle: stop drawing until the next move or click
-        prevNow = 0;
-        if (head.a < 0.05) ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-      }
-    };
-
-    const start = () => { if (!raf) raf = requestAnimationFrame(loop); };
-
-    const onMove = (e) => {
-      if (!mouse.seen) {
-        head.x = e.clientX;
-        head.y = e.clientY;
-        lastDrop = { x: e.clientX, y: e.clientY, t: performance.now() };
-      }
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
-      mouse.seen = true;
-      mouse.inside = true;
-      start();
-    };
-
-    const onLeave = () => {
-      mouse.inside = false;
-      if (current) closeGroup(current, performance.now());
-      start();
-    };
-
-    // click on a preview: a small closed constellation blooms around the click point
-    const onDown = (e) => {
-      setTimeout(start, 150);   // re-check shortly after any click, in case it opened a window
-      const t = e.target;
-      if (!(t.closest && t.closest('.itd-mini'))) return;
-      const now = performance.now();
-      const g = newGroup(now, true, BURST_HOLD_MS);
-      const n = 6;
-      const base = Math.random() * Math.PI * 2;
-      for (let k = 0; k < n; k++) {
-        const ang = base + (k / n) * Math.PI * 2 + rand(-0.3, 0.3);
-        const d = rand(16, 42);
-        addStar(
-          g,
-          e.clientX + Math.cos(ang) * d,
-          e.clientY + Math.sin(ang) * d,
-          rand(STAR_SIZE_MIN, STAR_SIZE_MAX),
-          250,
-          now,
-        );
-      }
-      g.closedAt = now;
-      start();
-    };
-
-    window.addEventListener('pointermove', onMove, { passive: true });
-    window.addEventListener('pointerdown', onDown, { passive: true });
-    window.addEventListener('resize', resize);
-    document.documentElement.addEventListener('pointerleave', onLeave);
-    return () => {
-      window.removeEventListener('pointermove', onMove);
-      window.removeEventListener('pointerdown', onDown);
-      window.removeEventListener('resize', resize);
-      document.documentElement.removeEventListener('pointerleave', onLeave);
-      if (raf) cancelAnimationFrame(raf);
-    };
-  }, []);
-
-  return <canvas ref={canvasRef} className="itd-cursor-canvas" aria-hidden="true" />;
-};
-
 // ── page ─────────────────────────────────────────────────────
-const ITDesktop = ({ togglePersona }) => {
+const ITDesktop = ({ togglePersona, isLightMode, toggleLightMode }) => {
   const [activeProject, setActiveProject] = useState(null);
   const [showMoreInfo,  setShowMoreInfo]  = useState(false);
 
@@ -488,20 +241,23 @@ const ITDesktop = ({ togglePersona }) => {
       : null;
 
   return (
-    <div className="itd-page">
+    <div className={`itd-page${isLightMode ? ' it-light-mode' : ''}`}>
       <CursorTrail />
       {/* ── TOP NAVBAR ── (no backdrop-filter here: it would trap the sidebar's fixed modals) */}
       <header className="itd-nav">
-        {/* Static brand logo; the button retains its back-to-top behavior. */}
-        <button
-          type="button"
-          className="itd-nav-brand"
-          onClick={scrollToTop}
-          aria-label="Fiona Reyes, back to top"
-          title="Fiona Reyes"
+        {/* Logo: click = back to top, double-click = switch light / dark (Shift + click also switches) */}
+        <NavBrandToggle
+          isLight={isLightMode}
+          onToggleTheme={toggleLightMode}
+          onHome={scrollToTop}
         >
-          <img src={professionalLogo} alt="" className="persona-toggle-logo" draggable="false" />
-        </button>
+          <img
+            src={isLightMode ? professionalLogoLight : professionalLogo}
+            alt=""
+            className="persona-toggle-logo"
+            draggable="false"
+          />
+        </NavBrandToggle>
 
         {/* Category links: text on desktop, icon only on tablet (swapped in CSS) */}
         <nav className="itd-nav-links" aria-label="Portfolio sections">
@@ -542,7 +298,12 @@ const ITDesktop = ({ togglePersona }) => {
         <main className="itd-main">
           <div className="itd-name-block">
             <img src={professionalFirstName} alt="Fiona" className="itd-name-first" draggable="false" />
-            <PersonaToggle currentPersona="it" togglePersona={togglePersona} isInline={true} />
+            <PersonaToggle
+              currentPersona="it"
+              togglePersona={togglePersona}
+              isInline={true}
+              isLightMode={isLightMode}
+            />
             <img src={professionalLastName}  alt="Reyes" className="itd-name-last"  draggable="false" />
           </div>
 
@@ -594,9 +355,7 @@ const ITDesktop = ({ togglePersona }) => {
           </div>
         </main>
 
-        <div className="itd-bottom-bar">
-          <SocialBar />
-        </div>
+        <SocialBar />
       </div>
 
       {/* ── FULL VIEWER ── */}

@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { itProjects } from '../../data/projects';
 import SocialBar from '../shared/SocialBar.jsx';
 import PersonaToggle from '../shared/PersonaToggle.jsx';
+import CursorTrail from '../shared/CursorTrail.jsx';
 import '../../styles/it-mobile.css';
 import emailjs from '@emailjs/browser';
+import ThemeFab from '../shared/ThemeFab.jsx';
 
 import professionalFirstName from '../../assets/shared/fiona-tag.png';
 import professionalLastName  from '../../assets/shared/Reyes-tag.png';
@@ -80,7 +82,7 @@ const resolveViewer = (project, onMobileLightboxOpen) => {
   }
 };
 
-const ITMobile = ({ togglePersona }) => {
+const ITMobile = ({ togglePersona, isLightMode, toggleLightMode }) => {
 
   const EMAILJS_CONFIG = {
     serviceId:  'service_ayl3utp',
@@ -266,14 +268,22 @@ const ITMobile = ({ togglePersona }) => {
   }
 
   return (
-    <div className="itm-container">
+    <div className={`itm-container${isLightMode ? ' it-light-mode' : ''}`}>
+      <CursorTrail />
 
       <header className="itm-header">
         <div className="itm-name-block">
           <img src={professionalFirstName} alt="Fiona" className="itm-name-img" draggable="false" />
-          <PersonaToggle currentPersona="it" togglePersona={togglePersona} isInline={true} />
+          <PersonaToggle
+            currentPersona="it"
+            togglePersona={togglePersona}
+            isInline={true}
+            isLightMode={isLightMode}
+          />
           <img src={professionalLastName}  alt="Reyes" className="itm-name-img" draggable="false" />
         </div>
+
+        <ThemeFab isLight={isLightMode} onToggle={toggleLightMode} />
 
         <p className="itm-info-tagline">
           Seeking an OJT opportunity to leverage strong project management, communication, and UI/UX design skills in a fast-paced environment. 

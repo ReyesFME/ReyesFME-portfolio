@@ -12,6 +12,7 @@ import ArtistMobile   from './components/mobile-render/ArtistMobile.jsx';
 function App() {
   const [activePersona, setActivePersona] = useState('it');
   const [glitchActive,  setGlitchActive]  = useState(false);
+  const [isItLightMode, setIsItLightMode] = useState(false);
   const { isMobile } = useWindowSize();
 
   useEffect(() => {
@@ -65,6 +66,8 @@ function App() {
     }
   };
 
+  const toggleItLightMode = () => setIsItLightMode(isLightMode => !isLightMode);
+
   const personaToggleNode = activePersona === 'artist' ? (
     <PersonaToggle currentPersona={activePersona} togglePersona={togglePersona} isInline={true} />
   ) : null;
@@ -86,13 +89,21 @@ function App() {
 
       {isMobile ? (
         activePersona === 'it' ? (
-          <ITMobile togglePersona={togglePersona} />
+          <ITMobile
+            togglePersona={togglePersona}
+            isLightMode={isItLightMode}
+            toggleLightMode={toggleItLightMode}
+          />
         ) : (
           <ArtistMobile personaToggle={personaToggleNode} />
         )
       ) : (
         activePersona === 'it' ? (
-          <ITDesktop togglePersona={togglePersona} />
+          <ITDesktop
+            togglePersona={togglePersona}
+            isLightMode={isItLightMode}
+            toggleLightMode={toggleItLightMode}
+          />
         ) : (
           <ArtistDesktop personaToggle={personaToggleNode} />
         )

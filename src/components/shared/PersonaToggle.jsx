@@ -3,7 +3,7 @@ import mainLogoBlack from '../../assets/shared/MainLogo.png';
 import mainLogoWhiteInverted from '../../assets/shared/MainLogoInverted.png';
 import '../../styles/persona-toggle.css';
 
-const PersonaToggle = ({ currentPersona, togglePersona, isInline = false }) => {
+const PersonaToggle = ({ currentPersona, togglePersona, isInline = false, isLightMode = false }) => {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [isSkullGlitching, setIsSkullGlitching] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
@@ -83,7 +83,7 @@ const PersonaToggle = ({ currentPersona, togglePersona, isInline = false }) => {
       onMouseLeave={() => setIsHovered(false)}
     >
       <img
-        src={isOnItSide ? mainLogoWhiteInverted : mainLogoBlack}
+        src={isOnItSide && !isLightMode ? mainLogoWhiteInverted : mainLogoBlack}
         alt="Switch Persona Logo"
         className={[
           'persona-toggle-logo',
