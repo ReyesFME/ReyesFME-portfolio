@@ -1,0 +1,818 @@
+/* ---------- 1. theme ---------- */
+.ojt {
+  --mono: 'Share Tech Mono', ui-monospace, Consolas, monospace;
+  --serif: Georgia, 'Iowan Old Style', 'Palatino Linotype', serif;
+  --lh: 1.75rem;                         /* one ruled journal line; journal spacing snaps to this */
+
+  --frame: rgba(18, 18, 18, 0.82);
+  --plate: #1c1c1c;
+  --plate-ink: #d9d6cf;
+  --ink: #d9d6cf;
+  --muted: #8d8a84;
+  --label: #f1eee6;
+  --line: #2e2e2e;
+  --bar: #7a0a0a;
+  --bar-text: #f3d9a6;
+  --accent: #c0272d;
+  --tint: rgba(192, 39, 45, 0.09);
+  --stage: #0d0d0d;
+
+  /* journal ledger */
+  --j-rule: rgba(255, 255, 255, 0.045);
+  --j-wash: rgba(255, 255, 255, 0.02);
+
+  /* journal collage */
+  --jr-dash: rgba(192, 39, 45, 0.65);
+  --jr-sep: rgba(255, 255, 255, 0.12);
+  --jr-sub: var(--muted);
+  --jr-icon: var(--accent);
+  --jr-art: #cfcac0;                     /* line art colour on the dark "photo" */
+  --jr-tape-a: rgba(192, 39, 45, 0.6);
+  --jr-tape-b: rgba(192, 39, 45, 0.34);
+
+  width: 100%;
+  box-sizing: border-box;
+  padding: clamp(1rem, 2.5vw, 1.8rem);
+  color: var(--ink);
+  background: var(--frame);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  box-shadow: 0 2px 14px rgba(0, 0, 0, 0.4);
+}
+.it-light-mode .ojt {
+  --frame: #dcdcdc;
+  --plate: #6e6e6e;
+  --plate-ink: #f4f4f4;
+  --ink: #1a1a1a;
+  --muted: #4d4d4d;
+  --label: #1a1a1a;
+  --line: rgba(0, 0, 0, 0.3);
+  --bar: #8b1a1a;
+  --accent: #a32024;
+  --tint: rgba(163, 32, 36, 0.1);
+  --stage: #bdbdbd;
+
+  --j-rule: rgba(0, 0, 0, 0.08);
+  --j-wash: rgba(0, 0, 0, 0.04);
+
+  --jr-dash: rgba(244, 244, 244, 0.75);
+  --jr-sep: rgba(255, 255, 255, 0.35);
+  --jr-sub: #e6e6e6;
+  --jr-icon: #f4f4f4;
+  --jr-art: #1a1a1a;
+  --jr-tape-a: rgba(163, 32, 36, 0.6);
+  --jr-tape-b: rgba(163, 32, 36, 0.35);
+}
+
+/* mono text */
+.ojt-date,
+.ojt-hours__label,
+.ojt-hang__count,
+.ojt-tile span { font-family: var(--mono); }
+
+/* ---------- 2. header ---------- */
+.ojt-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.6rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--accent);
+}
+.ojt-title {
+  margin: 0;
+  font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--label);
+}
+.ojt-sub {
+  margin: 0.3rem 0 0;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+/* rendered-hours counter */
+.ojt-hours {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 0.4rem 1.5rem 0.2rem;
+  color: var(--plate-ink);
+}
+.ojt-hours__label { font-size: 0.7rem; color: var(--muted); }
+.ojt-hours__num {
+  font-size: clamp(2.4rem, 5vw, 3.4rem);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--accent);
+}
+.it-light-mode .ojt-hours__num { color: var(--accent); }
+.it-light-mode .ojt-hours__label { color: var(--muted); }
+
+/* ---------- 3. section label ---------- */
+.ojt-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin: 0 0 0.7rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--label);
+}
+.ojt-label__icon {
+  width: 12px;
+  height: 12px;
+  display: inline-block;
+  border: 1.5px solid var(--accent);
+  box-shadow: 3px 3px 0 -1px var(--accent);
+}
+
+/* ---------- 4. skills + big image ---------- */
+.ojt-top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  grid-template-areas:
+    'label .'
+    'list  photo';
+  column-gap: 1.4rem;
+  margin-bottom: 2.6rem;
+}
+.ojt-skills { display: contents; }
+.ojt-skills > .ojt-label { grid-area: label; justify-self: start; margin-bottom: 1.8rem; }
+.ojt-skill-list {
+  grid-area: list;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+}
+
+.ojt-skill {
+  position: relative;
+  background: var(--plate);
+  color: var(--plate-ink);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--line);
+  border-radius: 2px;
+}
+.it-light-mode .ojt-skill {
+  background: #f3f1ed;
+  color: var(--ink);
+  border-color: rgba(0, 0, 0, 0.18);
+}
+.ojt-skill.is-open { border-left-color: var(--accent); background: var(--tint); }
+.it-light-mode .ojt-skill.is-open {
+  background: rgba(163, 32, 36, 0.08);
+}
+.ojt-skill button {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  width: 100%;
+  min-height: 3.6rem;
+  padding: 0.6rem 0.85rem;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  font-size: 0.92rem;
+  text-align: left;
+  cursor: pointer;
+}
+.it-light-mode .ojt-skill button {
+  color: var(--ink);
+}
+.ojt-skill button:hover { background: var(--tint); }
+.ojt-skill button:focus-visible { outline: 2px solid var(--accent); outline-offset: -3px; }
+.ojt-skill__name { flex: 1; line-height: 1.25; color: inherit; }
+.it-light-mode .ojt-skill__name { color: var(--ink); }
+.ojt-skill__chev { font-family: var(--mono); color: var(--accent); }
+.it-light-mode .ojt-skill__chev { color: var(--accent); }
+.ojt-skill__text {
+  margin: 0;
+  padding: 0 1rem 0.85rem 0.85rem;
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+.it-light-mode .ojt-skill__text,
+.it-light-mode .ojt-skill.has-sticker .ojt-skill__text {
+  color: var(--muted);
+}
+
+/* stickers pinned on the corner of a skill bar */
+.ojt-sticker {
+  position: absolute;
+  top: -16px;
+  left: -14px;
+  z-index: 2;
+  width: clamp(52px, 6vw, 70px);
+  height: auto;
+  pointer-events: none;
+  transform: rotate(-8deg);
+  filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.55));
+}
+.ojt-skill:nth-child(even) .ojt-sticker { transform: rotate(5deg); }
+.ojt-skill.has-sticker button { padding-left: 4rem; }
+.ojt-skill.has-sticker .ojt-skill__text { padding-left: 4rem; }
+
+/* big image (a window, like your project cards) */
+.ojt-photo {
+  position: relative;
+  grid-area: photo;
+  margin: 0;
+  background: var(--plate);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+}
+.ojt-photo:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+.ojt-stage {
+  position: relative;
+  height: 100%;
+  min-height: 320px;
+  background: var(--stage);
+  overflow: hidden;
+}
+.ojt-stage img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  animation: ojt-fade 0.3s ease;
+}
+.ojt-stage__empty {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 1.2rem;
+  text-align: center;
+  color: var(--muted);
+}
+.ojt-stage__empty p {
+  margin: 0;
+  max-width: 28ch;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  line-height: 1.7;
+}
+.ojt-stage__empty code { color: var(--accent); }
+.ojt-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 42px;
+  padding: 0 0 3px;
+  border: 1px solid var(--accent);
+  border-radius: 2px;
+  background: rgba(10, 10, 10, 0.78);
+  color: #fff;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.ojt-arrow:hover { background: var(--accent); }
+.ojt-arrow--prev { left: 0.5rem; }
+.ojt-arrow--next { right: 0.5rem; }
+
+/* hanging tag, in the red of your window bars */
+.ojt-hang {
+  position: absolute;
+  left: -10px;
+  bottom: -20px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  width: 150px;
+  padding: 1.1rem 0.7rem 0.55rem;
+  background: var(--bar);
+  color: var(--bar-text);
+  clip-path: polygon(12% 0, 88% 0, 100% 16%, 100% 100%, 0 100%, 0 16%);
+  transform: rotate(-6deg);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.45);
+}
+.ojt-hang__hole {
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  width: 9px;
+  height: 9px;
+  margin-left: -4.5px;
+  border-radius: 50%;
+  background: #121212;
+}
+.ojt-hang__count { font-size: 0.68rem; }
+.ojt-hang__text { font-size: 0.74rem; line-height: 1.25; }
+
+/* ---------- 5. journal: dark ledger ---------- */
+.ojt .ojt-journal {
+  position: relative;
+  display: flow-root;                    /* contains the floated collage column */
+  margin-bottom: 2.6rem;
+  padding: var(--lh) 1.6rem var(--lh) 3.4rem;
+  background-color: var(--j-wash);
+  background-image: linear-gradient(
+    to bottom,
+    transparent calc(var(--lh) - 1px),
+    var(--j-rule) calc(var(--lh) - 1px)
+  );
+  background-size: 100% var(--lh);
+  background-position: 0 var(--lh);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+}
+
+/* thin red margin line */
+.ojt .ojt-journal::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 2.2rem;
+  width: 1px;
+  background: var(--accent);
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+/* header row */
+.ojt .ojt-journal .ojt-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: var(--lh);
+  line-height: var(--lh);
+}
+.ojt .ojt-journal .ojt-label { margin: 0; line-height: var(--lh); }
+.ojt-date { font-size: 0.78rem; color: var(--accent); }
+
+/* entries */
+.ojt .ojt-journal .ojt-entry { margin-bottom: var(--lh); }
+.ojt .ojt-journal .ojt-entry:last-child { margin-bottom: 0; }
+.ojt .ojt-journal .ojt-entry__head {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 0;
+  line-height: var(--lh);
+  font-family: var(--mono);
+  font-size: 0.92rem;
+  letter-spacing: 0.02em;
+  color: var(--label);
+}
+
+/* little marker pinned on the margin line, one per entry */
+.ojt .ojt-journal .ojt-entry__head::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: calc(-1.2rem - 4px);             /* margin line sits 1.2rem left of the text */
+  width: 8px;
+  height: 8px;
+  margin-top: -4px;
+  background: var(--accent);
+  box-shadow: 0 0 0 3px var(--frame);    /* knocks the line out around the marker */
+}
+
+/* body text: serif, locked to the ruled lines */
+.ojt .ojt-journal .ojt-entry p {
+  margin: 0;
+  max-width: 70ch;                       /* shorter lines are easier to read */
+  font-family: var(--serif);
+  font-size: 0.98rem;
+  line-height: var(--lh);
+  color: var(--ink);
+}
+
+/* ---------- 6. journal collage (right-hand column) ---------- */
+.ojt .jr-aside {
+  float: right;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.7rem;
+  width: 300px;
+  margin: 0 0 var(--lh) 2.2rem;
+  padding-top: 0.5rem;
+}
+.ojt .jr-aside,
+.ojt .jr-aside * { box-sizing: border-box; }
+.ojt .jr-aside figure,
+.ojt .jr-aside h4,
+.ojt .jr-aside ul,
+.ojt .jr-aside ol { margin: 0; padding: 0; }
+
+/* every drawing is thin-line: stroke only, no fill */
+.ojt .jr-aside svg {
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.ojt .jr-aside .jr-accent { stroke: var(--accent); }
+
+/* shared card */
+.ojt .jr-card {
+  position: relative;
+  background: var(--plate);
+  color: var(--plate-ink);
+  border-radius: 2px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
+}
+
+/* washi tape */
+.ojt .jr-tape {
+  position: absolute;
+  z-index: 2;
+  width: 76px;
+  height: 20px;
+  pointer-events: none;
+  clip-path: polygon(0 0, 3% 25%, 0 50%, 3% 75%, 0 100%, 100% 100%, 97% 75%, 100% 50%, 97% 25%, 100% 0);
+}
+.ojt .jr-tape--stripe {
+  top: -10px;
+  left: 50%;
+  margin-left: -38px;
+  transform: rotate(-3deg);
+  background: repeating-linear-gradient(135deg, var(--jr-tape-a) 0 5px, var(--jr-tape-b) 5px 10px);
+}
+.ojt .jr-tape--check {
+  top: -11px;
+  right: 26px;
+  transform: rotate(4deg);
+  opacity: 0.85;
+  background: conic-gradient(rgba(255, 255, 255, 0.4) 25%, rgba(0, 0, 0, 0.4) 0 50%, rgba(255, 255, 255, 0.4) 0 75%, rgba(0, 0, 0, 0.4) 0) 0 0 / 10px 10px;
+}
+.ojt .jr-tape--right {                    /* modifier for .jr-tape--stripe */
+  left: auto;
+  right: 22px;
+  margin-left: 0;
+  transform: rotate(5deg);
+}
+
+/* "photo" */
+.ojt .jr-snap {
+  align-self: flex-start;
+  width: 88%;
+  padding: 0.6rem 0.6rem 0.5rem;
+  border: 1px solid var(--line);
+  transform: rotate(-2deg);
+}
+.ojt .jr-snap__frame {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: var(--stage);
+  border: 1px solid var(--line);
+  color: var(--jr-art);
+}
+.ojt .jr-snap__frame img { width: 100%; height: 100%; object-fit: cover; }
+.ojt .jr-art { width: 84%; height: auto; stroke-width: 1.4; }
+.ojt .jr-snap__cap {
+  display: block;
+  margin-top: 0.5rem;
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  color: var(--jr-sub);
+}
+
+/* dashed index card ("Scope") */
+.ojt .jr-list {
+  padding: 1.15rem 1rem 0.4rem;
+  border: 1px dashed var(--jr-dash);
+}
+.ojt .jr-clip {
+  position: absolute;
+  top: -16px;
+  left: 18px;
+  width: 20px;
+  height: 36px;
+  color: var(--ink);
+  stroke-width: 1.4;
+  transform: rotate(8deg);
+}
+.ojt .jr-list__title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  margin: 0 0 0.5rem;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--plate-ink);
+}
+.ojt .jr-list__title span { padding-bottom: 2px; border-bottom: 2px solid var(--accent); }
+.ojt .jr-list__title::before,
+.ojt .jr-list__title::after {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border: 1.5px solid var(--jr-icon);
+}
+.ojt .jr-list__items { list-style: none; }
+.ojt .jr-item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.7rem 0.1rem;
+}
+.ojt .jr-item + .jr-item { border-top: 1px dashed var(--jr-sep); }
+.ojt .jr-bullet {
+  width: 9px;
+  height: 9px;
+  border: 1.5px solid var(--jr-icon);
+  border-radius: 50%;
+}
+.ojt .jr-item__title {
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.76rem;
+  line-height: 1.3;
+  color: var(--plate-ink);
+}
+.ojt .jr-item__note {
+  display: block;
+  margin-top: 0.15rem;
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  color: var(--jr-sub);
+}
+.ojt .jr-item > svg { width: 22px; height: 22px; color: var(--jr-icon); stroke-width: 1.3; }
+
+/* month log (optional: shows when trackerMonths is set) */
+.ojt .jr-track {
+  padding: 1rem 1rem 0.9rem;
+  border: 1px solid var(--line);
+  transform: rotate(1deg);
+}
+.ojt .jr-track__months {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  margin: 0.8rem 0 0;
+}
+.ojt .jr-month {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+}
+.ojt .jr-month + .jr-month::before {      /* dashed link from the previous box */
+  content: '';
+  position: absolute;
+  top: 12px;
+  left: calc(-50% + 14px);
+  width: calc(100% - 28px);
+  border-top: 1px dashed var(--jr-sep);
+}
+.ojt .jr-box { width: 24px; height: 24px; color: var(--plate-ink); stroke-width: 1.3; }
+.ojt .jr-box .jr-accent { stroke: var(--jr-icon); stroke-width: 1.8; }
+.ojt .jr-month__label {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--jr-sub);
+}
+
+/* torn pull quote (optional: shows when quote is set) */
+.ojt .jr-quote {
+  transform: rotate(1.2deg);
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.45));
+}
+.ojt .jr-quote__body {
+  position: relative;
+  display: block;
+  padding: 1.35rem 1.4rem 1.3rem;
+  background: var(--bar);
+  color: var(--bar-text);
+  clip-path: polygon(
+    0 5%, 5% 0, 11% 4%, 18% 0, 26% 5%, 33% 1%, 41% 4%, 49% 0, 57% 5%, 64% 1%, 72% 4%, 80% 0, 88% 5%, 95% 1%, 100% 4%,
+    100% 96%, 94% 100%, 87% 95%, 79% 99%, 71% 95%, 62% 100%, 54% 96%, 45% 99%, 37% 95%, 28% 100%, 20% 96%, 12% 99%, 5% 95%, 0 98%
+  );
+}
+.ojt .jr-quote__tag {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  opacity: 0.7;
+}
+.ojt .jr-quote__text {
+  display: block;
+  padding-right: 1rem;
+  font-family: var(--serif);
+  font-size: 0.92rem;
+  font-style: italic;
+  line-height: 1.55;
+}
+
+/* sparkles */
+.ojt .jr-spark {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  color: var(--accent);
+  stroke-width: 1.6;
+  pointer-events: none;
+}
+.ojt .jr-spark--a { top: 1.4rem; right: 0.5rem; }
+.ojt .jr-spark--b { top: 4.2rem; right: 1.9rem; width: 10px; height: 10px; color: var(--muted); }
+.ojt .jr-spark--c { right: 12px; bottom: 10px; color: var(--bar-text); opacity: 0.7; }
+
+/* sign-off stamp: tucks up under the Scope card (negative margin cancels the column gap) */
+.ojt .jr-stamp {
+  position: relative;
+  z-index: 3;
+  align-self: flex-end;
+  flex: none;
+  width: 150px;
+  height: 150px;
+  margin: -2.9rem 0.6rem 0 0;
+  color: var(--accent);
+  opacity: 0.95;
+  transform: rotate(-12deg);
+  pointer-events: none;
+}
+.ojt .jr-stamp text { fill: currentColor; stroke: none; font-family: var(--mono); }
+
+/* ---------- 7. tools: tiles left, note right ---------- */
+.ojt .ojt-tools {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+  grid-template-areas:
+    'label label'
+    'tiles note';
+  column-gap: 2rem;
+  align-items: start;
+}
+.ojt .ojt-tools > .ojt-label { grid-area: label; justify-self: start; }
+
+.ojt .ojt-tiles {
+  grid-area: tiles;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(104px, 1fr));
+  gap: 0.8rem;
+}
+.ojt-tool { display: flex; flex-direction: column; align-items: center; gap: 0.4rem; min-width: 0; }
+.ojt-tool__name {
+  max-width: 100%;
+  font-family: var(--mono);
+  font-size: 0.64rem;
+  line-height: 1.2;
+  text-align: center;
+  color: var(--muted);
+}
+
+.ojt-tile {
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  padding: 10px;
+  background: var(--plate);
+  color: var(--plate-ink);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  text-align: center;
+}
+.ojt-tile::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: var(--accent);
+}
+.ojt-tile img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.ojt-tile span { font-size: 0.66rem; line-height: 1.2; }
+
+/* logo tint: black + red duotone, full colour on hover. */
+.ojt-tile--logo { overflow: hidden; }
+.ojt-tile--logo img {
+  position: relative;
+  filter: grayscale(1) invert(1) contrast(1.15);
+  transition: filter 0.25s ease, transform 0.25s ease;
+}
+.ojt-tile--logo::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: var(--accent);
+  mix-blend-mode: multiply;
+  opacity: 0.85;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+.ojt-tile--logo:hover { background: #f1f0ec; }
+.ojt-tile--logo:hover img { filter: none; transform: scale(1.04); }
+.ojt-tile--logo:hover::before { opacity: 0; }
+
+/* light mode: no inversion, just a grey + red wash on a light tile */
+.it-light-mode .ojt-tile--logo {
+  background: #f1f0ec;
+  border-color: rgba(0, 0, 0, 0.18);
+}
+.it-light-mode .ojt-tile--logo img {
+  filter: grayscale(1) contrast(1.05);
+}
+.it-light-mode .ojt-tile--logo::before {
+  opacity: 0.4;
+}
+.it-light-mode .ojt-tile--logo:hover {
+  background: #ffffff;
+  box-shadow: 0 0 0 1px rgba(163, 32, 36, 0.22), 0 6px 12px rgba(0, 0, 0, 0.08);
+}
+.it-light-mode .ojt-tile--logo:hover img {
+  filter: none;
+  transform: scale(1.04);
+}
+.it-light-mode .ojt-tile--logo:hover::before {
+  opacity: 0;
+}
+
+.ojt .ojt-toolsnote {
+  grid-area: note;
+  margin: 0;
+  padding-left: 1.2rem;
+  border-left: 1px solid var(--accent);
+  font-family: var(--mono);
+  font-size: 0.76rem;
+  line-height: 1.85;
+  color: var(--muted);
+}
+
+/* ---------- 8. motion ---------- */
+@keyframes ojt-fade { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .ojt-stage img { animation: none; }
+  .ojt-tile--logo img, .ojt-tile--logo::before { transition: none; }
+}
+
+/* ---------- 9. responsive ---------- */
+@media (max-width: 900px) {
+  /* journal collage drops below the text */
+  .ojt .ojt-journal { display: flex; flex-direction: column; }
+  .ojt .jr-aside {
+    order: 99;
+    float: none;
+    width: 100%;
+    max-width: 340px;
+    margin: var(--lh) 0 0;
+    align-self: center;
+  }
+  .ojt .jr-stamp { margin-top: -1rem; }
+
+  /* tools note drops below the tiles */
+  .ojt .ojt-tools {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: 'label' 'tiles' 'note';
+  }
+  .ojt .ojt-toolsnote {
+    margin-top: 1rem;
+    padding: 0.9rem 0 0;
+    border-left: 0;
+    border-top: 1px solid var(--line);
+  }
+}
+
+@media (max-width: 720px) {
+  .ojt-top {
+    grid-template-columns: 1fr;
+    grid-template-areas: 'label' 'list' 'photo';
+  }
+  .ojt-photo { margin-top: 0.9rem; }
+  .ojt-stage { min-height: 300px; }
+  .ojt-head { align-items: flex-start; }
+
+  .ojt .ojt-journal { padding-left: 2.6rem; padding-right: 1rem; }
+  .ojt .ojt-journal::before { left: 1.6rem; }
+  .ojt .ojt-journal .ojt-entry__head::before { left: calc(-1rem - 4px); }
+}

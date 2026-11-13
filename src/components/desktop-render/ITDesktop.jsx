@@ -6,6 +6,7 @@ import PersonaToggle from '../shared/PersonaToggle.jsx';
 import ProfessionalSidebar from '../shared/ProfessionalSidebar.jsx';
 import CursorTrail from '../shared/CursorTrail.jsx';
 import NavBrandToggle from '../shared/NavBrandToggle.jsx';
+import OjtExperience from '../shared/OJTExperience.jsx';
 import '../../styles/it-desktop.css';
 import '../../styles/professional-sidebar.css';
 
@@ -46,7 +47,7 @@ const FOLDER_CATEGORIES = [
   { id: 'sysdoc', label: 'System Documentations', icon: sysDocIcon, dataKey: 'System Documentation'    },
   { id: 'mm',     label: 'Multimedia',            icon: mmIcon,     dataKey: 'Multimedia Works'        },
   { id: 'game',   label: 'GameDev Assets',        icon: gameIcon,   dataKey: 'Game Development Assets' },
-  // Empty for now. Any project in projects.js with category: "OJT Experience" shows up here automatically.
+  // This category renders <OjtExperience /> (the markdown summary) instead of project cards.
   { id: 'ojt',    label: 'OJT Experience',        icon: sysDocIcon, dataKey: 'OJT Experience'          },
 ];
 
@@ -328,15 +329,22 @@ const ITDesktop = ({ togglePersona, isLightMode, toggleLightMode }) => {
           <div className="itd-works">
             {FOLDER_CATEGORIES.map(folder => {
               const items = itProjects.filter(p => p.category === folder.dataKey);
+              const isOjt = folder.id === 'ojt';
               return (
                 <section key={folder.id} id={`itd-cat-${folder.id}`} className="itd-category">
                   <div className="itd-category-head">
                     <img src={folder.icon} alt="" className="itd-category-icon" draggable="false" />
                     <h3 className="itd-category-title">{folder.label}</h3>
-                    <span className="itd-category-count">{items.length} item{items.length === 1 ? '' : 's'}</span>
+                    <span className="itd-category-count">
+                      {isOjt
+                        ? 'Experience summary'
+                        : `${items.length} item${items.length === 1 ? '' : 's'}`}
+                    </span>
                   </div>
 
-                  {items.length > 0 ? (
+                  {isOjt ? (
+                    <OjtExperience />
+                  ) : items.length > 0 ? (
                     <div className="itd-mini-grid">
                       {items.map((project, i) => (
                         <MiniWindow
