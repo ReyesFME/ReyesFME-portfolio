@@ -32,6 +32,15 @@ import MultimediaViewer, { Lightbox } from '../shared/MultimediaViewer.jsx';
 import CardDeckViewer         from '../shared/GameDevCards/CardDeckViewer.jsx';
 import ResumeViewer           from '../shared/ResumeViewer.jsx';
 import CapstoneViewer         from '../shared/CapstoneViewer.jsx';
+import OjtExperience          from '../shared/OJTExperience.jsx';
+import '../../styles/ojt-experience-mobile.css';
+
+const EMAILJS_CONFIG = {
+  serviceId:  'service_ayl3utp',
+  templateId: 'template_lm65jib',
+  publicKey:  'i3eNdHriCFdmyPQbS',
+};
+emailjs.init(EMAILJS_CONFIG.publicKey);
 
 const TECH_SKILLS = [
   { id: 'react',   label: 'React',      icon: reactIcon   },
@@ -41,11 +50,23 @@ const TECH_SKILLS = [
 ];
 
 const FOLDER_CATEGORIES = [
-  { id: 'coding', label: 'Coding Projects',       icon: codingIcon, dataKey: 'Coding Projects'         },
-  { id: 'sysdoc', label: 'System Documentations', icon: sysDocIcon, dataKey: 'System Documentation'    },
-  { id: 'mm',     label: 'Multimedia',             icon: mmIcon,     dataKey: 'Multimedia Works'         },
-  { id: 'game',   label: 'GameDev Assets',         icon: gameIcon,   dataKey: 'Game Development Assets' },
+  { id: 'coding', label: 'Coding Projects',       short: 'Code',  icon: codingIcon, dataKey: 'Coding Projects'         },
+  { id: 'sysdoc', label: 'System Documentations', short: 'Docs',  icon: sysDocIcon, dataKey: 'System Documentation'    },
+  { id: 'mm',     label: 'Multimedia',             short: 'Media', icon: mmIcon,     dataKey: 'Multimedia Works'         },
+  { id: 'game',   label: 'GameDev Assets',        short: 'Game',  icon: gameIcon,   dataKey: 'Game Development Assets' },
+  { id: 'ojt',    label: 'OJT Experience',        short: 'OJT',   icon: sysDocIcon, dataKey: 'OJT Experience' },
 ];
+
+// Cards shown per section before "view all"
+const SECTION_PREVIEW_LIMIT = 4;
+
+const sectionDomId = id => `itm-section-${id}`;
+
+// Same bio as the desktop version.
+const BIO =
+  'A Bachelor of Science in Information Technology student at Pamantasan ng Lungsod ng Valenzuela who has completed her on-the-job training. ' +
+  'Works across React, Python, and JavaScript, and backs her code with system documentation such as UML and data flow diagrams. ' +
+  'Alongside development, she produces multimedia and game development assets, bringing a creative, critical, and detail-oriented approach to technical work.';
 
 const getProjectThumbnail = project =>
   project.previewImage ||
@@ -84,15 +105,9 @@ const resolveViewer = (project, onMobileLightboxOpen) => {
 
 const ITMobile = ({ togglePersona, isLightMode, toggleLightMode }) => {
 
-  const EMAILJS_CONFIG = {
-    serviceId:  'service_ayl3utp',
-    templateId: 'template_lm65jib',
-    publicKey:  'i3eNdHriCFdmyPQbS',
-  };
-  emailjs.init(EMAILJS_CONFIG.publicKey);
-
-  const [activeFolder,  setActiveFolder]  = useState(null);
   const [activeProject, setActiveProject] = useState(null);
+  const [activeSection, setActiveSection] = useState(FOLDER_CATEGORIES[0].id);
+  const [expanded,      setExpanded]      = useState({});
   const [showMoreInfo,  setShowMoreInfo]  = useState(false);
   const [isResumeOpen,  setIsResumeOpen]  = useState(false);
 
@@ -103,27 +118,57 @@ const ITMobile = ({ togglePersona, isLightMode, toggleLightMode }) => {
 
   const [mobileLightbox, setMobileLightbox] = useState(null);
 
+  // Deep links: ?folder=coding            -> scroll to that section
+  //             ?folder=coding&file=<id>  -> open that project
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const folderParam = params.get('folder');
     const fileParam = params.get('file');
 
-    if (folderParam) {
-      const foundFolder = FOLDER_CATEGORIES.find(f => f.id === folderParam);
-      
-      if (foundFolder) {
-        setActiveFolder(foundFolder); 
+    if (!folderParam) return;
+    const foundFolder = FOLDER_CATEGORIES.find(f => f.id === folderParam);
+    if (!foundFolder) return;
 
-        if (fileParam) {
-          const foundProject = itProjects.find(p => p.id === fileParam);
-          
-          if (foundProject && foundProject.category === foundFolder.dataKey) {
-            setActiveProject(foundProject); 
-          }
-        }
+    if (fileParam) {
+      const foundProject = itProjects.find(p => p.id === fileParam);
+      if (foundProject && foundProject.category === foundFolder.dataKey) {
+        setActiveProject(foundProject);
+        return;
       }
     }
+
+    setActiveSection(foundFolder.id);
+    requestAnimationFrame(() => {
+      document.getElementById(sectionDomId(foundFolder.id))?.scrollIntoView({ block: 'start' });
+    });
   }, []);
+
+  // The two viewers below replace the whole page, so the observer
+  // has to be rebuilt when we come back to the main layout.
+  const isFullscreenViewer =
+    activeProject?.customComponent === 'TTRPGArchiveViewer' ||
+    activeProject?.customComponent === 'CapstoneViewerApp';
+
+  // Highlight the nav item for the section currently in view
+  useEffect(() => {
+    if (isFullscreenViewer || !('IntersectionObserver' in window)) return undefined;
+
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) setActiveSection(entry.target.dataset.sectionId);
+        });
+      },
+      { rootMargin: '-30% 0px -60% 0px' },
+    );
+
+    FOLDER_CATEGORIES.forEach(f => {
+      const el = document.getElementById(sectionDomId(f.id));
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, [isFullscreenViewer]);
 
   const handleSendEmail = (e) => {
     e.preventDefault();
@@ -144,18 +189,18 @@ const ITMobile = ({ togglePersona, isLightMode, toggleLightMode }) => {
       .catch(() => alert('ERROR: Terminal link delivery failed. Verify dashboard API credentials.'));
   };
 
-  const filteredProjects = activeFolder
-    ? itProjects.filter(p => p.category === activeFolder.dataKey)
-    : [];
-
-  const handleCloseFolder = () => {
-    setActiveFolder(null);
-    setActiveProject(null);
-  };
+  const getProjectsFor = folder => itProjects.filter(p => p.category === folder.dataKey);
 
   const handleBackToExplorer = () => {
     setActiveProject(null);
   };
+
+  const scrollToSection = id => {
+    setActiveSection(id);
+    document.getElementById(sectionDomId(id))?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  const toggleExpanded = id => setExpanded(prev => ({ ...prev, [id]: !prev[id] }));
 
   if (activeProject?.customComponent === 'TTRPGArchiveViewer') {
     return (
@@ -285,116 +330,112 @@ const ITMobile = ({ togglePersona, isLightMode, toggleLightMode }) => {
 
         <ThemeFab isLight={isLightMode} onToggle={toggleLightMode} />
 
-        <p className="itm-info-tagline">
-          Seeking an OJT opportunity to leverage strong project management, communication, and UI/UX design skills in a fast-paced environment. 
-          Creative and detail-oriented 3rd-year IT student bridging the gap between technical system design and multimedia art. 
-          Experienced in managing project pipelines, from initial data flow diagrams and concept art to final asset creation. 
+        <p className={`itm-info-tagline${showMoreInfo ? '' : ' itm-info-tagline--clamped'}`}>
+          {BIO}
         </p>
 
         <button
           className="itm-show-more-btn"
           type="button"
+          aria-expanded={showMoreInfo}
           onClick={() => setShowMoreInfo(v => !v)}
         >
-          {showMoreInfo ? '∧ hide information' : 'v show more information'}
+          {showMoreInfo ? '∧ show less' : 'v show more information'}
         </button>
 
-        {showMoreInfo && (
-          <div className="itm-info-panel">
-            <div className="itm-info-links">
-              <a href="https://www.linkedin.com/in/reyesfme7/" target="_blank" rel="noopener noreferrer" className="itm-info-link-btn">
-                <img src={linkedinIcon} alt="LinkedIn" className="itm-info-link-icon" />
-                <span>LinkedIn</span>
-              </a>
-              <button
-                type="button"
-                className="itm-info-link-btn"
-                onClick={() => setIsEmailOpen(true)}
-              >
-                <img src={gmailIcon} alt="Gmail" className="itm-info-link-icon" />
-                <span>Gmail</span>
-              </button>
-              <button
-                type="button"
-                className="itm-info-link-btn"
-                onClick={() => setIsResumeOpen(true)}
-              >
-                <div className="itm-info-link-icon itm-info-link-icon--qr" aria-hidden="true" />
-                <span>Resume</span>
-              </button>
-            </div>
-          </div>
-        )}
-      </header>
-
-      <main className="itm-main">
-        <h2 className="itm-section-heading">Professional / School Works</h2>
-
-        <div className="itm-folders-grid">
-          <div className="itm-folders-row">
-            {FOLDER_CATEGORIES.slice(0, 3).map(folder => (
-              <button
-                key={folder.id}
-                className="itm-folder-btn"
-                type="button"
-                onClick={() => { setActiveFolder(folder); setActiveProject(null); }}
-              >
-                <div className="itm-folder-icon-wrap">
-                  <img src={folder.icon} alt={folder.label} className="itm-folder-img" />
-                </div>
-                <span className="itm-folder-label">{folder.label}</span>
-              </button>
-            ))}
-          </div>
-
-          <div className="itm-folders-row itm-folders-row--offset">
-            {FOLDER_CATEGORIES.slice(3).map(folder => (
-              <button
-                key={folder.id}
-                className="itm-folder-btn"
-                type="button"
-                onClick={() => { setActiveFolder(folder); setActiveProject(null); }}
-              >
-                <div className="itm-folder-icon-wrap">
-                  <img src={folder.icon} alt={folder.label} className="itm-folder-img" />
-                </div>
-                <span className="itm-folder-label">{folder.label}</span>
-              </button>
-            ))}
-          </div>
-
+        <div className="itm-skills-block">
+          <h3 className="itm-skills-title">Skills</h3>
           <div className="itm-skills-row">
             {TECH_SKILLS.map(skill => (
               <div key={skill.id} className="itm-skill-item">
                 <div className="itm-skill-circle">
-                  <img src={skill.icon} alt={skill.label} className="itm-skill-img" />
+                  <img src={skill.icon} alt="" className="itm-skill-img" />
                 </div>
                 <span className="itm-skill-label">{skill.label}</span>
               </div>
             ))}
           </div>
         </div>
-      </main>
 
-      <footer className="itm-footer">
-        <SocialBar />
-      </footer>
+        {/* Always visible: recruiters open this on a phone */}
+        <div className="itm-contact-row">
+          <a
+            href="https://www.linkedin.com/in/reyesfme7/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="itm-contact-btn"
+          >
+            <img src={linkedinIcon} alt="" className="itm-contact-icon" />
+            <span>LinkedIn</span>
+          </a>
+          <button
+            type="button"
+            className="itm-contact-btn"
+            onClick={() => setIsEmailOpen(true)}
+          >
+            <img src={gmailIcon} alt="" className="itm-contact-icon" />
+            <span>Gmail</span>
+          </button>
+          <button
+            type="button"
+            className="itm-contact-btn"
+            onClick={() => setIsResumeOpen(true)}
+          >
+            <span className="itm-contact-icon itm-contact-icon--qr" aria-hidden="true" />
+            <span>Resume</span>
+          </button>
+        </div>
+      </header>
 
-      {activeFolder && (
-        <div className="itm-overlay">
+      <nav className="itm-section-nav" aria-label="Portfolio sections">
+        {FOLDER_CATEGORIES.map(folder => (
+          <button
+            key={folder.id}
+            type="button"
+            className="itm-section-nav-btn"
+            aria-current={activeSection === folder.id ? 'true' : undefined}
+            onClick={() => scrollToSection(folder.id)}
+          >
+            {folder.short}
+          </button>
+        ))}
+      </nav>
 
-          {!activeProject && (
-            <div className="itm-window itm-fullscreen-window">
-              <div className="itm-window-header">
-                <span className="itm-window-title">
-                  🗁 C:\Projects\{activeFolder.label}
+      <main className="itm-main">
+        <h2 className="itm-section-heading">Professional / School Works</h2>
+
+        {FOLDER_CATEGORIES.map(folder => {
+          const projects  = getProjectsFor(folder);
+          const isOjt     = folder.id === 'ojt';
+          const isOpen    = !!expanded[folder.id];
+          const visible   = isOpen ? projects : projects.slice(0, SECTION_PREVIEW_LIMIT);
+          const hiddenNum = projects.length - SECTION_PREVIEW_LIMIT;
+
+          return (
+            <section
+              key={folder.id}
+              id={sectionDomId(folder.id)}
+              data-section-id={folder.id}
+              className="itm-section"
+            >
+              <div className="itm-section-head">
+                <img src={folder.icon} alt="" className="itm-section-head-icon" />
+                <h3 className="itm-section-title">{folder.label}</h3>
+                <span className="itm-section-count">
+                  {isOjt
+                    ? 'Experience summary'
+                    : `${projects.length} ${projects.length === 1 ? 'item' : 'items'}`}
                 </span>
-                <button type="button" className="itm-window-close-btn" onClick={handleCloseFolder}>✕</button>
               </div>
 
-              <div className="itm-explorer-body">
-                {filteredProjects.length > 0 ? (
-                  filteredProjects.map(project => (
+              {isOjt ? (
+                <div className="itm-ojt">
+                  <OjtExperience />
+                </div>
+              ) : (
+                <div className="itm-section-list">
+                {projects.length > 0 ? (
+                  visible.map(project => (
                     <button
                       key={project.id}
                       className="itm-explorer-file"
@@ -412,7 +453,6 @@ const ITMobile = ({ togglePersona, isLightMode, toggleLightMode }) => {
                         ) : (
                           <span className="itm-project-fallback">
                             <span className="itm-project-glyph">{getProjectFallback(project)}</span>
-                            <span className="itm-project-hint">Open to preview</span>
                           </span>
                         )}
                       </div>
@@ -436,70 +476,85 @@ const ITMobile = ({ togglePersona, isLightMode, toggleLightMode }) => {
                     [ SYSTEM ALERT: Directory is currently unpopulated ]
                   </div>
                 )}
-              </div>
 
-              <div className="itm-window-footer">
-                <span className="itm-file-count">{filteredProjects.length} object(s) detected.</span>
-                <button type="button" className="itm-btn itm-btn--muted" onClick={handleCloseFolder}>
-                  Close Directory
-                </button>
-              </div>
-            </div>
-          )}
-
-          {activeProject && activeProject.customComponent !== 'CapstoneViewerApp' && (
-            <div className="itm-window itm-fullscreen-window">
-              <div className="itm-window-header">
-                <span className="itm-window-title">🗁 {activeProject.title}</span>
-                <button type="button" className="itm-window-close-btn" onClick={handleCloseFolder}>✕</button>
-              </div>
-
-              <div className="itm-detail-body">
-                {activeProject.isCustomViewer ? (
-                  resolveViewer(activeProject, (src, alt) => setMobileLightbox({ src, alt }))
-                ) : (
-                  <>
-                    <img
-                      src={activeProject.previewImage}
-                      alt={activeProject.title}
-                      className="itm-detail-preview-img"
-                    />
-                    <div className="itm-detail-info">
-                      <p className="itm-proj-category">{activeProject.category}</p>
-                      <h2 className="itm-proj-title">{activeProject.title}</h2>
-                      <p className="itm-proj-desc">{activeProject.description}</p>
-                      <div className="itm-tech-stack">
-                        {activeProject.techStack.map(tech => (
-                          <span key={tech} className="itm-tech-tag">{tech}</span>
-                        ))}
-                      </div>
-                      {activeProject.demoLink && (
-                        <div className="itm-project-links">
-                          <a
-                            href={activeProject.demoLink}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="itm-btn itm-btn--muted"
-                          >
-                            Live Demo →
-                          </a>
-                        </div>
-                      )}
-                    </div>
-                  </>
+                {hiddenNum > 0 && (
+                  <button
+                    type="button"
+                    className="itm-view-all-btn"
+                    aria-expanded={isOpen}
+                    onClick={() => toggleExpanded(folder.id)}
+                  >
+                    {isOpen ? '∧ show fewer' : `v view all (${projects.length})`}
+                  </button>
                 )}
-              </div>
+                </div>
+              )}
+            </section>
+          );
+        })}
+      </main>
 
-              <div className="itm-window-footer">
-                <button type="button" className="itm-btn itm-btn--muted" onClick={handleBackToExplorer}>
-                  ← Back to files
-                </button>
-                <button type="button" className="itm-btn itm-btn--muted" onClick={handleCloseFolder}>
-                  Close
-                </button>
-              </div>
+      <footer className="itm-footer">
+        <SocialBar />
+      </footer>
+
+      {activeProject && !isFullscreenViewer && (
+        <div className="itm-overlay">
+          <div className="itm-window itm-fullscreen-window">
+            <div className="itm-window-header">
+              <span className="itm-window-title">🗁 {activeProject.title}</span>
+              <button
+                type="button"
+                className="itm-window-close-btn"
+                aria-label="Close"
+                onClick={handleBackToExplorer}
+              >
+                ✕
+              </button>
             </div>
-          )}
+
+            <div className="itm-detail-body">
+              {activeProject.isCustomViewer ? (
+                resolveViewer(activeProject, (src, alt) => setMobileLightbox({ src, alt }))
+              ) : (
+                <>
+                  <img
+                    src={activeProject.previewImage}
+                    alt={activeProject.title}
+                    className="itm-detail-preview-img"
+                  />
+                  <div className="itm-detail-info">
+                    <p className="itm-proj-category">{activeProject.category}</p>
+                    <h2 className="itm-proj-title">{activeProject.title}</h2>
+                    <p className="itm-proj-desc">{activeProject.description}</p>
+                    <div className="itm-tech-stack">
+                      {activeProject.techStack.map(tech => (
+                        <span key={tech} className="itm-tech-tag">{tech}</span>
+                      ))}
+                    </div>
+                    {activeProject.demoLink && (
+                      <div className="itm-project-links">
+                        <a
+                          href={activeProject.demoLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="itm-btn itm-btn--muted"
+                        >
+                          Live Demo →
+                        </a>
+                      </div>
+                    )}
+                  </div>
+                </>
+              )}
+            </div>
+
+            <div className="itm-window-footer">
+              <button type="button" className="itm-btn itm-btn--muted" onClick={handleBackToExplorer}>
+                ← Back to files
+              </button>
+            </div>
+          </div>
         </div>
       )}
 
@@ -511,6 +566,7 @@ const ITMobile = ({ togglePersona, isLightMode, toggleLightMode }) => {
               <button
                 type="button"
                 className="itm-window-close-btn"
+                aria-label="Close resume"
                 onClick={() => setIsResumeOpen(false)}
               >
                 ✕
@@ -522,9 +578,9 @@ const ITMobile = ({ togglePersona, isLightMode, toggleLightMode }) => {
             </div>
 
             <div className="itm-window-footer">
-              <a 
-                href="/Reyes-Resume.pdf" 
-                download="Reyes-Resume.pdf" 
+              <a
+                href="/Reyes-Resume.pdf"
+                download="Reyes-Resume.pdf"
                 className="itm-btn"
               >
                 Download File
@@ -552,6 +608,7 @@ const ITMobile = ({ togglePersona, isLightMode, toggleLightMode }) => {
               <button
                 type="button"
                 className="itm-window-close-btn"
+                aria-label="Close email"
                 onClick={() => setIsEmailOpen(false)}
               >
                 ✕

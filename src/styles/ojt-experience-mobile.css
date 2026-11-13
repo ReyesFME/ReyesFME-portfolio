@@ -1,0 +1,277 @@
+/* ============================================================
+   OJT section: mobile overrides
+   ============================================================ */
+
+.itm-container .itm-ojt {
+  width: 100%;
+  min-width: 0;
+  scroll-margin-top: 54px;
+}
+
+/* ── FRAME ─────────────────────────────────────────────── */
+
+.itm-container .itm-ojt .ojt {
+  --lh: 1.6rem;
+  padding: 0.7rem;
+  border-radius: 4px;
+  position: relative;
+}
+
+.itm-container .itm-ojt .ojt-head {
+  box-sizing: border-box;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: flex-start;            
+  justify-content: center;            
+  gap: 0.6rem;
+  min-height: 126px;                    
+  margin-bottom: 1.1rem;
+  padding: 0 7rem 0.75rem 0;
+  text-align: left;
+}
+
+.itm-container .itm-ojt .ojt-head > div {
+  max-width: 100%;
+}
+
+.itm-container .itm-ojt .ojt-title {
+  font-size: clamp(1.35rem, 6vw, 1.8rem);
+}
+
+/* "486 Rendered Hours" is hidden on mobile: the stamp already says 486 HRS */
+.itm-container .itm-ojt .ojt-hours {
+  display: none;
+}
+
+/* ── SKILLS + PHOTO ────────────────────────────────────── */
+
+.itm-container .itm-ojt .ojt-top {
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas:
+    'label'
+    'list'
+    'photo';
+  row-gap: 0.9rem;
+  margin-bottom: 1.6rem;
+}
+
+.itm-container .itm-ojt .ojt-skills > .ojt-label {
+  margin-bottom: 0.25rem;
+}
+
+.itm-container .itm-ojt .ojt-skill-list {
+  gap: 0.8rem;
+}
+
+.itm-container .itm-ojt .ojt-skill button {
+  min-height: 44px;
+  font-size: 0.85rem;
+}
+
+.itm-container .itm-ojt .ojt-skill__name,
+.itm-container .itm-ojt .ojt-skill__text {
+  overflow-wrap: break-word;
+}
+
+.itm-container .itm-ojt .ojt-skill.has-sticker button,
+.itm-container .itm-ojt .ojt-skill.has-sticker .ojt-skill__text {
+  padding-left: 3.6rem;
+}
+
+.itm-container .itm-ojt .ojt-sticker {
+  top: -10px;
+  left: -9px;
+  width: 52px;
+}
+
+/* Photo window */
+.itm-container .itm-ojt .ojt-photo {
+  margin-top: 0.2rem;
+  margin-bottom: 1.4rem;           
+}
+
+/* An empty "Add docu photos here" box is dead space on a phone: hide it
+   until real photos exist. */
+.itm-container .itm-ojt .ojt-photo:has(.ojt-stage__empty) {
+  display: none;
+}
+
+.itm-container .itm-ojt .ojt-stage {
+  min-height: 220px;
+}
+
+.itm-container .itm-ojt .ojt-arrow {
+  width: 36px;
+  height: 44px;
+}
+
+.itm-container .itm-ojt .ojt-hang {
+  width: 128px;
+  left: -4px;
+  bottom: -18px;
+  transform: rotate(-4deg);
+}
+
+/* ── JOURNAL ───────────────────────────────────────────── */
+.itm-container .itm-ojt .ojt .ojt-journal {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.2rem;
+  padding: 0.2rem 0 0.2rem 1.3rem;
+  border: 0;
+  border-radius: 0;
+  background-color: transparent;
+  position: static;
+  /* red margin line as a background (0.4rem from the left edge) */
+  background-image: linear-gradient(var(--accent), var(--accent));
+  background-image: linear-gradient(
+    color-mix(in srgb, var(--accent) 55%, transparent),
+    color-mix(in srgb, var(--accent) 55%, transparent)
+  );
+  background-size: 1px 100%;
+  background-repeat: no-repeat;
+  background-position: 0.4rem 0;
+}
+
+.itm-container .itm-ojt .ojt .ojt-journal::before {
+  content: none;
+}
+
+/* entry marker centred on that line (0.9rem + half of its 8px width) */
+.itm-container .itm-ojt .ojt .ojt-journal .ojt-entry__head::before {
+  left: calc(-0.9rem - 4px);
+}
+
+.itm-container .itm-ojt .ojt .ojt-journal .ojt-row {
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 0.75rem;
+  margin-bottom: var(--lh);
+  line-height: var(--lh);
+}
+
+.itm-container .itm-ojt .ojt .ojt-journal .ojt-label {
+  line-height: var(--lh);
+}
+
+.itm-container .itm-ojt .ojt .ojt-journal .ojt-entry,
+.itm-container .itm-ojt .ojt .ojt-journal .ojt-entry:last-child {
+  margin-bottom: var(--lh);
+}
+
+.itm-container .itm-ojt .ojt .ojt-journal .ojt-entry__head {
+  flex-wrap: wrap;
+  gap: 0 0.75rem;
+  line-height: var(--lh);
+  font-size: 0.85rem;
+}
+
+.itm-container .itm-ojt .ojt .ojt-journal .ojt-entry p {
+  font-size: 0.9rem;
+  line-height: var(--lh);
+  overflow-wrap: break-word;
+}
+
+.itm-container .itm-ojt .ojt .jr-aside {
+  display: contents;
+}
+
+.itm-container .itm-ojt .ojt .jr-aside > .jr-spark {
+  display: none;
+}
+
+.itm-container .itm-ojt .ojt .jr-aside > .jr-card,
+.itm-container .itm-ojt .ojt .jr-aside > .jr-quote {
+  width: 100%;
+  max-width: 300px;
+  align-self: center;
+  margin: 0.5rem 0 var(--lh);
+}
+
+.itm-container .itm-ojt .ojt .jr-aside > .jr-stamp {
+  position: absolute;
+  top: calc(0.7rem + (126px - 0.75rem - 1px - 104px) / 2);
+  right: 0.55rem;
+  width: 104px;
+  height: 104px;
+  margin: 0;
+  transform: rotate(-12deg);
+}
+
+/* ---- ORDER: text blocks and notes alternate ---------------- */
+
+.itm-container .itm-ojt .ojt .ojt-journal .ojt-entry { order: 100; }
+
+.itm-container .itm-ojt .ojt .ojt-journal > .ojt-entry:nth-child(3)  { order: 10; }
+.itm-container .itm-ojt .ojt .ojt-journal > .ojt-entry:nth-child(4)  { order: 20; }
+.itm-container .itm-ojt .ojt .ojt-journal > .ojt-entry:nth-child(5)  { order: 30; }
+.itm-container .itm-ojt .ojt .ojt-journal > .ojt-entry:nth-child(6)  { order: 40; }
+.itm-container .itm-ojt .ojt .ojt-journal > .ojt-entry:nth-child(7)  { order: 50; }
+.itm-container .itm-ojt .ojt .ojt-journal > .ojt-entry:nth-child(8)  { order: 60; }
+.itm-container .itm-ojt .ojt .ojt-journal > .ojt-entry:nth-child(9)  { order: 70; }
+.itm-container .itm-ojt .ojt .ojt-journal > .ojt-entry:nth-child(10) { order: 80; }
+
+.itm-container .itm-ojt .ojt .jr-aside > .jr-snap  { order: 15; }  /* photo      */
+.itm-container .itm-ojt .ojt .jr-aside > .jr-list  { order: 25; }  /* Scope card */
+.itm-container .itm-ojt .ojt .jr-aside > .jr-track { order: 35; }  /* month log  */
+.itm-container .itm-ojt .ojt .jr-aside > .jr-quote { order: 45; }  /* pull quote */
+
+/* ── TOOLS ─────────────────────────────────────────────── */
+
+.itm-container .itm-ojt .ojt .ojt-tools {
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas:
+    'label'
+    'tiles'
+    'note';
+  row-gap: 0.8rem;
+}
+
+.itm-container .itm-ojt .ojt .ojt-tiles {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.5rem 0.5rem;
+}
+
+.itm-container .itm-ojt .ojt .ojt-tool {
+  gap: 0.3rem;
+}
+
+.itm-container .itm-ojt .ojt .ojt-tile {
+  padding: 6px;
+}
+
+.itm-container .itm-ojt .ojt .ojt-tile::after {
+  height: 2px;
+}
+
+.itm-container .itm-ojt .ojt .ojt-tool__name {
+  font-size: 0.54rem;
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+}
+
+.itm-container .itm-ojt .ojt .ojt-toolsnote {
+  margin-top: 0;
+  padding: 0.7rem 0 0;
+  border-top: 1px solid var(--line);
+  border-left: 0;
+  font-size: 0.68rem;
+  line-height: 1.65;
+}
+
+/* ── VERY NARROW PHONES ────────────────────────────────── */
+
+@media (max-width: 380px) {
+  .itm-container .itm-ojt .ojt {
+    padding: 0.55rem;
+  }
+
+  .itm-container .itm-ojt .ojt .jr-aside > .jr-stamp {
+    top: calc(0.55rem + (126px - 0.75rem - 1px - 104px) / 2);
+    right: 0.4rem;
+  }
+
+  .itm-container .itm-ojt .ojt .ojt-tiles {
+    gap: 0.4rem;
+  }
+}
